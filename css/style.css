@@ -1,0 +1,38 @@
+#container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+#controlBar{
+    width: calc(((100vw - 100vh)/ 2) - 2vw);
+    height: 100vh;
+    float: left;
+}
+
+
+#jxgbox{
+    top: 1vh;
+    width: 95vh;
+    height: 95vh;
+    float: left;
+    margin: 0 2vw;
+}
+
+#dataBar{
+    width: calc(((100vw - 100vh)/ 2) - 2vw);
+    height: 100vh;
+    float: left;
+}
+
+.separator {
+	height: 3px;
+	background-color: #000;
+	border-color: #000;
+}
+
+.spacer{
+    width: 2vw;
+    background-color: #FFF;
+}

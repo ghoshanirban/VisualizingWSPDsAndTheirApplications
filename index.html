@@ -2,6 +2,8 @@
 
 <html lang="en">
 
+    <title>WSPD and Applications</title>
+
     <head>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,11 +14,12 @@
 
         <!-- Project scripts, board interaction, board object style, animation, point generation,
             WSPD data structures and algorithms, t-spanner, closest pairs, mst. -->
+        <script type="text/javascript" charset="utf-8" src="scripts/main.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/SplitTree.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/WSPD.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/utilities.js" defer></script>
+        <script type="text/javascript" charset="utf-8" src="scripts/boardObjectsStyle.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/board.js" defer></script>
-        <script type="text/javascript" charset="utf-8" src="scripts/main.js" defer></script>
         
         <!-- Style for JSXBoard -->
         <link rel="stylesheet" type="text/css" href="css/jsxgraph.css">
@@ -25,7 +28,70 @@
 
     </head>
 
-    
+    <body id="container">
+
+        <div id="controlBar">
+
+            <h3>Well-Separated Pair Decomposition and Applications</h3>
+
+            <div id="pointControl">
+                <p>Edit points</p>
+                <label for="pointEditOn">On</label> <input id="pointEditOn" type="radio" name="editPoints" value="true">
+                <label for="pointEditOff">Off</label> <input id="pointEditOff" type="radio" name="editPoints" value="false">
+                <label for=numPoints>Number of points:</label> <input id="numPoints" type="text">
+                <label for="points">Points</label> <textarea id="points"></textarea>
+                <button id="generatePoints">Generate</button>
+            </div>
+
+            <div class="separator"></div>
+
+            <div id="WSPDControls">
+                <label for="WSPDn2">O(n^2)</label> <input id="WSPDn2" type="radio" name="WSPDComplexity" value="n2">
+                <label for="WSPDnlogn">O(nlogn)</label> <input id="WSPDnlogn" type="radio" name="WSPDComplexity" value="nlogn">
+                <label for="separationFactor">Separation factor(s)</label> <input id="separationFactor" type="text">
+                <button id="WSPD">WSPD</button>
+            </div>
+
+            <div class="separator"></div>
+
+            <div id=algorithmControls>
+                <button id="tSpanner">t-Spanner</button>
+                <button id="closestPair">Closest Pair</button>
+                <button id="MST">Approx. MST</button>
+                <button id="kClosestPairs">K-Closest</button> 
+                <label for="kPairs">k</label> <input id="kPairs" type="text">
+                <button id="allNearestNeighbors">ANN</button>
+            </div>
+
+            <div class="separator"></div>
+
+            <button id="reset">Reset</button>
+
+            <div class="separator"></div>
+
+            <div id="animationControls">
+
+                <label for="animationSlider"></label> <input id="animationSlider" type="range" value="0">
+                <button id="rewind">rewind</button>
+                <button id="playback">playback</button>
+                <button id="forward">forward</button>
+
+            </div>
+
+        </div>
+
+        <div class="spacer"></div>
+
+        <div id="jxgbox" class="jxgbox"></div>
+
+        <div class="spacer"></div>
+
+        <div id="dataBar">
+            <p>Data</p>
+
+        </div>
+
+    </body>
     
 
 </html>
