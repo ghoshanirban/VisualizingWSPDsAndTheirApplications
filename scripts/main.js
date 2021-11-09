@@ -17,7 +17,10 @@ let editPointsSelection = document.getElementsByName("editPoints");
 let numPointsEntry = document.getElementById("numPoints");
 let pointTextBox = document.getElementById("points");
 let generatePointsButton = document.getElementById("generatePoints");
-generatePointsButton.addEventListener("click", plotPointSet);
+generatePointsButton.addEventListener("click", generateRandomPointSet);
+let plotPointsButton = document.getElementById("plotPoints");
+plotPointsButton.addEventListener("click", plot);
+
 
 // WSPD controls.
 let wspdComplexitySelection = document.getElementsByName("WSPDComplexity");

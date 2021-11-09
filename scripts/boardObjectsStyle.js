@@ -19,10 +19,15 @@ function getColor() {
 }
 
 // Board specifications
-const boardParams ={
+const boardParams = {
     boundingbox: [-10, 10, 10, -10],
     showaxis: false,
     showcopyright: false,
 };
 
-
+const pointSetStyle = {
+    size: 3,
+    withLabel: false,
+    fixed: true,
+    color: '#000000'
+}

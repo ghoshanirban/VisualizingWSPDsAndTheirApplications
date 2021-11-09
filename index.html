@@ -14,12 +14,13 @@
 
         <!-- Project scripts, board interaction, board object style, animation, point generation,
             WSPD data structures and algorithms, t-spanner, closest pairs, mst. -->
-        <script type="text/javascript" charset="utf-8" src="scripts/main.js" defer></script>
+        
         <script type="text/javascript" charset="utf-8" src="scripts/SplitTree.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/WSPD.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/utilities.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/boardObjectsStyle.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/board.js" defer></script>
+        <script type="text/javascript" charset="utf-8" src="scripts/main.js" defer></script>
         
         <!-- Style for JSXBoard -->
         <link rel="stylesheet" type="text/css" href="css/jsxgraph.css">
@@ -39,8 +40,9 @@
                 <label for="pointEditOn">On</label> <input id="pointEditOn" type="radio" name="editPoints" value="true">
                 <label for="pointEditOff">Off</label> <input id="pointEditOff" type="radio" name="editPoints" value="false">
                 <label for=numPoints>Number of points:</label> <input id="numPoints" type="text">
-                <label for="points">Points</label> <textarea id="points"></textarea>
                 <button id="generatePoints">Generate</button>
+                <label for="points">Points</label> <textarea id="points"></textarea>
+                <button id="plotPoints">Plot</button>
             </div>
 
             <div class="separator"></div>
@@ -88,6 +90,7 @@
 
         <div id="dataBar">
             <p>Data</p>
+            <h1>Steps</h1>
 
         </div>
 

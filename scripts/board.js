@@ -5,9 +5,11 @@
 // Board object parent for all other geometric objects.
 var board = JXG.JSXGraph.initBoard('jxgbox', boardParams);
 
+// Bounding box data for use in other functions.
+var boundingBox = board.getBoundingBox();
+
 // Board control bar for navigating the boards plane.
 let boardControl = document.getElementById("jxgbox_navigator");
-boardControl.remove();
 
 
 // Board object global containers.
@@ -37,6 +39,21 @@ function clear(){
     JXG.Options.text.display = 'internal';
     board = JXG.JSXGraph.initBoard("jxgbox", boardParams);
     boardControl = document.getElementById("jxgbox_navigator");
+}
+
+// Places all generated or entered points on the board, no animation instant plotting.
+function plot(){
+
+    board.suspendUpdate()
+
+    for(let i = 1; i < pointSet.length; i++){
+
+        var boardPoint = board.create('point', pointSet[i], pointSetStyle);
+
+        boardPoints.set(i.toString(), boardPoint);
+    }
+
+    board.unsuspendUpdate()
 }
 
 // Full animation function shows all construction/computation steps.
