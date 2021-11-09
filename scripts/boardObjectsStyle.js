@@ -18,9 +18,12 @@ function getColor() {
     return colors[colorIndex++];
 }
 
+// Starting and normal bounding box.
+const boundingboxStandard = [-10, 10, 10, -10];
+
 // Board specifications
 const boardParams = {
-    boundingbox: [-10, 10, 10, -10],
+    boundingbox: boundingboxStandard,
     showaxis: false,
     showcopyright: false,
 };

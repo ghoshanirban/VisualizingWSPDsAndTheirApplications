@@ -30,6 +30,17 @@ class BoardObject{
     }
 }
 
+// Checks board boundingbox is valid.
+function boundsCheck() {
+
+    let bounds = board.getBoundingBox();
+    
+    if(isFinite(bounds[0]) && isFinite(bounds[1]) && isFinite(bounds[2]) && isFinite(bounds[3]))
+        return;
+    else
+        board.setBoundingBox(boundingboxStandard, true);
+}
+
 // Clears the board and deletes all its child objects.
 function clear(){
     boardPoints.clear();
@@ -44,9 +55,13 @@ function clear(){
 // Places all generated or entered points on the board, no animation instant plotting.
 function plot(){
 
+    clear();
+
+    parseTextPoints();
+
     board.suspendUpdate()
 
-    for(let i = 1; i < pointSet.length; i++){
+    for(let i = 0; i < pointSet.length; i++){
 
         var boardPoint = board.create('point', pointSet[i], pointSetStyle);
 
