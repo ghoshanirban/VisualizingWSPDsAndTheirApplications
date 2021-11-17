@@ -17,12 +17,12 @@ function generateRandomPoint(xBound, yBound){
 // Creates a point set of size n and stores it in the pointSet global.
 function generateRandomPointSet() {
     
-    let n = numPointsEntry.value;
+    let n = parseInt(numPointsEntry.value);
 
     // Restricted to 100 points.
     if (pointSet.length + n > 100){
         n = 100 - pointSet.length;
-        alert("100 points maximum, points will be truncated.");
+        alert('100 points maximum, points will be truncated.');
     }
 
     boundsCheck(); // Check the bounds are valid before generation.
@@ -44,30 +44,41 @@ function generateRandomPointSet() {
 // Adds generated points to the point text box for use to see.
 function updatePointTextBox(newPoints) {
 
-    var newPointsText = "";
+    var newPointsText = '';
     
     for(var point of newPoints){
-        newPointsText += point[0].toFixed(3).toString() + " " + 
-        point[1].toFixed(3).toString() + "\n";
+        newPointsText += point[0].toFixed(3).toString() + ' ' + 
+        point[1].toFixed(3).toString() + '\n';
     }
-
+    
     pointTextBox.value = pointTextBox.value + newPointsText;
 }
 
 // Parses points entered in the text box so they can be plotted if valid.
 function parseTextPoints() {
 
-    pointSet = [];
+    var pointSet = [];
 
     let textBoxInput = pointTextBox.value;
-    var textPoints = textBoxInput.split(/\s|\t|\n/);
+    var text = textBoxInput.split(/\s|\t|\n/);
+    
+    // Remove whitespace.
+    var textPoints = [];
+    for(let i = 0; i < text.length; i++) {
+        var element = parseFloat(text[i]);
+
+        if(isFinite(element)) 
+            textPoints.push(element);
+    }
 
     for (let i = 0; i < textPoints.length; i+=2) {
-        var xCord = parseFloat(textPoints[i]);
-        var yCord = parseFloat(textPoints[i + 1]);
+        var xCord = textPoints[i];
+        var yCord = textPoints[i + 1];
 
-        if (isFinite(xCord) && isFinite(yCord))
-            pointSet.push([xCord, yCord]);
+        pointSet.push([xCord, yCord]);
     }
-}
 
+    // Clean up text box, of bad points and whitespace.
+    pointTextBox.value = '';
+    updatePointTextBox(pointSet);
+}

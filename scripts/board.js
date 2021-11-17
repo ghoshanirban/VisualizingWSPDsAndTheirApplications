@@ -9,7 +9,7 @@ var board = JXG.JSXGraph.initBoard('jxgbox', boardParams);
 var boundingBox = board.getBoundingBox();
 
 // Board control bar for navigating the boards plane.
-let boardControl = document.getElementById("jxgbox_navigator");
+let boardControl = document.getElementById('jxgbox_navigator');
 
 
 // Board object global containers.
@@ -48,8 +48,8 @@ function clear(){
     boardCircles.clear();
     JXG.JSXGraph.freeBoard(board);
     JXG.Options.text.display = 'internal';
-    board = JXG.JSXGraph.initBoard("jxgbox", boardParams);
-    boardControl = document.getElementById("jxgbox_navigator");
+    board = JXG.JSXGraph.initBoard('jxgbox', boardParams);
+    boardControl = document.getElementById('jxgbox_navigator');
 }
 
 // Places all generated or entered points on the board, no animation instant plotting.
