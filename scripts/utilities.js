@@ -51,8 +51,8 @@ function updatePointTextBox(newPoints) {
     var newPointsText = '';
     
     for(var point of newPoints){
-        newPointsText += point[0].toFixed(3).toString() + ' ' + 
-        point[1].toFixed(3).toString() + '\n';
+        newPointsText += point[0].toFixed(2).toString() + ' ' + 
+        point[1].toFixed(2).toString() + '\n';
     }
     
     pointTextBox.value = pointTextBox.value + newPointsText;
@@ -76,8 +76,8 @@ function parseTextPoints() {
     }
 
     for (let i = 0; i < textPoints.length; i+=2) {
-        var xCord = textPoints[i];
-        var yCord = textPoints[i + 1];
+        var xCord = Math.round(textPoints[i] * 100) / 100;
+        var yCord = Math.round(textPoints[i + 1] * 100) / 100;
 
         pointSet.push([xCord, yCord]);
     }

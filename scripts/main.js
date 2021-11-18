@@ -9,6 +9,7 @@ var pointSet = [];
 var splitTree = null;
 var wspd = null;
 var graph = new Set();
+var closestPair = [];
 
 // Controls
 
@@ -37,7 +38,10 @@ function generateWSPD() {
 let tSpannerButton = document.getElementById('tSpanner');
 tSpannerButton.addEventListener('click', generateTSpanner);
 function generateTSpanner() {
-    if (wspd.s <= 4) {
+    if (wspd == null) {
+        alert('Please construct a WSPD with a s > 4.');
+    }
+    else if (wspd.s <= 4) {
         alert('The separation ratio of the WSPD is too low for a t-spanner to' +
             'be constructed, select an s > 4.');
     }
@@ -45,8 +49,18 @@ function generateTSpanner() {
         graph = constructTSpanner();
     
 }
+
 let closestPairButton = document.getElementById('closestPair');
-closestPairButton.addEventListener('click', computeClosestPair);
+closestPairButton.addEventListener('click', findClosestPair);
+function findClosestPair() {
+    if(graph.size == 0){
+        graph = constructTSpanner();
+    }
+
+    closestPair = computeClosestPair();
+}
+
+
 let mstButton = document.getElementById('MST');
 mstButton.addEventListener('click', computeApproxMST);
 let kClosestPairsButton = document.getElementById('kClosestPairs');
@@ -70,5 +84,6 @@ function reset() {
     splitTree = null;
     wspd = null;
     graph.clear();
+    closestPair = [];
     clear();
 }
