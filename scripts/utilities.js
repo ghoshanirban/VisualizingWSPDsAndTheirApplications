@@ -139,3 +139,44 @@ function splitBoundingBox(R) {
                 new Rectangle([splitPoint1, splitPoint2, R.vertices[2], R.vertices[3]])];
     }
 }
+
+// Prim's MST algorithm.
+function prim(G, n) {
+
+    // Convert the set to an array for sorting by edge weight.
+    let GPrime = Array.from(G);
+
+    // Sort the graph by edge weight.
+    GPrime.sort(function (a, b) { return distance2D(a[0], a[1]) < distance2D(b[0], b[1]) });
+    
+    // Select the first vertex in the sorted set to be the arbitrary start.
+    let r = GPrime[0][0];
+
+    // Prims algorithm iterations.
+    var A = new Set();
+    A.add(r);
+    T = new Set();
+    let index = 0;
+
+    // While all vertices have not been connected, find the shortest edge such that a new vertex is added to A.
+    while (A.size != n) {
+        
+        let v = GPrime[index][0];
+        let w = GPrime[index][1];
+        if (A.has(v) && !A.has(w)) {
+            A.add(w); // Add the vertex.
+            T.add(GPrime[index]); // Add the edge to the MST.
+            GPrime.splice(index, 1); // Remove the edge, from the sorted set.
+            index = 0;
+        }
+        else if(A.has(w) && !A.has(v)) {
+            A.add(v); // Add the vertex.
+            T.add(GPrime[index]); // Add the edge to the MST.
+            GPrime.splice(index, 1); // Remove the edge, from the sorted set.
+            index = 0;
+        }
+        index++; // Minimum edge is not yet valid check the next edge.
+    }
+
+    return T;
+}

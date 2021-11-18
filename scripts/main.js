@@ -10,6 +10,7 @@ var splitTree = null;
 var wspd = null;
 var graph = new Set();
 var closestPair = [];
+var approxMST
 
 // Controls
 
@@ -62,7 +63,15 @@ function findClosestPair() {
 
 
 let mstButton = document.getElementById('MST');
-mstButton.addEventListener('click', computeApproxMST);
+mstButton.addEventListener('click', generateApproxMST);
+function generateApproxMST() {
+    if (graph.size == 0) {
+        graph = constructTSpanner();
+    }
+    
+    approxMST = computeApproxMST();
+}
+
 let kClosestPairsButton = document.getElementById('kClosestPairs');
 kClosestPairsButton.addEventListener('click', computeKClosestPairs);
 let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');
