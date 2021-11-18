@@ -2,6 +2,8 @@
  * Miscellaneous functions.
  */
 
+/*Point generation functions. */
+
 // Generates a random point with in an x and y bound.
 function generateRandomPoint(xBound, yBound){
 
@@ -41,6 +43,8 @@ function generateRandomPointSet() {
     updatePointTextBox(newPointSet);
 } 
 
+/* Text box functions point set creation */
+
 // Adds generated points to the point text box for use to see.
 function updatePointTextBox(newPoints) {
 
@@ -57,7 +61,7 @@ function updatePointTextBox(newPoints) {
 // Parses points entered in the text box so they can be plotted if valid.
 function parseTextPoints() {
 
-    var pointSet = [];
+    pointSet = [];
 
     let textBoxInput = pointTextBox.value;
     var text = textBoxInput.split(/\s|\t|\n/);
@@ -81,4 +85,57 @@ function parseTextPoints() {
     // Clean up text box, of bad points and whitespace.
     pointTextBox.value = '';
     updatePointTextBox(pointSet);
+
+}
+
+/* Geometric helper functions */
+
+// Computes the euclidean 2D distance.
+function distance2D(p1, p2) {
+    return JXG.Math.Geometry.distance(p1, p2, 2);
+}
+
+// Computes the midpoint on a line.
+function midpoint(p1, p2) {
+    return [(p1[0] + p2[0]) /2, (p1[1] + p2[1]) /2];
+}
+
+// Compute the bounding box of a point set.
+function computeBoundingBox(S) {
+    
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+
+    for (let i = 0; i < S.length; i++) {
+        
+        minX = Math.min(minX, S[i][0]);
+        maxX = Math.max(maxX, S[i][0]);
+        minY = Math.min(minY, S[i][1]);
+        maxY = Math.max(maxY, S[i][1]);
+        
+    }
+
+    return new Rectangle([[minX, maxY], [maxX, maxY], [maxX, minY], [minX, minY]]);
+}
+
+// Splits a given bounding box into two by its longest side.
+function splitBoundingBox(R) {
+
+    // Find the first point clockwise of the longest side.
+    let anchorPoint = (R.longestSide()[0] == 'l') ? 0 : 1;
+
+    // Calculates the points that split the two longest sides clockwise.
+    let splitPoint1 = midpoint(R.vertices[anchorPoint], R.vertices[anchorPoint + 1]);
+    let splitPoint2 = midpoint(R.vertices[anchorPoint + 2], R.vertices[(anchorPoint + 3) % 4]);
+
+    if(anchorPoint == 1) {
+        return [new Rectangle([R.vertices[0], splitPoint1, splitPoint2, R.vertices[3]]),
+                new Rectangle([splitPoint1, R[1], R[2], splitPoint2])];
+    }
+    else {
+        return [new Rectangle([R.vertices[0], R.vertices[1], splitPoint1, splitPoint2]),
+                new Rectangle([splitPoint1, splitPoint2, R.vertices[2], R.vertices[3]])];
+    }
 }

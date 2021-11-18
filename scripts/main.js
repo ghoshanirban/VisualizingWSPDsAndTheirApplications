@@ -26,7 +26,12 @@ plotPointsButton.addEventListener('click', plot);
 let wspdComplexitySelection = document.getElementsByName('WSPDComplexity');
 let separationFactorEntry = document.getElementById('separationFactor');
 let wspdButton = document.getElementById('WSPD');
-wspdButton.addEventListener('click', constructWSPD);
+wspdButton.addEventListener('click', generateWSPD);
+function generateWSPD() {
+    splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
+    wspd = new WSPD(splitTree, parseInt(separationFactorEntry.value));
+}
+
 
 // Algorithm controls.
 let tSpannerButton = document.getElementById('tSpanner');

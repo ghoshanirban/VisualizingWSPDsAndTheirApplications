@@ -23,6 +23,7 @@ var eventUndoQueue = [];
 
 // General object for JSXGraph board objects, used for animation ease.
 class BoardObject{
+
     constructor(type, data, style){
         this.type = type;
         this.data = data;
