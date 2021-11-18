@@ -35,7 +35,6 @@ class SplitTree {
     constructor(S, R) {
         this.root = this.computeSplitTree(S);
         this.R = R;
-        console.log(this.root);
     }
 
     // O(n^2) algorithm.

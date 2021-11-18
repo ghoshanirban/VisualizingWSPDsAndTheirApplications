@@ -8,7 +8,7 @@
 var pointSet = [];
 var splitTree = null;
 var wspd = null;
-var graph = new Map();
+var graph = new Set();
 
 // Controls
 
@@ -35,7 +35,16 @@ function generateWSPD() {
 
 // Algorithm controls.
 let tSpannerButton = document.getElementById('tSpanner');
-tSpannerButton.addEventListener('click', constructTSpanner);
+tSpannerButton.addEventListener('click', generateTSpanner);
+function generateTSpanner() {
+    if (wspd.s <= 4) {
+        alert('The separation ratio of the WSPD is too low for a t-spanner to' +
+            'be constructed, select an s > 4.');
+    }
+    else
+        graph = constructTSpanner();
+    
+}
 let closestPairButton = document.getElementById('closestPair');
 closestPairButton.addEventListener('click', computeClosestPair);
 let mstButton = document.getElementById('MST');
