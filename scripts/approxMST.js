@@ -1,5 +1,5 @@
 /**
- * Constructiuon of a  t-approoximate minimum spanning tree of a point set.
+ * Construction of a  t-approximate minimum spanning tree of a point set.
  * The definition of this construction algorithm can be found in
  * "Geometric Spanner Networks" by Giri Narasimhan and Michiel Smid.
  */

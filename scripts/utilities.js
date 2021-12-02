@@ -140,6 +140,17 @@ function splitBoundingBox(R) {
     }
 }
 
+// Finds the shortest distance between bounding boxes.
+function distanceBetweenBoundingBoxes(R1, R2) {
+
+    let R1Radius = distance2D(R1.vertices[0], R1.getCenter());
+    let R2Radius = distance2D(R2.vertices[0], R2.getCenter());
+    let centerDistance = distance2D(R1.getCenter(), R2.getCenter());
+
+    return (centerDistance - R1Radius - R2Radius);
+
+}
+
 // Prim's MST algorithm.
 function prim(G, n) {
 
@@ -179,4 +190,24 @@ function prim(G, n) {
     }
 
     return T;
+}
+
+/* Math helper functions. */
+
+// Iterative factorial.
+function factorial(n) {
+
+    var nFactorial = 1;
+
+    for (var i = 1; i <= n; i++) {
+        nFactorial = nFactorial * i;
+    }
+
+    return nFactorial;
+}
+
+// Combination formula.
+function combination(n, k) {
+
+    return (factorial(n) / (factorial(k) * factorial(n-k)));
 }

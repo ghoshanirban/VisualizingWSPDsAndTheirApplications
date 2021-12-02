@@ -15,6 +15,9 @@ const colors = [
 var colorIndex = 0; //Allows for fair use of colors.
 
 function getColor() {
+    if (colorIndex > 35)
+        colorIndex = 0;
+
     return colors[colorIndex++];
 }
 
