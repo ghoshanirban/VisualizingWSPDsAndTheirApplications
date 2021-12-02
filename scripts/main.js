@@ -5,13 +5,13 @@
 
 
 // Globals
-var pointSet = [];
-var splitTree = null;
-var wspd = null;
-var graph = new Set();
-var closestPair = [];
-var approxMST = new Set();
-var kClosestPairs = [];
+var pointSet = []; // List of points.
+var splitTree = null; // Object defined in SplitTree.js
+var wspd = null; // Object defined in WSPD.js
+var graph = new Set(); // Edge set.
+var closestPair = []; // Pair of points in R^2.
+var approxMST = new Set(); // Edge set.
+var kClosestPairs = [] // List of size k of closest pairs.
 
 // Controls
 
@@ -70,16 +70,26 @@ function generateApproxMST() {
     if (graph.size == 0) {
         graph = constructTSpanner();
     }
-    
+
     approxMST = computeApproxMST();
 }
 
 let kPairsEntry = document.getElementById('kPairs');
 let kClosestPairsButton = document.getElementById('kClosestPairs');
-kClosestPairsButton.addEventListener('click', findKClosestPairs);
-function findKClosestPairs() {
+kClosestPairsButton.addEventListener('click', generateKClosestPairs);
+let kEntry = document.getElementById('kPairs');
+function generateKClosestPairs(params) {
+    if(wspd == null){
+        alert('Please construct a WSPD.');
+    }
 
-    kClosestPairs = computeKClosestPairs(kPairsEntry.value);
+    let k = parseInt(kEntry.value);
+
+    if(k > combination(pointSet.length, 2)){
+        alert('k must be less than C(n,2).');
+    }
+
+    computeKClosestPairs();
 }
 
 
