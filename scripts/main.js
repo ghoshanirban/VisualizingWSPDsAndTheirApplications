@@ -10,7 +10,8 @@ var splitTree = null;
 var wspd = null;
 var graph = new Set();
 var closestPair = [];
-var approxMST
+var approxMST = new Set();
+var kClosestPairs = [];
 
 // Controls
 
@@ -32,6 +33,7 @@ wspdButton.addEventListener('click', generateWSPD);
 function generateWSPD() {
     splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
     wspd = new WSPD(splitTree, parseInt(separationFactorEntry.value));
+    animate(1);
 }
 
 
@@ -72,8 +74,15 @@ function generateApproxMST() {
     approxMST = computeApproxMST();
 }
 
+let kPairsEntry = document.getElementById('kPairs');
 let kClosestPairsButton = document.getElementById('kClosestPairs');
-kClosestPairsButton.addEventListener('click', computeKClosestPairs);
+kClosestPairsButton.addEventListener('click', findKClosestPairs);
+function findKClosestPairs() {
+
+    kClosestPairs = computeKClosestPairs(kPairsEntry.value);
+}
+
+
 let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');
 allNearestNeighborsButton.addEventListener('click', computeAllNearestNeighbors);
 
@@ -94,5 +103,7 @@ function reset() {
     wspd = null;
     graph.clear();
     closestPair = [];
+    approxMST.clear();
+    kClosestPairs = [];
     clear();
 }

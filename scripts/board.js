@@ -31,6 +31,38 @@ class BoardObject{
     }
 }
 
+// Animates the board by drawing or removing objects.
+function animate(direction) {
+    
+    if(direction == 1){
+        setTimeout(draw(eventQueue.shift()), 10000);
+    }
+}
+
+// Draws an object onto the board.
+function draw(animationObject) {
+
+    board.suspendUpdate();
+
+    eventUndoQueue.push(board.create(animationObject.type, animationObject.data, animationObject.style));
+
+    board.unsuspendUpdate();
+
+    if (animationObject.style.color == '#FF0000') {
+        setTimeout(remove(eventUndoQueue.shift(), 500));
+    }
+}
+
+// Removes an object from the board.
+function remove(animationObject) {
+
+    board.suspendUpdate();
+    
+    board.remove(animationObject);
+
+    board.unsuspendUpdate();
+}
+
 // Checks board boundingbox is valid.
 function boundsCheck() {
 

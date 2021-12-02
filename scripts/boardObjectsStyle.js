@@ -33,4 +33,16 @@ const pointSetStyle = {
     withLabel: false,
     fixed: true,
     color: '#000000'
-}
+};
+
+const highlightPointStyle = {
+    size: 3,
+    withLabel: false,
+    fixed: true,
+    color: '#FF0000'
+};
+
+const boundingBoxStyle = {
+    hasInnerPoints: true,
+    color: '#000000'
+};
