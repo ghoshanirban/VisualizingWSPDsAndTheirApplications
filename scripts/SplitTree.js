@@ -33,6 +33,7 @@ class SplitTree {
      * R = Rectangle that bounds the point set.
      */
     constructor(S, R) {
+        eventQueue.push(new BoardObject('polygon', R.vertices, boundingBoxStyle));
         this.root = this.computeSplitTree(S);
         this.R = R;
     }
@@ -42,6 +43,7 @@ class SplitTree {
 
         // Create leaf node if only point is in the set.
         if(S.length == 1) {
+            eventQueue.push(new BoardObject('point', S[0], highlightPointStyle));
             return new Node(S, computeBoundingBox(S), null, null);
         }
         // Create an internal node if S has >= 2 points.
