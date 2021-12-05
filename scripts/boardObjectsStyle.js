@@ -84,6 +84,9 @@ const boundingBoxStyle = {
     fillColor: '#000000',
     fixed: true,
     withLabel: false,
+    vertices: {
+        visible: false,
+    }
 };
 
 const wspdCircleStyle = {
