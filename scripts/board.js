@@ -19,48 +19,111 @@ var boardCircles = new Map();
 
 // Event queue for animation.
 var eventQueue = [];
-var eventUndoQueue = [];
+var undoQueue = [];
+var removeQueue = [];
 
-// General object for JSXGraph board objects, used for animation ease.
-class BoardObject{
+// General object for animation objects, contains data for JSXGraph board objects and their status.
+class AnimationObject{
 
-    constructor(type, data, style){
+    constructor(type, data, style, text, isTemporary){
         this.type = type;
         this.data = data;
         this.style = style;
+        this.text = text;
+        this.isTemporary = isTemporary;
     }
 }
 
+var drawInterval;
+
 // Animates the board by drawing or removing objects.
 function animate(direction) {
-    
-    if(direction == 1){
-        setTimeout(draw(eventQueue.shift()), 10000);
+
+    if(direction) {
+        drawInterval = setInterval(draw, 500);
     }
 }
 
 // Draws an object onto the board.
-function draw(animationObject) {
+function draw() {   
 
     board.suspendUpdate();
 
-    eventUndoQueue.push(board.create(animationObject.type, animationObject.data, animationObject.style));
+    let animationObject = eventQueue.shift();
 
-    board.unsuspendUpdate();
+    if (animationObject == 'RemoveSplitBoxes') {
 
-    if (animationObject.style.color == '#FF0000') {
-        setTimeout(remove(eventUndoQueue.shift(), 500));
+        var splitBoxes = [];
+        var newRemoveQueue = [];
+
+        for(var i = 0; i < removeQueue.length; i++) {
+            
+            if (removeQueue[i][0].text == 'split') {
+                splitBoxes.push(removeQueue[i][1]);
+            }
+            else {
+                newRemoveQueue.push(removeQueue[i]);
+            }
+        }
+
+        while (splitBoxes.length > 0) {
+            remove(splitBoxes.shift());
+        }
+
+        removeQueue = newRemoveQueue;
+    }
+
+    else if (animationObject == 'RemoveNonWellSeparated'){
+        
+        var notWellSeparated = [];
+        var newRemoveQueue = [];
+
+        for (var i = 0; i < removeQueue.length; i++) {
+
+            if (removeQueue[i][0].text == 'wellSeparatedCheck') {
+                notWellSeparated.push(removeQueue[i][1]);
+            }
+            else {
+                newRemoveQueue.push(removeQueue[i]);
+            }
+        }
+
+        while (notWellSeparated.length > 0) {
+            remove(notWellSeparated.shift());
+        }
+
+        removeQueue = newRemoveQueue;
+    }
+
+    else if (animationObject == 'ClearTemps') {
+        while(removeQueue.length > 0) {
+            remove(removeQueue.shift()[1]);
+        }
+    }
+    
+    else {
+
+        undoQueue.push(animationObject);
+
+        let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
+
+        if (animationObject.isTemporary) {
+            removeQueue.push([animationObject, boardObject]);
+        }
+
+        board.unsuspendUpdate();
+
+    }
+
+    if (eventQueue.length <= 0) {
+        clearInterval(drawInterval);
     }
 }
 
 // Removes an object from the board.
-function remove(animationObject) {
+function remove(boardObject) {
 
-    board.suspendUpdate();
-    
-    board.remove(animationObject);
-
-    board.unsuspendUpdate();
+    board.removeObject(boardObject);
 }
 
 // Checks board boundingbox is valid.
@@ -88,6 +151,9 @@ function clear(){
 // Places all generated or entered points on the board, no animation instant plotting.
 function plot(){
 
+    if (!editPointsSelection.value)
+        return;
+
     clear();
 
     parseTextPoints();
@@ -102,45 +168,4 @@ function plot(){
     }
 
     board.unsuspendUpdate()
-}
-
-// Full animation function shows all construction/computation steps.
-function animate(direction, steps=Infinity){
-
-    var counter = 0;
-
-    if(direction){
-        for(el of eventQueue){
-            setTimeout(draw(el), 1000);
-            eventUndoQueue.unshift(el);
-            counter++;
-
-            if(counter == steps)
-                break;
-        }
-    }
-    else{
-        for (el of eventUndoQueue) {
-            setTimeout(unDraw(el), 1000);
-            eventQueue.unshift(el);
-
-        counter++;
-
-        if (counter == steps)
-            break;
-        }
-    }
-}
-
-// Animation to draw a single object on the board.
-function draw(bObject) {
-    
-    board.create(bObject.type, bObject.data, bObject.style);
-
-}
-
-// Animation to remove a single object on the board.
-function unDraw(bObject) {
-    
-    board.removeObject(bObject);
 }

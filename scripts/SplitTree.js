@@ -33,38 +33,62 @@ class SplitTree {
      * R = Rectangle that bounds the point set.
      */
     constructor(S, R) {
-        eventQueue.push(new BoardObject('polygon', R.vertices, boundingBoxStyle));
-        this.root = this.computeSplitTree(S);
+        this.root = this.computeSplitTree(S, R);
         this.R = R;
     }
 
     // O(n^2) algorithm.
-    computeSplitTree(S) {
+    // Parameters: A point set, for calculation, and the bounding box for animation purposes.
+    computeSplitTree(S, R) {
 
         // Create leaf node if only point is in the set.
         if(S.length == 1) {
-            eventQueue.push(new BoardObject('point', S[0], highlightPointStyle));
+            eventQueue.push(new AnimationObject('polygon', R.vertices, boundingBoxStyle, 'leafBoundingBox', true)); // Adds the bounding box of the point.
+            eventQueue.push(new AnimationObject('point', S[0], leafPointStyle, 'leafPoint', true)); // Highlights the point green for done. 
             return new Node(S, computeBoundingBox(S), null, null);
         }
         // Create an internal node if S has >= 2 points.
         else{
             let R = computeBoundingBox(S);
 
+            eventQueue.push("RemoveSplitBoxes"); // Removes the split line as the bounding box changes, for the new point set.
+
+            // Animates the bounding box of the point set.
+            eventQueue.push(new AnimationObject('polygon', R.vertices, boundingBoxStyle, null, true));
+
             // Split the bounding box by longest side into 2 smaller rectangles.
             let subRectangles = splitBoundingBox(R);
             let R1 = subRectangles[0];
             let R2 = subRectangles[1];
 
+            // Animates the splitting of the bounding box of the point set.
+            eventQueue.push(new AnimationObject('polygon', R1.vertices, boundingBoxStyle, 'split', true));
+            eventQueue.push(new AnimationObject('polygon', R2.vertices, boundingBoxStyle, 'split', true));
+
             var S1 = [];
             var S2 = [];
+
+            // Set the color of the partitions.
+            setPartitionColor(1);
+            var style1 = {};
+            Object.assign(style1, partitionPointStyle1);
+
+            setPartitionColor(2);
+            var style2 = {};
+            Object.assign(style2, partitionPointStyle2);
 
             // Partition the point set S into 2 subsets based on the sub-rectangle the point lies in.
             for(var p of S) {
 
-                if(R1.containsPoint(p))
+                if(R1.containsPoint(p)){
                     S1.push(p);
-                else
+                    eventQueue.push(new AnimationObject('point', p, style1, null, true)); // Highlights the points partitioned into R1.
+                }
+
+                else{
                     S2.push(p);
+                    eventQueue.push(new AnimationObject('point', p, style2, null, true)); // Highlights the points partitioned into R2.
+                }
             }
 
             // Recursively call on the subsets of S.

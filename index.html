@@ -42,19 +42,23 @@
 
             <div id="pointControl">
                 <p>Edit points</p>
-                <label for="pointEditOn">On</label> <input id="pointEditOn" type="radio" name="editPoints" value="true">
-                <label for="pointEditOff">Off</label> <input id="pointEditOff" type="radio" name="editPoints" value="false">
+                <label for="editPoints"> Edit Points</label>
+                <input id="editPoints" type="checkbox" value="true" checked>
                 <label for=numPoints>Number of points:</label> <input id="numPoints" type="text">
                 <button id="generatePoints">Generate</button>
                 <label for="points">Points</label> <textarea id="points"></textarea>
                 <button id="plotPoints">Plot</button>
+                <button id="clearPoints">Clear</button>
             </div>
 
             <div class="separator"></div>
 
             <div id="WSPDControls">
-                <label for="WSPDn2">O(n^2)</label> <input id="WSPDn2" type="radio" name="WSPDComplexity" value="n2">
-                <label for="WSPDnlogn">O(nlogn)</label> <input id="WSPDnlogn" type="radio" name="WSPDComplexity" value="nlogn">
+                <label for="wspdComplexity">Complexity</label>
+                <select name="wspdComplexity" id="wspdComplexity">
+                    <option value="n2">O(n^2)</option>
+                    <option value="nlogn">O(n log n)</option>
+                </select>
                 <label for="separationFactor">Separation factor(s)</label> <input id="separationFactor" type="text">
                 <button id="WSPD">WSPD</button>
             </div>
@@ -76,14 +80,14 @@
 
             <div class="separator"></div>
 
-            <div id="animationControls">
+            <!-- <div id="animationControls">
 
                 <label for="animationSlider"> Steps </label> <input id="animationSlider" type="range" value="0">
                 <button id="rewind">rewind</button>
                 <button id="playback">playback</button>
                 <button id="forward">forward</button>
 
-            </div>
+            </div> -->
 
         </div>
 

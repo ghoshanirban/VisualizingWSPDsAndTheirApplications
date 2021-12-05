@@ -28,7 +28,7 @@ class Rectangle {
 
     // Returns the longest size of the rectangle, and its length.
     longestSide() {
-        return this.length >= this.width ? ['l', this.length] : ['l', this.width];
+        return this.length >= this.width ? ['l', this.length] : ['w', this.width];
     }
 
 }

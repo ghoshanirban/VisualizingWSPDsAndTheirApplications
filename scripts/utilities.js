@@ -18,6 +18,9 @@ function generateRandomPoint(xBound, yBound){
 
 // Creates a point set of size n and stores it in the pointSet global.
 function generateRandomPointSet() {
+
+    if (!editPointsSelection.checked)
+        return;
     
     let n = parseInt(numPointsEntry.value);
 
@@ -130,13 +133,13 @@ function splitBoundingBox(R) {
     let splitPoint1 = midpoint(R.vertices[anchorPoint], R.vertices[anchorPoint + 1]);
     let splitPoint2 = midpoint(R.vertices[anchorPoint + 2], R.vertices[(anchorPoint + 3) % 4]);
 
-    if(anchorPoint == 1) {
+    if(anchorPoint == 0) {
         return [new Rectangle([R.vertices[0], splitPoint1, splitPoint2, R.vertices[3]]),
-                new Rectangle([splitPoint1, R[1], R[2], splitPoint2])];
+                new Rectangle([splitPoint1, R.vertices[1], R.vertices[2], splitPoint2])];
     }
     else {
         return [new Rectangle([R.vertices[0], R.vertices[1], splitPoint1, splitPoint2]),
-                new Rectangle([splitPoint1, splitPoint2, R.vertices[2], R.vertices[3]])];
+                new Rectangle([splitPoint2, splitPoint1, R.vertices[2], R.vertices[3]])];
     }
 }
 
@@ -149,6 +152,51 @@ function distanceBetweenBoundingBoxes(R1, R2) {
 
     return (centerDistance - R1Radius - R2Radius);
 
+}
+
+// Computes the shortest line between circles.
+function calculateCircleConnectionLine(C1Center, C1Point, C2Center, C2Point) {
+
+    board.suspendUpdate();
+    
+    var circle1 = board.create('circle', [C1Center, C1Point], {
+        color: '#FFFFFF',
+    });
+
+    var circle2 = board.create('circle', [C2Center, C2Point], {
+        color: '#FFFFFF',
+    });
+
+    // Compute line from center of circle 1 to center of circle 2.
+    var centerLine = board.create('line', [C1Center, C2Center], {
+        color: '#FFFFFF', 
+        straightFirst:false, 
+        straightLast:false
+    });
+
+    var i1 = board.create('intersection', [circle1, centerLine, 0], {color: '#FFFFFF',});
+    var j1 = board.create('intersection', [circle2, centerLine, 0], {color: '#FFFFFF'});
+    var i2 = board.create('intersection', [circle1, centerLine, 1], {color: '#FFFFFF',});
+    var j2 = board.create('intersection', [circle2, centerLine, 1], {color: '#FFFFFF'});
+
+    var i = distance2D([i1.X(), i1.Y()], [j1.X(), j1.Y()]) < distance2D([i2.X(), i2.Y()], [j1.X(), j1.Y()]) ? i1 : i2;
+    var j = distance2D([i.X(), i.Y()], [j1.X(), j1.Y()]) < distance2D([i.X(), i.Y()], [j2.X(), j2.Y()]) ? j1 : j2;
+
+    let connectionLine = [[i.X(), i.Y()], [j.X(), j.Y()]];
+
+    board.removeObject(circle1);
+    board.removeObject(circle2);
+    board.removeObject(centerLine);
+    board.removeObject(i1);
+    board.removeObject(j1);
+    board.removeObject(i2);
+    board.removeObject(j2);
+    board.removeObject(i);
+    board.removeObject(j);
+
+    board.unsuspendUpdate();
+
+    return connectionLine;
 }
 
 // Prim's MST algorithm.

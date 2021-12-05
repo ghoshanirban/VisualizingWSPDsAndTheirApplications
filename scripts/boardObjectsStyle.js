@@ -12,13 +12,31 @@ const colors = [
     '#00FFFF', '#00DCFF', '#55B4FC', '#8A8BD4', '#9D649B', '#924660',
 
 ];
-var colorIndex = 0; //Allows for fair use of colors.
 
+var colorSet = 0;
+
+// Gets the next color available.
 function getColor() {
-    if (colorIndex > 35)
-        colorIndex = 0;
+    i = Math.floor(Math.random() * 6) + colorSet % 36;
 
-    return colors[colorIndex++];
+    colorSet += 6;
+
+    return colors[i];
+}
+
+// Sets a color for partition point visual.
+function setPartitionColor(styleID) {
+    
+    // Red '#FF0000' reserved for polygon. Green '#00FF00' is reserved for leaf nodes.
+    var color = '#FF0000';
+    while (color == '#FF0000' || color == '#00FF00') {
+        color = getColor();
+    }
+
+    if(styleID == 1)
+        partitionPointStyle1.color = color;
+    else if (styleID == 2)
+        partitionPointStyle2.color = color;
 }
 
 // Starting and normal bounding box.
@@ -38,14 +56,47 @@ const pointSetStyle = {
     color: '#000000'
 };
 
-const highlightPointStyle = {
+const partitionPointStyle1 = {
     size: 3,
     withLabel: false,
     fixed: true,
-    color: '#FF0000'
+    color: '#FFFFFF',
+};
+
+const partitionPointStyle2 = {
+    size: 3,
+    withLabel: false,
+    fixed: true,
+    color: '#FFFFFF',
+};
+
+const leafPointStyle = {
+    size: 3,
+    withLabel: false,
+    fixed: true,
+    color: '#00FF00',
 };
 
 const boundingBoxStyle = {
-    hasInnerPoints: true,
-    color: '#000000'
+    fillOpacity: 0,
+    hasInnerPoints: false,
+    color: '#000000',
+    fillColor: '#000000',
+    fixed: true,
+    withLabel: false,
+};
+
+const wspdCircleStyle = {
+    fillOpacity: 0,
+    withLabel: false,
+    color: '#FFFFFF',
+    fixed: true,
+};
+
+const wspdSeparationLineStyle = {
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#FFFFFF',
+    fixed: true,
 };
