@@ -1,5 +1,7 @@
 /**
  * Contains default stylings for board objects.
+ * 
+ * David Wisnosky
  */
 
 // Colors to select from for WSPD visual.
@@ -12,28 +14,109 @@ const colors = [
     '#00FFFF', '#00DCFF', '#55B4FC', '#8A8BD4', '#9D649B', '#924660',
 
 ];
-var colorIndex = 0; //Allows for fair use of colors.
 
+var colorSet = 0;
+
+// Gets the next color available.
 function getColor() {
-    if (colorIndex > 35)
-        colorIndex = 0;
+    i = Math.floor(Math.random() * 6) + colorSet % 36;
 
-    return colors[colorIndex++];
+    colorSet += 6;
+
+    return colors[i];
+}
+
+// Sets a color for partition point visual.
+function setPartitionColor(styleID) {
+    
+    // Red '#FF0000' reserved for polygon. Green '#00FF00' is reserved for leaf nodes.
+    var color = '#FF0000';
+    while (color == '#FF0000' || color == '#00FF00') {
+        color = getColor();
+    }
+
+    partitionPointStyle.color = color;
 }
 
 // Starting and normal bounding box.
-const boundingboxStandard = [-10, 10, 10, -10];
+let boundingboxStandard = [-10, 10, 10, -10];
 
 // Board specifications
-const boardParams = {
+let boardParams = {
     boundingbox: boundingboxStandard,
     showaxis: false,
     showcopyright: false,
 };
 
-const pointSetStyle = {
+// Basic point.
+let pointSetStyle = {
     size: 3,
     withLabel: false,
     fixed: true,
     color: '#000000'
+};
+
+// Random color for split tree partitioning.
+let partitionPointStyle = {
+    size: 3,
+    withLabel: false,
+    fixed: true,
+    color: '#FFFFFF',
+};
+
+// Split tree leaf node (point) style.
+let leafPointStyle = {
+    size: 3,
+    withLabel: false,
+    fixed: true,
+    color: '#00FF00',
+};
+
+// Style for bounding boxes.
+let boundingBoxStyle = {
+    fillOpacity: 0,
+    hasInnerPoints: false,
+    color: '#000000',
+    fillColor: '#000000',
+    fixed: true,
+    withLabel: false,
+    vertices: {
+        visible: false,
+    }
+};
+
+// Style for WSPD circles if needed.
+let wspdCircleStyle = {
+    fillOpacity: 0,
+    withLabel: false,
+    color: '#FFFFFF',
+    fixed: true,
+};
+
+// Style for line connecting WSPD pairs.
+let wspdSeparationLineStyle = {
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#FFFFFF',
+    fixed: true,
+};
+
+// Style for lines in the t-Spanner.
+let tSpannerLineStyle = {
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#000000',
+    fixed: true,
+}
+
+// Style to highlight a t-Spanner edge to contrast with the WSPD.
+let tSpannerLineHighlightStyle = {
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#00FF00',
+    fixed: true,
+    strokeWidth: 5,
 }

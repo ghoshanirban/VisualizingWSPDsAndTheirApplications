@@ -4,6 +4,8 @@
  * The definition of these data structures, classes, and construction algorithms
  * can be found in "Geometric Spanner Networks" by Giri Narasimhan and
  * Michiel Smid.
+ * 
+ * David Wisnosky
  */
 
 // Class for the WSPD object.
@@ -17,6 +19,7 @@ class WSPD {
         this.s = s;
         this.pairs = [];
         this.computeWSPD(T);
+        eventQueue.push('ClearTemps'); // Clear all the intermediate step animations.
     }
 
     // Constructs the WSPD by finding all separated pairs of the split tree.
@@ -39,6 +42,8 @@ class WSPD {
         if(isWellSeparated(v, w, this.s)) {
             this.pairs.push([v,w]);
         }
+
+        // Compute node with larger longest side, and recur on that subtree.
         else if (v.R.longestSide()[1] <= w.R.longestSide()[1]) {
             let wLeft = w.left;
             let wRight = w.right;
@@ -65,6 +70,7 @@ function isWellSeparated(v, w, s, shape=0) {
         var C1 = new Circle(v.R.getCenter(), distance2D(v.R.getCenter(), v.R.vertices[0]));
         var C2 = new Circle(w.R.getCenter(), distance2D(w.R.getCenter(), w.R.vertices[0]));
 
+
         // Find the circle with the maximum radius.
         let maxRadius = Math.max(C1.radius, C2.radius);
 
@@ -72,9 +78,46 @@ function isWellSeparated(v, w, s, shape=0) {
         C1 = new Circle(C1.center, maxRadius);
         C2 = new Circle(C2.center, maxRadius);
 
+        // Set the color of the animation objects.
+        wspdCircleStyle.color = getColor();
+        var style1 = {};
+        Object.assign(style1, wspdCircleStyle);
+
+        wspdSeparationLineStyle.color = wspdCircleStyle.color;
+        var style2 = {};
+        Object.assign(style2, wspdSeparationLineStyle);
+
+        // Animations for the well-separated check. Could be non-temporary so they are not added yet.
+        let animationCircle1 = new AnimationObject('circle', [C1.center, v.R.vertices[0]], 
+            style1, 'wellSeparatedCheck', true);
+        let animationCircle2 = new AnimationObject('circle', [C2.center, w.R.vertices[0]], 
+            style1, 'wellSeparatedCheck', true);
+        let animationLine = new AnimationObject('line', 
+            calculateCircleConnectionLine(C1.center, v.R.vertices[0], C2.center, w.R.vertices[0]), 
+            style2, 'wellSeparatedCheck', true);
+
         // Compute the distance between the bounding circles.
         let distanceC1ToC2 = distance2D(C1.center, C2.center) - C1.radius - C2.radius;
 
-        return distanceC1ToC2 >= s*maxRadius;
+        // If the pair is well-separated keep the AnimationObjects on the board and return true.
+        if (distanceC1ToC2 >= s*maxRadius) {
+
+            // Set the AnimationObjects as non-temporary.
+            animationCircle1.isTemporary = false;
+            animationCircle2.isTemporary = false;
+            animationLine.isTemporary = false;
+
+            // Adds the AnimationObjects to the animation event queue.
+            eventQueue.push(animationCircle1);
+            eventQueue.push(animationCircle2);
+            eventQueue.push(animationLine);
+
+            return true;
+        }
+
+        // Remove a non well-separated pair animation step.
+        eventQueue.push('RemoveNonWellSeparated');
+
+        return false;
     }
 }
