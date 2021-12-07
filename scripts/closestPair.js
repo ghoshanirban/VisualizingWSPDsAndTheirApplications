@@ -15,13 +15,35 @@ function computeClosestPair() {
         
         var currentDistance = distance2D(edge[0], edge[1]);
 
+        console.log(currentDistance);
+
+        // New closest pair found.
         if(currentDistance < distance){
             closestPair[0] = edge[0];
             closestPair[1] = edge[1];
 
+            // Clear old possible closest pair.
+            eventQueue.push('ClearTemps')
+
+            // Add new possible closest pair and path connecting them.
+            let P1 = closestPair[0];
+            let P2 = closestPair[1];
+            eventQueue.push(new AnimationObject('point', P1, closestPairHighlightStyle, 'possibleClosestPair', true));
+            eventQueue.push(new AnimationObject('point', P2, closestPairHighlightStyle, 'possibleClosestPair', true));
+            eventQueue.push(new AnimationObject('line', [P1,P2], closestPairLineHighlightStyle, 'possibleClosestPair', true));
+
             distance = currentDistance;
         }
     }
+
+    
+    // Add closest final closest pair.
+    eventQueue.push(new AnimationObject('point', closestPair[0], closestPairStyle, 'closestPair', false));
+    eventQueue.push(new AnimationObject('point', closestPair[1], closestPairStyle, 'closestPair', false));
+    eventQueue.push(new AnimationObject('line', closestPair, closestPairLineStyle, 'closestPair', false));
+
+    // Clear all temporaries.
+    eventQueue.push('ClearTemps');
 
     return closestPair;
 }

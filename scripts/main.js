@@ -109,10 +109,12 @@ let closestPairButton = document.getElementById('closestPair');
 closestPairButton.addEventListener('click', findClosestPair);
 function findClosestPair() {
     if(graph.size == 0){
-        graph = constructTSpanner();
+        graph = generateTSpanner();
     }
 
     closestPair = computeClosestPair();
+    animate(1, animationSpeedSelection.value);
+
 }
 
 

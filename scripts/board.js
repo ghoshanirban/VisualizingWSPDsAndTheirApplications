@@ -60,6 +60,11 @@ function animate(direction, speed) {
 // Draws an object onto the board.
 function draw() {   
 
+    if (eventQueue.length == 0) {
+        clearInterval(drawInterval);
+        return;
+    }
+
     board.suspendUpdate();
 
     let animationObject = eventQueue.shift();
@@ -143,10 +148,6 @@ function draw() {
         board.unsuspendUpdate();
 
     }
-
-    if (eventQueue.length <= 0) {
-        clearInterval(drawInterval);
-    }
 }
 
 // Removes an object from the board.
@@ -202,8 +203,6 @@ function plot(){
 
 // Adds a point to the point set upon left click on board, or removes a point on right click on board.
 function pointClick(e) {
-
-    console.log("called");
 
     // if the board is locked, return
     if (!editPointsSelection.checked)
