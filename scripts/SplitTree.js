@@ -6,6 +6,8 @@
  * The definition of these data structures, classes, and construction algorithms
  * can be found in "Geometric Spanner Networks" by Giri Narasimhan and 
  * Michiel Smid.
+ * 
+ * David Wisnosky
  */
 
 // Node class for Split tree nodes elements.
@@ -54,7 +56,7 @@ class SplitTree {
             eventQueue.push("RemoveSplitBoxes"); // Removes the split line as the bounding box changes, for the new point set.
 
             // Animates the bounding box of the point set.
-            eventQueue.push(new AnimationObject('polygon', R.vertices, boundingBoxStyle, null, true));
+            eventQueue.push(new AnimationObject('polygon', R.vertices, boundingBoxStyle, 'boundingBox', true));
 
             // Split the bounding box by longest side into 2 smaller rectangles.
             let subRectangles = splitBoundingBox(R);
@@ -65,29 +67,30 @@ class SplitTree {
             eventQueue.push(new AnimationObject('polygon', R1.vertices, boundingBoxStyle, 'split', true));
             eventQueue.push(new AnimationObject('polygon', R2.vertices, boundingBoxStyle, 'split', true));
 
+            // Subsets partitioned from original.
             var S1 = [];
             var S2 = [];
 
             // Set the color of the partitions.
-            setPartitionColor(1);
+            setPartitionColor();
             var style1 = {};
-            Object.assign(style1, partitionPointStyle1);
+            Object.assign(style1, partitionPointStyle);
 
-            setPartitionColor(2);
+            setPartitionColor();
             var style2 = {};
-            Object.assign(style2, partitionPointStyle2);
+            Object.assign(style2, partitionPointStyle);
 
             // Partition the point set S into 2 subsets based on the sub-rectangle the point lies in.
             for(var p of S) {
 
                 if(R1.containsPoint(p)){
                     S1.push(p);
-                    eventQueue.push(new AnimationObject('point', p, style1, null, true)); // Highlights the points partitioned into R1.
+                    eventQueue.push(new AnimationObject('point', p, style1, 'partitionHighligh1', true)); // Highlights the points partitioned into R1.
                 }
 
                 else{
                     S2.push(p);
-                    eventQueue.push(new AnimationObject('point', p, style2, null, true)); // Highlights the points partitioned into R2.
+                    eventQueue.push(new AnimationObject('point', p, style2, 'partitionHighlight2', true)); // Highlights the points partitioned into R2.
                 }
             }
 

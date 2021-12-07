@@ -4,6 +4,8 @@
  * The definition of these data structures, classes, and construction algorithms
  * can be found in "Geometric Spanner Networks" by Giri Narasimhan and
  * Michiel Smid.
+ * 
+ * David Wisnosky
  */
 
 // Class for the WSPD object.
@@ -17,7 +19,7 @@ class WSPD {
         this.s = s;
         this.pairs = [];
         this.computeWSPD(T);
-        eventQueue.push('ClearTemps');
+        eventQueue.push('ClearTemps'); // Clear all the intermediate step animations.
     }
 
     // Constructs the WSPD by finding all separated pairs of the split tree.
@@ -40,6 +42,8 @@ class WSPD {
         if(isWellSeparated(v, w, this.s)) {
             this.pairs.push([v,w]);
         }
+
+        // Compute node with larger longest side, and recur on that subtree.
         else if (v.R.longestSide()[1] <= w.R.longestSide()[1]) {
             let wLeft = w.left;
             let wRight = w.right;
@@ -111,6 +115,7 @@ function isWellSeparated(v, w, s, shape=0) {
             return true;
         }
 
+        // Remove a non well-separated pair animation step.
         eventQueue.push('RemoveNonWellSeparated');
 
         return false;

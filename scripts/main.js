@@ -1,6 +1,8 @@
 /**
  * Contains all global variables for the WSPD and its application algorithms,
  * along with all controls and output generation.
+ * 
+ * David Wisnosky
  */
 
 
@@ -20,6 +22,8 @@ let resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', reset);
 
 //Animation controls.
+let animationSpeedSelection = document.getElementById('animationSpeed');
+
 /*let animationSlider = document.getElementById('animationSlider');
 animationSlider.min = 0;
 animationSlider.value = 0;
@@ -28,6 +32,7 @@ let rewindButton = document.getElementById('rewind');
 let playbackButton = document.getElementById('playback');
 let forwardButton = document.getElementById('forward');*/
 
+//var plot;
 
 // Resets the entire state, all containers and the entire board.
 function reset() {
@@ -67,6 +72,9 @@ let wspdButton = document.getElementById('WSPD');
 wspdButton.addEventListener('click', generateWSPD);
 function generateWSPD() {
 
+    reset();
+    plot();
+
     if(wspdComplexitySelection.value == 'n2')
         splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
     else if (wspdComplexitySelection.value == 'nlogn')
@@ -74,7 +82,7 @@ function generateWSPD() {
     
     wspd = new WSPD(splitTree, parseInt(separationFactorEntry.value));
     //animationSlider.max = eventQueue.length -1;
-    animate(1);
+    animate(1, animationSpeedSelection.value);
 }
 
 
@@ -89,8 +97,11 @@ function generateTSpanner() {
         alert('The separation ratio of the WSPD is too low for a t-spanner to' +
             'be constructed, select an s > 4.');
     }
-    else
+    else{
         graph = constructTSpanner();
+        animate(1, animationSpeedSelection.value);
+    }
+
     
 }
 

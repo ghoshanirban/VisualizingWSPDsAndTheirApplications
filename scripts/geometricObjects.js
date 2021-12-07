@@ -1,5 +1,7 @@
 /**
  * Contains class definitions for various geometric objects.
+ * 
+ * David Wisnosky
  */
 
 // Basic rectangle with vertices and dimensions.
