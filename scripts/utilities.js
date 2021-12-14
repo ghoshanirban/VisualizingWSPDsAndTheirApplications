@@ -144,11 +144,14 @@ function splitBoundingBox(R) {
 
     if(anchorPoint == 0) {
         return [new Rectangle([R.vertices[0], splitPoint1, splitPoint2, R.vertices[3]]),
-                new Rectangle([splitPoint1, R.vertices[1], R.vertices[2], splitPoint2])];
+                new Rectangle([splitPoint1, R.vertices[1], R.vertices[2], splitPoint2]),
+                [splitPoint1, splitPoint2]];
     }
     else {
+        // Return the two rectangles and the line that splits them.
         return [new Rectangle([R.vertices[0], R.vertices[1], splitPoint1, splitPoint2]),
-                new Rectangle([splitPoint2, splitPoint1, R.vertices[2], R.vertices[3]])];
+                new Rectangle([splitPoint2, splitPoint1, R.vertices[2], R.vertices[3]]),
+                [splitPoint1, splitPoint2]];
     }
 }
 
@@ -272,4 +275,14 @@ function factorial(n) {
 function combination(n, k) {
 
     return (factorial(n) / (factorial(k) * factorial(n-k)));
+}
+
+// Equation for separation factor given a value for t.
+function tToSeparationFactor(t) {
+    return 4 * ((t+1) / (t-1));
+}
+
+//Equation for t given a value for separation factor.
+function separationFactorToT(s) {
+    return (s+4)/(s-4);
 }

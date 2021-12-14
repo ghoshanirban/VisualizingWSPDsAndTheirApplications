@@ -69,29 +69,7 @@ function draw() {
 
     let animationObject = eventQueue.shift();
 
-    if (animationObject == 'RemoveSplitBoxes') {
-
-        var splitBoxes = [];
-        var newRemoveQueue = [];
-
-        for(var i = 0; i < removeQueue.length; i++) {
-            
-            if (removeQueue[i][0].text == 'split') {
-                splitBoxes.push(removeQueue[i][1]);
-            }
-            else {
-                newRemoveQueue.push(removeQueue[i]);
-            }
-        }
-
-        while (splitBoxes.length > 0) {
-            remove(splitBoxes.shift());
-        }
-
-        removeQueue = newRemoveQueue;
-    }
-
-    else if (animationObject == 'RemoveNonWellSeparated'){
+    if (animationObject == 'RemoveNonWellSeparated'){
         
         var notWellSeparated = [];
         var newRemoveQueue = [];
@@ -123,6 +101,8 @@ function draw() {
                 wspdRemoveQueue.push(undoQueue[i]);
             }
         }
+
+        console.log(wspdRemoveQueue);
 
         while(wspdRemoveQueue.length > 0) {
             remove(wspdRemoveQueue.shift()[1]);

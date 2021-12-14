@@ -13,6 +13,7 @@ function computeClosestPair() {
 
     for(edge of graph) {
         
+        // Get current considered points distance.
         var currentDistance = distance2D(edge[0], edge[1]);
 
         console.log(currentDistance);

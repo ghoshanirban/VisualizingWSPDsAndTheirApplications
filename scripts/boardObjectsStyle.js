@@ -85,6 +85,16 @@ let boundingBoxStyle = {
     }
 };
 
+// Style for bounding box split line.
+let boundingBoxSplitLineStyle = {
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#0000FF',
+    fixed: true,
+    strokeWidth: 5,
+}
+
 // Style for WSPD circles if needed.
 let wspdCircleStyle = {
     fillOpacity: 0,
@@ -158,5 +168,3 @@ let closestPairLineHighlightStyle = {
     fixed: true,
     strokeWidth: 7,
 }
-
-

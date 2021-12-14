@@ -70,39 +70,55 @@ let wspdComplexitySelection = document.getElementById('wspdComplexity');
 let separationFactorEntry = document.getElementById('separationFactor');
 let wspdButton = document.getElementById('WSPD');
 wspdButton.addEventListener('click', generateWSPD);
-function generateWSPD() {
+function generateWSPD(s=2, tSpanner=false) {
 
-    reset();
+    // Check that s is valid.
+    if (!isFinite(separationFactorEntry.value)){
+        alert('Please select a value for the separation factor of the WSPD.');
+        return;
+    }
+
+    // If the WSPD is not created for a t-spanner get the input value for separation factor.
+    if(!tSpanner) {
+        s = separationFactorEntry.value;
+    }
+
+    // Reset the objects on the board and re-plot the points to prepare for WSPD construction.
+    reset(); 
     plot();
 
     if(wspdComplexitySelection.value == 'n2')
         splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
     else if (wspdComplexitySelection.value == 'nlogn')
         splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
-    
-    wspd = new WSPD(splitTree, parseInt(separationFactorEntry.value));
-    //animationSlider.max = eventQueue.length -1;
+
+    wspd = new WSPD(splitTree, s);
     animate(1, animationSpeedSelection.value);
 }
 
-
 // Algorithm controls.
+let tEntry = document.getElementById('t');
 let tSpannerButton = document.getElementById('tSpanner');
 tSpannerButton.addEventListener('click', generateTSpanner);
 function generateTSpanner() {
-    if (wspd == null) {
-        alert('Please construct a WSPD with a s > 4.');
-    }
-    else if (wspd.s <= 4) {
-        alert('The separation ratio of the WSPD is too low for a t-spanner to' +
-            'be constructed, select an s > 4.');
-    }
-    else{
-        graph = constructTSpanner();
-        animate(1, animationSpeedSelection.value);
+
+
+
+    // Check that t is valid
+    if (!isFinite(tEntry.value) || t <= 1) {
+        alert('Please select a value for t > 1.');
+        return;
     }
 
-    
+    // Reset the objects on the board and re-plot the points to prepare for t-Spanner construction.
+    reset();
+    plot();
+
+    // Generates the WSPD with separation factor based on t.
+    generateWSPD(tToSeparationFactor(parseInt(tEntry.value)));
+
+    graph = constructTSpanner(parseInt(tEntry.value));
+    animate(1, animationSpeedSelection.value);
 }
 
 let closestPairButton = document.getElementById('closestPair');
@@ -149,4 +165,12 @@ function generateKClosestPairs(params) {
 let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');
 allNearestNeighborsButton.addEventListener('click', computeAllNearestNeighbors);
 
+//Reuse current WSPD button.
+/*unction reUseWSPD() {
+    if (wspd == null)
+        return;
 
+    if (confirm('')){
+        continue;
+    }
+}*/

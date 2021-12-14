@@ -45,15 +45,12 @@ class SplitTree {
 
         // Create leaf node if only point is in the set.
         if(S.length == 1) {
-            eventQueue.push(new AnimationObject('polygon', R.vertices, boundingBoxStyle, 'leafBoundingBox', true)); // Adds the bounding box of the point.
             eventQueue.push(new AnimationObject('point', S[0], leafPointStyle, 'leafPoint', true)); // Highlights the point green for done. 
             return new Node(S, computeBoundingBox(S), null, null);
         }
         // Create an internal node if S has >= 2 points.
         else{
             let R = computeBoundingBox(S);
-
-            eventQueue.push("RemoveSplitBoxes"); // Removes the split line as the bounding box changes, for the new point set.
 
             // Animates the bounding box of the point set.
             eventQueue.push(new AnimationObject('polygon', R.vertices, boundingBoxStyle, 'boundingBox', true));
@@ -64,8 +61,7 @@ class SplitTree {
             let R2 = subRectangles[1];
 
             // Animates the splitting of the bounding box of the point set.
-            eventQueue.push(new AnimationObject('polygon', R1.vertices, boundingBoxStyle, 'split', true));
-            eventQueue.push(new AnimationObject('polygon', R2.vertices, boundingBoxStyle, 'split', true));
+            eventQueue.push(new AnimationObject('line', subRectangles[2], boundingBoxSplitLineStyle, 'split', true));
 
             // Subsets partitioned from original.
             var S1 = [];
