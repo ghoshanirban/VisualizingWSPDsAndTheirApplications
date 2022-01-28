@@ -102,8 +102,6 @@ function draw() {
             }
         }
 
-        console.log(wspdRemoveQueue);
-
         while(wspdRemoveQueue.length > 0) {
             remove(wspdRemoveQueue.shift()[1]);
         }

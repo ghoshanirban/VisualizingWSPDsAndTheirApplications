@@ -91,7 +91,9 @@ function parseTextPoints() {
         var xCord = Math.round(textPoints[i] * 100) / 100;
         var yCord = Math.round(textPoints[i + 1] * 100) / 100;
 
-        pointSet.push([xCord, yCord]);
+        var point = [xCord, yCord]
+        pointSet.push(point);
+        pointSetMap.set(i, point);
     }
 
     // Clean up text box, of bad points and whitespace.
@@ -216,6 +218,22 @@ function calculateCircleConnectionLine(C1Center, C1Point, C2Center, C2Point) {
     return connectionLine;
 }
 
+// Creates a complete graph from a point set.
+function generateCompleteGraph(S) {
+
+    var G = new Set();
+
+    for (let i = 0; i < S.length; i++) {
+        u = S[i];
+        for (let j = i + 1; j < S.length; j++) {
+            v = S[j];
+            G.add([u,v]);
+        }
+    }
+
+    return G;
+}
+
 // Prim's MST algorithm.
 function prim(G, n) {
 
@@ -223,7 +241,7 @@ function prim(G, n) {
     let GPrime = Array.from(G);
 
     // Sort the graph by edge weight.
-    GPrime.sort(function (a, b) { return distance2D(a[0], a[1]) < distance2D(b[0], b[1]) });
+    GPrime.sort(function (a, b) { return distance2D(a[0], a[1]) - distance2D(b[0], b[1]) });
     
     // Select the first vertex in the sorted set to be the arbitrary start.
     let r = GPrime[0][0];
@@ -251,10 +269,41 @@ function prim(G, n) {
             GPrime.splice(index, 1); // Remove the edge, from the sorted set.
             index = 0;
         }
-        index++; // Minimum edge is not yet valid check the next edge.
+        else {
+            index++; // Minimum edge is not yet valid check the next edge.
+        }
     }
 
     return T;
+}
+
+/*// FloydWarshall algorithm.
+function floydWarshall(S, G) {
+    
+    var dis = [];
+
+    for (let i = 0; i < G.size; i++) {
+       dis.push([]);
+       for (let j = 0; j < G.size; j++) {
+
+            if(i == j)
+                dis[i].push(0);
+            else if(G.get())
+       } 
+    }
+
+}*/
+
+// Iterate over all edges in a graph and compute their total weight.
+function computeGraphWeight(G) {
+    
+    var weight = 0;
+
+    for (var edge of G) { 
+        weight += distance2D(edge[0], edge[1]);
+    }
+
+    return weight;
 }
 
 /* Math helper functions. */

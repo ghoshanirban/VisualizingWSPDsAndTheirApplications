@@ -16,8 +16,6 @@ function computeClosestPair() {
         // Get current considered points distance.
         var currentDistance = distance2D(edge[0], edge[1]);
 
-        console.log(currentDistance);
-
         // New closest pair found.
         if(currentDistance < distance){
             closestPair[0] = edge[0];

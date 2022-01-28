@@ -8,12 +8,16 @@
 
 // Globals
 var pointSet = []; // List of points.
+var pointSetMap = new Map(); // Maps point index to the points (x,y) value.
 var splitTree = null; // Object defined in SplitTree.js
 var wspd = null; // Object defined in WSPD.js
 var graph = new Set(); // Edge set.
 var closestPair = []; // Pair of points in R^2.
-var approxMST = new Set(); // Edge set.
+var tApproxMST = new Set(); // Edge set.
 var kClosestPairs = [] // List of size k of closest pairs.
+
+// Data fields.
+let dataField = document.getElementById('dataField');
 
 // Controls
 
@@ -41,7 +45,7 @@ function reset() {
     wspd = null;
     graph.clear();
     closestPair = [];
-    approxMST.clear();
+    tApproxMST.clear();
     kClosestPairs = [];
     clear();
 }
@@ -80,7 +84,7 @@ function generateWSPD(s=2, tSpanner=false) {
 
     // If the WSPD is not created for a t-spanner get the input value for separation factor.
     if(!tSpanner) {
-        s = separationFactorEntry.value;
+        s = parseFloat(separationFactorEntry.value);
     }
 
     // Reset the objects on the board and re-plot the points to prepare for WSPD construction.
@@ -102,10 +106,8 @@ let tSpannerButton = document.getElementById('tSpanner');
 tSpannerButton.addEventListener('click', generateTSpanner);
 function generateTSpanner() {
 
-
-
     // Check that t is valid
-    if (!isFinite(tEntry.value) || t <= 1) {
+    if (!isFinite(tEntry.value) || tEntry.value <= 1) {
         alert('Please select a value for t > 1.');
         return;
     }
@@ -115,9 +117,9 @@ function generateTSpanner() {
     plot();
 
     // Generates the WSPD with separation factor based on t.
-    generateWSPD(tToSeparationFactor(parseInt(tEntry.value)));
+    generateWSPD(tToSeparationFactor(parseFloat(tEntry.value)), true);
 
-    graph = constructTSpanner(parseInt(tEntry.value));
+    graph = constructTSpanner(parseFloat(tEntry.value));
     animate(1, animationSpeedSelection.value);
 }
 
@@ -133,7 +135,6 @@ function findClosestPair() {
 
 }
 
-
 let mstButton = document.getElementById('MST');
 mstButton.addEventListener('click', generateApproxMST);
 function generateApproxMST() {
@@ -141,7 +142,11 @@ function generateApproxMST() {
         graph = constructTSpanner();
     }
 
-    approxMST = computeApproxMST();
+    tApproxMST = computeTApproxMST();
+    animate(1, animationSpeedSelection.value);
+
+    dataField.innerHTML = computeGraphWeight(tApproxMST) + " " +
+        computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length));
 }
 
 let kPairsEntry = document.getElementById('kPairs');
@@ -163,7 +168,7 @@ function generateKClosestPairs(params) {
 }
 
 let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');
-allNearestNeighborsButton.addEventListener('click', computeAllNearestNeighbors);
+//allNearestNeighborsButton.addEventListener('click', computeAllNearestNeighbors);
 
 //Reuse current WSPD button.
 /*unction reUseWSPD() {
