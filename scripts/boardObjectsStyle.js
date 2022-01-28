@@ -168,3 +168,46 @@ let closestPairLineHighlightStyle = {
     fixed: true,
     strokeWidth: 7,
 }
+
+// Style for t-Approx MST start point.
+let tApproxMSTStartPointStyle = {
+    size: 5,
+    withLabel: false,
+    fixed: true,
+    color: '#0000FF',
+};
+
+// Style for t-Approx MST considered points.
+let tApproxMSTConsideredPointStyle = {
+    size: 3,
+    withLabel: false,
+    fixed: true,
+    color: '#009999',
+};
+
+// Style for t-Approx MST considered line.
+let tApproxMSTConsideredLineStyle = {
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#009999',
+    fixed: true,
+    strokeWidth: 5,
+}
+
+// Style for a t-Approx MST selected point.
+let tApproxMSTSelectedPointStyle = {
+    size: 5,
+    withLabel: false,
+    fixed: true,
+    color: '#00FF00',
+}
+
+// Style for lines in the t-Spanner.
+let tApproxMSTSelectedLineStyle = {
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#00FF00',
+    fixed: true,
+}
