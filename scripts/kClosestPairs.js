@@ -12,10 +12,10 @@ function computeKClosestPairs(k) {
     for (var pair of wspd.pairs) {
         sumL += pair[0].S.length + pair[1].S.length;
 
+        l++;
+
         if(sumL >= k)
             break;
-
-        l++;
     }
 
     let Al = wspd.pairs[l-1][0];
@@ -45,7 +45,7 @@ function computeKClosestPairs(k) {
         }
     }
     
-    L.sort(function (a, b) { return distance2D(a[0], a[1]) < distance2D(b[0], b[1]) });
+    L.sort(function (a, b) { return distance2D(a[0], a[1]) - distance2D(b[0], b[1]) });
 
     var K = [];
 
@@ -55,4 +55,3 @@ function computeKClosestPairs(k) {
 
     return K;
 }
-

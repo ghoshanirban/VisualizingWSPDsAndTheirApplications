@@ -152,19 +152,18 @@ function generateApproxMST() {
 let kPairsEntry = document.getElementById('kPairs');
 let kClosestPairsButton = document.getElementById('kClosestPairs');
 kClosestPairsButton.addEventListener('click', generateKClosestPairs);
-let kEntry = document.getElementById('kPairs');
 function generateKClosestPairs(params) {
     if(wspd == null){
         alert('Please construct a WSPD.');
     }
 
-    let k = parseInt(kEntry.value);
+    let k = parseInt(kPairsEntry.value);
 
-    if(k > combination(pointSet.length, 2)){
-        alert('k must be less than C(n,2).');
+    if(k < 1 || k > combination(pointSet.length, 2)){
+        alert('k must be greater than 0 and less than C(n,2).');
     }
 
-    computeKClosestPairs();
+    kClosestPairs  = computeKClosestPairs(k);
 }
 
 let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');
