@@ -52,6 +52,8 @@ function reset() {
 
 // Pointset, controls.
 let editPointsSelection = document.getElementById('editPoints');
+let pointIDSelection = document.getElementById('pointIDs');
+pointIDSelection.addEventListener('change', changePointIDStatus);
 let numPointsEntry = document.getElementById('numPoints');
 let pointTextBox = document.getElementById('points');
 let generatePointsButton = document.getElementById('generatePoints');
@@ -69,32 +71,31 @@ function clearTextBox() {
 
 }
 
+// Animation control.
+let animationSelection = document.getElementById('animationSelection');
+
 // WSPD controls.
-let wspdComplexitySelection = document.getElementById('wspdComplexity');
 let separationFactorEntry = document.getElementById('separationFactor');
 let wspdButton = document.getElementById('WSPD');
 wspdButton.addEventListener('click', generateWSPD);
 function generateWSPD(s=2, tSpanner=false) {
-
-    // Check that s is valid.
-    if (!isFinite(separationFactorEntry.value)){
-        alert('Please select a value for the separation factor of the WSPD.');
-        return;
-    }
 
     // If the WSPD is not created for a t-spanner get the input value for separation factor.
     if(!tSpanner) {
         s = parseFloat(separationFactorEntry.value);
     }
 
+    // Check that s is valid (s >= 2).
+    if (!isFinite(s) || s < 2) {
+        alert('Please select a value for the separation factor of the WSPD.');
+        return;
+    }
+
     // Reset the objects on the board and re-plot the points to prepare for WSPD construction.
     reset(); 
     plot();
 
-    if(wspdComplexitySelection.value == 'n2')
-        splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
-    else if (wspdComplexitySelection.value == 'nlogn')
-        splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
+    splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
 
     wspd = new WSPD(splitTree, s);
     animate(1, animationSpeedSelection.value);
@@ -106,8 +107,10 @@ let tSpannerButton = document.getElementById('tSpanner');
 tSpannerButton.addEventListener('click', generateTSpanner);
 function generateTSpanner() {
 
-    // Check that t is valid
-    if (!isFinite(tEntry.value) || tEntry.value <= 1) {
+    t = parseFloat(tEntry.value);
+
+    // Check that t is valid (t > 1).
+    if (!isFinite(t) || t <= 1) {
         alert('Please select a value for t > 1.');
         return;
     }
@@ -117,34 +120,39 @@ function generateTSpanner() {
     plot();
 
     // Generates the WSPD with separation factor based on t.
-    generateWSPD(tToSeparationFactor(parseFloat(tEntry.value)), true);
+    generateWSPD(tToSeparationFactor(parseFloat(t)), true);
 
-    graph = constructTSpanner(parseFloat(tEntry.value));
+    graph = constructTSpanner(parseFloat(t));
     animate(1, animationSpeedSelection.value);
 }
 
 let closestPairButton = document.getElementById('closestPair');
 closestPairButton.addEventListener('click', findClosestPair);
 function findClosestPair() {
+
+    // Check that a t-spanner exists.
     if(graph.size == 0){
         graph = generateTSpanner();
     }
 
     closestPair = computeClosestPair();
     animate(1, animationSpeedSelection.value);
-
 }
 
 let mstButton = document.getElementById('MST');
 mstButton.addEventListener('click', generateApproxMST);
 function generateApproxMST() {
+
+     // Check that a t-spanner exists.
     if (graph.size == 0) {
         graph = constructTSpanner();
     }
 
+    // Run prims on the t-spanner.
     tApproxMST = computeTApproxMST();
     animate(1, animationSpeedSelection.value);
 
+    // Print results to the HTML.
     dataField.innerHTML = computeGraphWeight(tApproxMST) + " " +
         computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length));
 }
@@ -153,17 +161,21 @@ let kPairsEntry = document.getElementById('kPairs');
 let kClosestPairsButton = document.getElementById('kClosestPairs');
 kClosestPairsButton.addEventListener('click', generateKClosestPairs);
 function generateKClosestPairs(params) {
+
+    // Check that a WSPD exists.
     if(wspd == null){
         alert('Please construct a WSPD.');
     }
 
     let k = parseInt(kPairsEntry.value);
 
+    // Check k is valid ( 1 <= k <= C(n,2)).
     if(k < 1 || k > combination(pointSet.length, 2)){
         alert('k must be greater than 0 and less than C(n,2).');
     }
 
     kClosestPairs  = computeKClosestPairs(k);
+    animate(1, animationSpeedSelection.value);
 }
 
 let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');

@@ -44,6 +44,8 @@
                 <p>Edit points</p>
                 <label for="editPoints"> Edit Points</label>
                 <input id="editPoints" type="checkbox" value="true" checked>
+                <label for="pointIDs"> Show point ID</label>
+                <input id="pointIDs" type="checkbox" value="true" checked>
                 <label for=numPoints>Number of points:</label> <input id="numPoints" type="text">
                 <button id="generatePoints">Generate</button>
                 <label for="points">Points</label> <textarea id="points"></textarea>
@@ -52,13 +54,12 @@
             </div>
 
             <div class="separator"></div>
+                <label for="animationSelection"> Animate</label>
+                <input id="animationSelection" type="checkbox" value="true" checked>
+            <div class="separator"></div>
 
             <div id="WSPDControls">
                 <label for="wspdComplexity">Complexity</label>
-                <select name="wspdComplexity" id="wspdComplexity">
-                    <option value="n2">O(n^2)</option>
-                    <option value="nlogn">O(n log n)</option>
-                </select>
                 <label for="separationFactor">Separation factor</label> <input id="separationFactor" type="text">
                 <button id="WSPD">WSPD</button>
             </div>

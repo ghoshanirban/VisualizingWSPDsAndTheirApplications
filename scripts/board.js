@@ -52,8 +52,15 @@ var drawInterval;
 // Animates the board by drawing or removing objects.
 function animate(direction, speed) {
 
+    // Compute animation speed, based on user selection.
+    let animationSpeed = 500 / parseFloat(speed);
+
+    // Disables animation if selected, all steps will occur instantaneously.
+    if (!animationSelection.checked)
+        animationSpeed = 0
+
     if(direction) {
-        drawInterval = setInterval(draw, 500 / parseFloat(speed));
+        drawInterval = setInterval(draw, animationSpeed);
     }
 }
 
@@ -160,16 +167,23 @@ function clear(){
 // Places all generated or entered points on the board, no animation instant plotting.
 function plot(){
 
+    // If the board edit is locked return.
     if (!editPointsSelection.value)
         return;
 
-    reset();
+    reset(); // Set board to start state (blank).
 
-    parseTextPoints();
+    parseTextPoints(); // Creates the point set from points in the text box.
+
+    // Adds a label if selected.
+    pointSetStyle.withLabel = pointIDSelection.checked;
 
     board.suspendUpdate()
 
+    // Plot point set points on the board.
     for(let i = 0; i < pointSet.length; i++){
+
+        pointSetStyle.name = i.toString();
 
         var boardPoint = board.create('point', pointSet[i], pointSetStyle);
 
@@ -177,6 +191,12 @@ function plot(){
     }
 
     board.unsuspendUpdate()
+}
+
+// Changes the visibility of the point IDs to match the user's selection.
+function changePointIDStatus() {
+
+    plot();
 }
 
 // Adds a point to the point set upon left click on board, or removes a point on right click on board.
@@ -193,10 +213,8 @@ function pointClick(e) {
     if (e.composedPath().includes(boardControl))
         return;
 
-    var generate = true;
     var i = e.which;
     let coordinates = getMouseCoords(e, i);
-
 
     for (var el in board.objects) {
         // Check the point already exists
@@ -230,7 +248,6 @@ function pointClick(e) {
                     pointTextBox.value = '';
                     updatePointTextBox(pointSet);
                     
-
                     plot();
                     return;
             }

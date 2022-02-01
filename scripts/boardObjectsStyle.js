@@ -53,7 +53,8 @@ let pointSetStyle = {
     size: 3,
     withLabel: false,
     fixed: true,
-    color: '#000000'
+    color: '#000000',
+    name: "",
 };
 
 // Random color for split tree partitioning.
