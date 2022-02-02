@@ -83,9 +83,9 @@ function isWellSeparated(v, w, s, shape=0) {
         var style1 = {};
         Object.assign(style1, wspdCircleStyle);
 
-        wspdSeparationLineStyle.color = wspdCircleStyle.color;
+        wspdConnectionLineStyle.color = wspdCircleStyle.color;
         var style2 = {};
-        Object.assign(style2, wspdSeparationLineStyle);
+        Object.assign(style2, wspdConnectionLineStyle);
 
         // Animations for the well-separated check. Could be non-temporary so they are not added yet.
         let animationCircle1 = new AnimationObject('circle', [C1.center, v.R.vertices[0]], 

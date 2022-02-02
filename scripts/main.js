@@ -85,8 +85,8 @@ function generateWSPD(s=2, tSpanner=false) {
         s = parseFloat(separationFactorEntry.value);
     }
 
-    // Check that s is valid (s >= 2).
-    if (!isFinite(s) || s < 2) {
+    // Check that s is valid (s >= 0).
+    if (!isFinite(s) || s < 0) {
         alert('Please select a value for the separation factor of the WSPD.');
         return;
     }

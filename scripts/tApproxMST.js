@@ -24,7 +24,9 @@ function animatedPrim(G, n) {
 
     // Select the first vertex in the sorted set to be the arbitrary start.
     let r = GPrime[0][0];
-    eventQueue.push(new AnimationObject('point', r, tApproxMSTStartPointStyle, 'tApproxMSTStartPoint', false)); // Highlight the start point.
+    eventQueue.push(new AnimationObject('point', r, tApproxMSTStartPointStyle, 'tApproxMSTStartPoint', true)); // Highlight the start point.
+    // Highlight the start point to permanent color.
+    eventQueue.push(new AnimationObject('point', r, tApproxMSTSelectedPointStyle, 'tApproxMSTPoint', false)); 
 
     // Prims algorithm iterations.
     var A = new Set();

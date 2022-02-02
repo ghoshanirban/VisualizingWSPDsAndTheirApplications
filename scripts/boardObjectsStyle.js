@@ -102,10 +102,19 @@ let wspdCircleStyle = {
     withLabel: false,
     color: '#FFFFFF',
     fixed: true,
+    center: {
+        visible: false,
+    },
+    midpoint: {
+        visible: false,
+    },
+    point2: {
+        visible: false,
+    }
 };
 
 // Style for line connecting WSPD pairs.
-let wspdSeparationLineStyle = {
+let wspdConnectionLineStyle = {
     withLabel: false,
     straightFirst: false,
     straightLast: false,
@@ -204,7 +213,7 @@ let tApproxMSTSelectedPointStyle = {
     color: '#00FF00',
 }
 
-// Style for lines in the t-Spanner.
+// Style for selected lines in the t-Approx MST.
 let tApproxMSTSelectedLineStyle = {
     withLabel: false,
     straightFirst: false,
@@ -212,3 +221,38 @@ let tApproxMSTSelectedLineStyle = {
     color: '#00FF00',
     fixed: true,
 }
+
+//
+let kClosestLthWSPDCircleHighlightStyle = {
+    strokeWidth: 7,
+    fillOpacity: 0,
+    withLabel: false,
+    color: '#0000FF',
+    fixed: true,
+};
+
+let kClosestLthWSPDConnectionLineHighlightStyle = {
+    strokeWidth: 7,
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#0000FF',
+    fixed: true,
+};
+
+let kClosestWSPDCircleHighlightStyle2 = {
+    strokeWidth: 7,
+    fillOpacity: 0,
+    withLabel: false,
+    color: '#009999',
+    fixed: true,
+};
+
+let kClosestWSPDConnectionLineHighlightStyle2 = {
+    strokeWidth: 7,
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#00BB00',
+    fixed: true,
+};
