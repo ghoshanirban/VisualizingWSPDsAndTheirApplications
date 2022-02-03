@@ -75,15 +75,18 @@ let leafPointStyle = {
 
 // Style for bounding boxes.
 let boundingBoxStyle = {
+    borders : {
+        color: '#000000',
+    },
     fillOpacity: 0,
     hasInnerPoints: false,
-    color: '#000000',
     fillColor: '#000000',
     fixed: true,
     withLabel: false,
+    withLines: true,
     vertices: {
         visible: false,
-    }
+    },
 };
 
 // Style for bounding box split line.
@@ -91,10 +94,10 @@ let boundingBoxSplitLineStyle = {
     withLabel: false,
     straightFirst: false,
     straightLast: false,
-    color: '#0000FF',
+    color: '#000000',
     fixed: true,
     strokeWidth: 5,
-}
+};
 
 // Style for WSPD circles if needed.
 let wspdCircleStyle = {
@@ -129,7 +132,7 @@ let tSpannerLineStyle = {
     straightLast: false,
     color: '#000000',
     fixed: true,
-}
+};
 
 // Style to highlight a t-Spanner edge to contrast with the WSPD.
 let tSpannerLineHighlightStyle = {
@@ -139,16 +142,7 @@ let tSpannerLineHighlightStyle = {
     color: '#00FF00',
     fixed: true,
     strokeWidth: 5,
-}
-
-// Style to highligh the closest pair points.
-let closestPairStyle = {
-    size: 7,
-    withLabel: false,
-    fixed: true,
-    face: 'square',
-    color: '#00FF00',
-}
+};
 
 // Style to highligh potential closest pair points.
 let closestPairHighlightStyle = {
@@ -157,7 +151,26 @@ let closestPairHighlightStyle = {
     fixed: true,
     face: 'square',
     color: '#FF0000',
-}
+};
+
+// Style to highlight a potential closest pair line.
+let closestPairLineHighlightStyle = {
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#FF0000',
+    fixed: true,
+    strokeWidth: 7,
+};
+
+// Style to highligh the closest pair points.
+let closestPairStyle = {
+    size: 7,
+    withLabel: false,
+    fixed: true,
+    face: 'square',
+    color: '#00FF00',
+};
 
 // Style to highlight the closest pair.
 let closestPairLineStyle = {
@@ -167,17 +180,7 @@ let closestPairLineStyle = {
     color: '#00FF00',
     fixed: true,
     strokeWidth: 5,
-}
-
-// Style to highlight a potential closest pair.
-let closestPairLineHighlightStyle = {
-    withLabel: false,
-    straightFirst: false,
-    straightLast: false,
-    color: '#FF0000',
-    fixed: true,
-    strokeWidth: 7,
-}
+};
 
 // Style for t-Approx MST start point.
 let tApproxMSTStartPointStyle = {
@@ -222,15 +225,25 @@ let tApproxMSTSelectedLineStyle = {
     fixed: true,
 }
 
-//
+// Style fot the lth WSPD circle selection in kClosestPairs.
 let kClosestLthWSPDCircleHighlightStyle = {
-    strokeWidth: 7,
     fillOpacity: 0,
+    strokeWidth: 7,
     withLabel: false,
     color: '#0000FF',
     fixed: true,
+    center: {
+        visible: false,
+    },
+    midpoint: {
+        visible: false,
+    },
+    point2: {
+        visible: false,
+    }
 };
 
+// Style fot the lth WSPD connection line selection in kClosestPairs.
 let kClosestLthWSPDConnectionLineHighlightStyle = {
     strokeWidth: 7,
     withLabel: false,
@@ -240,6 +253,45 @@ let kClosestLthWSPDConnectionLineHighlightStyle = {
     fixed: true,
 };
 
+// Style fot the lth WSPD pair, if a point is in a singleton 
+// set selection, in kClosestPairs.
+let kClosestLthWSPDSingletonPointHighlightStyle = {
+    size: 7,
+    withLabel: false,
+    fixed: true,
+    color: '#0000FF',
+};
+
+// Style for the bounding boxes of the lth WSPD pair in kClosestPairs.
+let kClosestLthBoundingBoxStyle = {
+    borders: { 
+        strokeWidth: 7,
+        color: '#FF0000',
+    },
+    fillOpacity: 0,
+    hasInnerPoints: false,
+    fillColor: '#000000',
+    fixed: true,
+    withLabel: false,
+    withLines: true,
+    vertices: {
+        visible: false,
+    }
+};
+
+// Style for the shortest line between the bounding boxes of the lth WSPD
+// pair in kClosestPairs.
+let kClosestLthConnectionLineHighlightStyle = {
+    strokeWidth: 7,
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#FF0000',
+    fixed: true,
+};
+
+// Style for a WSPD pair circle who's points are valid for the 
+//k-closest pairs.
 let kClosestWSPDCircleHighlightStyle2 = {
     strokeWidth: 7,
     fillOpacity: 0,
@@ -248,11 +300,50 @@ let kClosestWSPDCircleHighlightStyle2 = {
     fixed: true,
 };
 
+// Style for a WSPD pair connection line who's points are valid for 
+//the k-closest pairs.
 let kClosestWSPDConnectionLineHighlightStyle2 = {
     strokeWidth: 7,
     withLabel: false,
     straightFirst: false,
     straightLast: false,
-    color: '#00BB00',
+    color: '#009999',
     fixed: true,
+};
+
+// Style to highlight the potential k-closest pairs.
+let kClosestPairsHighlightStyle = {
+    size: 7,
+    withLabel: false,
+    fixed: true,
+    color: '#00AA66',
+};
+
+// Style to highlight a potential closest pair line.
+let kClosestPairsLineHighlightStyle = {
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#00AA66',
+    fixed: true,
+    strokeWidth: 7,
+};
+
+// Style to highligh the k-closest pairs points.
+let kClosestPairStyle = {
+    size: 7,
+    withLabel: false,
+    fixed: true,
+    face: 'square',
+    color: '#00FF00',
+};
+
+// Style to highlight the k-closest pairs lines.
+let kClosestPairLineStyle = {
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#00FF00',
+    fixed: true,
+    strokeWidth: 5,
 };

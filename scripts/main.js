@@ -41,11 +41,12 @@ let forwardButton = document.getElementById('forward');*/
 // Resets the entire state, all containers and the entire board.
 function reset() {
     pointSet = [];
+    pointSetMap = new Map();
     splitTree = null;
     wspd = null;
-    graph.clear();
+    graph = new Set();
     closestPair = [];
-    tApproxMST.clear();
+    tApproxMST = new Set();
     kClosestPairs = [];
     clear();
 }

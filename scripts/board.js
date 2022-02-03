@@ -114,6 +114,22 @@ function draw() {
         }
     }
 
+    else if (animationObject == 'ClearKClosestSelectedWSPD') {
+
+        var kClosestWSPDRemoveQueue = [];
+
+        for (var i = 0; i < undoQueue.length; i++) {
+
+            if (undoQueue[i][0].text == 'kClosestWSPDPairSelection2') {
+                kClosestWSPDRemoveQueue.push(undoQueue[i]);
+            }
+        }
+
+        while (kClosestWSPDRemoveQueue.length > 0) {
+            remove(kClosestWSPDRemoveQueue.shift()[1]);
+        }
+    }
+
     else if (animationObject == 'ClearTemps') {
         while(removeQueue.length > 0) {
             remove(removeQueue.shift()[1]);

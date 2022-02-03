@@ -174,7 +174,7 @@ function calculateCircleConnectionLine(C1Center, C1Point, C2Center, C2Point) {
 
     board.suspendUpdate();
 
-    // Create the starting circles based on the bounding boxes.
+    // Create the circles.
     var circle1 = board.create('circle', [C1Center, C1Point], {
         color: '#FFFFFF',
     });
@@ -192,9 +192,9 @@ function calculateCircleConnectionLine(C1Center, C1Point, C2Center, C2Point) {
 
     // Compute all 4 intersection points of the centerline and the 2 circles.
     var i1 = board.create('intersection', [circle1, centerLine, 0], {color: '#FFFFFF',});
-    var j1 = board.create('intersection', [circle2, centerLine, 0], {color: '#FFFFFF'});
+    var j1 = board.create('intersection', [circle2, centerLine, 0], {color: '#FFFFFF',});
     var i2 = board.create('intersection', [circle1, centerLine, 1], {color: '#FFFFFF',});
-    var j2 = board.create('intersection', [circle2, centerLine, 1], {color: '#FFFFFF'});
+    var j2 = board.create('intersection', [circle2, centerLine, 1], {color: '#FFFFFF',});
 
     // Calculate and compute the closest two intersection points to draw the proper connection line.
     var i = distance2D([i1.X(), i1.Y()], [j1.X(), j1.Y()]) < distance2D([i2.X(), i2.Y()], [j1.X(), j1.Y()]) ? i1 : i2;
@@ -205,6 +205,58 @@ function calculateCircleConnectionLine(C1Center, C1Point, C2Center, C2Point) {
     // Remove all temporary objects used for computation.
     board.removeObject(circle1);
     board.removeObject(circle2);
+    board.removeObject(centerLine);
+    board.removeObject(i1);
+    board.removeObject(j1);
+    board.removeObject(i2);
+    board.removeObject(j2);
+    board.removeObject(i);
+    board.removeObject(j);
+
+    board.unsuspendUpdate();
+
+    return connectionLine;
+}
+
+// Computes the shortest line between rectangles. Uses the JSXBoard objects for geometric computations.
+// Note all objects are invisible on the board.
+function calculateRectangleConnectionLine(R1, R2) {
+    
+    board.suspendUpdate();
+
+    // Create the rectangles.
+    var rectangle1 = board.create('polygon', R1.vertices, {
+        color: '#FF0000',
+    });
+
+    var rectangle2 = board.create('polygon', R2.vertices, {
+        color: '#FF0000',
+    });
+
+    // Compute line from center of rectangle 1 to center of rectangle 2.
+    var centerLine = board.create('line', [R1.getCenter(), R2.getCenter()], {
+        color: '#FF0000',
+        straightFirst: false,
+        straightLast: false
+    });
+
+    // Compute all 4 intersection points of the centerline and the 2 rectangles.
+    var i1 = board.create('intersection', [rectangle1.borders[1], centerLine, 0], { color: '#00FF00', size: 10});
+    var j1 = board.create('intersection', [rectangle2.borders[0], centerLine, 0], { color: '#00FF00', size: 10 });
+    var i2 = board.create('intersection', [rectangle1.borders[1], centerLine, 1], { color: '#00FF00', size: 10});
+    var j2 = board.create('intersection', [rectangle2.borders[0], centerLine, 1], { color: '#00FF00', size: 10 });
+
+    // Calculate and compute the closest two intersection points to draw the proper connection line.
+    var i = distance2D([i1.X(), i1.Y()], [j1.X(), j1.Y()]) < distance2D([i2.X(), i2.Y()], [j1.X(), j1.Y()]) ? i1 : i2;
+    var j = distance2D([i.X(), i.Y()], [j1.X(), j1.Y()]) < distance2D([i.X(), i.Y()], [j2.X(), j2.Y()]) ? j1 : j2;
+
+    let connectionLine = [[i.X(), i.Y()], [j.X(), j.Y()]];
+
+    board.unsuspendUpdate();
+
+    // Remove all temporary objects used for computation.
+    board.removeObject(rectangle1);
+    board.removeObject(rectangle2);
     board.removeObject(centerLine);
     board.removeObject(i1);
     board.removeObject(j1);
