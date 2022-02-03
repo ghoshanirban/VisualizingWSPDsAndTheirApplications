@@ -181,6 +181,27 @@ function generateKClosestPairs(params) {
 
 let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');
 //allNearestNeighborsButton.addEventListener('click', computeAllNearestNeighbors);
+allNearestNeighborsButton.addEventListener('click', AllNearestNeighborConstruction);
+
+function AllNearestNeighborConstruction()
+{    
+    //reset();
+    plot();
+    let s = 2.1;    
+    //pointSet = [[1, 0], [2, 4], [5, 6], [7, 9], [9, 2]];
+    splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
+    wspd = new WSPD(splitTree, s);
+    let treeArray;
+    let pointSetMap = mappingPointSet(pointSet);    
+    let singletonWSPD = getSingletonWSPD(wspd);
+    
+    eventQueue.push('ClearWSPD');
+    //reset();
+    //plot();
+    NaiveAllNN(pointSet,pointSetMap,treeArray,singletonWSPD);
+    animate(1, animationSpeedSelection.value);
+}
+
 
 //Reuse current WSPD button.
 /*unction reUseWSPD() {

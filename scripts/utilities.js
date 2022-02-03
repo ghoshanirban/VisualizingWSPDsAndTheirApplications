@@ -387,3 +387,35 @@ function tToSeparationFactor(t) {
 function separationFactorToT(s) {
     return (s+4)/(s-4);
 }
+
+// maping all points into unique number
+function mappingPointSet(pointSet)
+{
+    let pointSetMap = new Map();
+    let indx = 0;
+   for( let i=0; i<pointSet.length; i++ )
+   {
+      if( !pointSetMap.has(pointSet[i]) )
+      {
+          pointSetMap.set(pointSet[i],indx++);
+      }
+   }
+   return pointSetMap;
+}
+
+// finding WSPD pair with at least one set is singleton
+function getSingletonWSPD(wspd)
+{
+    let wspdSingleton = [];
+    for( let i=0; i<wspd.pairs.length; i++ )
+    {
+        let wspdPair = wspd.pairs[i];
+        if( wspdPair[0].S.length == 1 || wspdPair[1].S.length == 1 )
+        {
+           wspdSingleton.push(wspdPair);  
+        }
+    }
+    //console.log("wspdSingleTon");
+    //console.log(wspdSingleton);
+    return wspdSingleton;
+}
