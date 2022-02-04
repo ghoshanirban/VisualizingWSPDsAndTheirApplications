@@ -8,13 +8,18 @@
 
 // Computes the k-closest pairs in a point set via the WSPD.
 function computeKClosestPairs(k) {
+
+    let wspdSortedPairs = [...wspd.pairs];
+    wspdSortedPairs.sort(function (a, b) {
+        return distanceBetweenBoundingBoxes(a[0].R, a[1].R) - distanceBetweenBoundingBoxes(b[0].R, b[1].R)});
     
     var l = 0;
     let sumL = 0;
 
     // Sum the product of the cardinality of the first l pairs such that the sum is < k. 
     // (The cardinality of a pair is the number of points in it)
-    for (var pair of wspd.pairs) {
+    for (var pair of wspdSortedPairs) {
+        
         sumL += pair[0].S.length * pair[1].S.length;
 
         // Given a point set create a circle containing the points via the bounding box.
@@ -51,8 +56,8 @@ function computeKClosestPairs(k) {
     }
 
     // Geth the lth pair and compute the minimum distance between their bounding boxes.
-    let Al = wspd.pairs[l-1][0];
-    let Bl = wspd.pairs[l-1][1];
+    let Al = wspdSortedPairs[l-1][0];
+    let Bl = wspdSortedPairs[l-1][1];
     let r = distanceBetweenBoundingBoxes(Al.R, Bl.R);
 
     eventQueue.push('ClearTemps');
@@ -68,16 +73,13 @@ function computeKClosestPairs(k) {
     eventQueue.push('ClearTemps');
 
     var lPrime = 0;
-    var lPrimeS = [];
 
     // Find the index lPrime such that the distance between the ith pairs bounding box is <=
     // (1 + (4 /s) * r).
-    for (var pair of wspd.pairs) {
+    for (var pair of wspdSortedPairs) {
 
         if (distanceBetweenBoundingBoxes(pair[0].R, pair[1].R) <= (1 + (4 / wspd.s) * r)) {
-            lPrime ++;
-            lPrimeS.push(pair);
-
+            
             // Given a point set create a circle containing the points via the bounding box.
             var C1 = new Circle(pair[0].R.getCenter(), distance2D(pair[0].R.getCenter(), pair[0].R.vertices[0]));
             var C2 = new Circle(pair[1].R.getCenter(), distance2D(pair[1].R.getCenter(), pair[1].R.vertices[0]));
@@ -93,6 +95,8 @@ function computeKClosestPairs(k) {
             eventQueue.push(new AnimationObject('line',
                 calculateCircleConnectionLine(C1.center, pair[0].R.vertices[0], C2.center, pair[1].R.vertices[0]),
                 kClosestWSPDConnectionLineHighlightStyle2, 'kClosestWSPDPairSelection2', true));
+
+            lPrime++;
         }
     }
 
@@ -100,8 +104,8 @@ function computeKClosestPairs(k) {
 
     // Compute the set L which contains all pairs for which the index i <= lPrime.
     for (var i = 0; i < lPrime; i++) {
-        var Ai = lPrimeS[i][0]//wspd.pairs[i][0];
-        var Bi = lPrimeS[i][1]//wspd.pairs[i][1];
+        var Ai = wspdSortedPairs[i][0];
+        var Bi = wspdSortedPairs[i][1];
 
         // For each element p of Ai and each element q of Bi add this pair to L.
         for(var p of Ai.S){

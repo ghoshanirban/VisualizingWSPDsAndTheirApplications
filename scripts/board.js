@@ -24,10 +24,8 @@ function getMouseCoords(e, i) {
     return new JXG.Coords(JXG.COORDS_BY_SCREEN, [dx, dy], board);
 }
 
-// Board object global containers.
+// Stores board points for ID visual.
 var boardPoints = new Map();
-var boardEdges = new Map();
-var boardCircles = new Map();
 
 // Event queue for animation.
 var eventQueue = [];
@@ -170,9 +168,7 @@ function boundsCheck() {
 
 // Clears the board and deletes all its child objects.
 function clear(){
-    boardPoints.clear();
-    boardEdges.clear();
-    boardCircles.clear();
+    boardPoints = new Map();
     JXG.JSXGraph.freeBoard(board);
     JXG.Options.text.display = 'internal';
     board = JXG.JSXGraph.initBoard('jxgbox', boardParams);
@@ -199,11 +195,11 @@ function plot(){
     // Plot point set points on the board.
     for(let i = 0; i < pointSet.length; i++){
 
-        pointSetStyle.name = i.toString();
+        pointSetStyle.name = pointSetMap.get(pointSet[i]).toString();
 
         var boardPoint = board.create('point', pointSet[i], pointSetStyle);
 
-        boardPoints.set(i.toString(), boardPoint);
+        boardPoints.set(boardPoint, parseInt(boardPoint.name));
     }
 
     board.unsuspendUpdate()
@@ -212,7 +208,17 @@ function plot(){
 // Changes the visibility of the point IDs to match the user's selection.
 function changePointIDStatus() {
 
-    plot();
+    board.suspendUpdate();
+
+    for (var boardPoint of boardPoints.keys()) {
+
+        if (pointIDSelection.checked)
+            boardPoint.name = boardPoints.get(boardPoint).toString(); // Show point ID.
+        else
+            boardPoint.name = ""; // Clear point ID.
+    }
+
+    board.unsuspendUpdate();
 }
 
 // Adds a point to the point set upon left click on board, or removes a point on right click on board.
