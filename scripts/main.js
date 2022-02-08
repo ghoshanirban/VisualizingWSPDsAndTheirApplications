@@ -17,7 +17,25 @@ var tApproxMST = new Set(); // Edge set.
 var kClosestPairs = [] // List of size k of closest pairs.
 
 // Data fields.
-let dataField = document.getElementById('dataField');
+let stepsField = document.getElementById('stepsField');
+let metricsBox = document.getElementById('metricsBox');
+
+// Download controls.
+let dataDownloadButton = document.getElementById('dataDownload');
+dataDownloadButton.addEventListener('click', downloadData);
+
+
+let boardDownloadButtonPNG = document.getElementById('boardDownloadPNG');
+boardDownloadButtonPNG.addEventListener('click', downloadPNG);
+function downloadPNG() {
+    downloadBoardImage('PNG');
+}
+    
+let boardDownloadButtonSVG = document.getElementById('boardDownloadSVG');
+boardDownloadButtonSVG.addEventListener('click', downloadSVG);
+function downloadSVG() {
+    downloadBoardImage('SVG');
+}
 
 // Controls
 
@@ -27,16 +45,6 @@ resetButton.addEventListener('click', reset);
 
 //Animation controls.
 let animationSpeedSelection = document.getElementById('animationSpeed');
-
-/*let animationSlider = document.getElementById('animationSlider');
-animationSlider.min = 0;
-animationSlider.value = 0;
-
-let rewindButton = document.getElementById('rewind');
-let playbackButton = document.getElementById('playback');
-let forwardButton = document.getElementById('forward');*/
-
-//var plot;
 
 // Resets the entire state, all containers and the entire board.
 function reset() {
@@ -99,6 +107,10 @@ function generateWSPD(s=2, tSpanner=false) {
     splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
 
     wspd = new WSPD(splitTree, s);
+    
+    displaySteps('WSPD');
+    populateMetrics('WSPD');
+
     animate(1, animationSpeedSelection.value);
 }
 
@@ -154,7 +166,7 @@ function generateApproxMST() {
     animate(1, animationSpeedSelection.value);
 
     // Print results to the HTML.
-    dataField.innerHTML = computeGraphWeight(tApproxMST) + " " +
+    stepsField.innerHTML = computeGraphWeight(tApproxMST) + " " +
         computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length));
 }
 

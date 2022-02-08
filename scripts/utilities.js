@@ -228,7 +228,7 @@ function calculateCircleConnectionLine(C1Center, C1Point, C2Center, C2Point) {
 }
 
 // Finds the shortest distance between bounding boxes.
-function distanceBetweenBoundingBoxes(R1, R2) {
+function distanceBetweenBoundingBoxes(R1, R2, distance=true) {
 
     var shortestDistanceLine;
     var leftBB; // Bounding box that is oriented to the left of the other.
@@ -242,9 +242,8 @@ function distanceBetweenBoundingBoxes(R1, R2) {
         leftBB = R1;
         rightBB = R2;
     }
-
     // R1 is on the right of R2.
-    else if (R1.vertices[0][0] > R2.vertices[0][0]) {
+    else {
         leftBB = R2;
         rightBB = R1;
     }
@@ -257,124 +256,44 @@ function distanceBetweenBoundingBoxes(R1, R2) {
         return (distance2D(shortestDistanceLine[0], shortestDistanceLine[1]));
     }*/
 
+    // The left box is entirely below the right.
     if (leftBB.vertices[1][1] <= rightBB.vertices[3][1]){
         var possibleConnectionLine = [leftBB.vertices[1],[leftBB.vertices[1][0], leftBB.vertices[0][1] + 
-                                    (rightBB.vertices[3][1] - leftBB.vertices[1][1])]];
+                                    (rightBB.vertices[3][1] - leftBB.vertices[1][1])]]; // Directly below.
         shortestDistanceLine = rightBB.containsPoint(possibleConnectionLine[1]) ? 
-                                possibleConnectionLine : [leftBB.vertices[1], rightBB.vertices[3]];
+                                possibleConnectionLine : [leftBB.vertices[1], rightBB.vertices[3]]; // Slightly offset.
     }
+    // The left box is entirely above the right.
     else if (leftBB.vertices[2][1] >= rightBB.vertices[0][1]) {
         var possibleConnectionLine = [rightBB.vertices[0], [rightBB.vertices[0][0], rightBB.vertices[0][1] +
-                                     (leftBB.vertices[2][1] - rightBB.vertices[0][1])]];
+                                     (leftBB.vertices[2][1] - rightBB.vertices[0][1])]]; // Directly below.
         shortestDistanceLine = leftBB.containsPoint(possibleConnectionLine[1]) ?
-                                 possibleConnectionLine : [leftBB.vertices[2], rightBB.vertices[0]];
+                                 possibleConnectionLine : [leftBB.vertices[2], rightBB.vertices[0]]; // Slightly offset.
     }
+    // Left bounding box upper right is between the right's left side.
     else if (leftBB.vertices[1][1] <= rightBB.vertices[0][1] && leftBB.vertices[1][1] >= rightBB.vertices[3][1]) {
 
         var connectionPoint = [leftBB.vertices[1][0] + (rightBB.vertices[0][0] - leftBB.vertices[0][0]),
                                  leftBB.vertices[1][1]];
         shortestDistanceLine = [leftBB.vertices[1], connectionPoint];
     }
+    // Left bounding box lower right is between the right's left side.
     else if (leftBB.vertices[2][1] <= rightBB.vertices[0][1] && leftBB.vertices[2][1] >= rightBB.vertices[3][1]) {
         var connectionPoint = [leftBB.vertices[2][0] + (rightBB.vertices[0][0] - leftBB.vertices[0][0]),
                                 leftBB.vertices[2][1]];
         shortestDistanceLine = [leftBB.vertices[2], connectionPoint];
     }
+    // Right bounding box is in-between the y max and min of the left.
     else {
         shortestDistanceLine = [[rightBB.vertices[0][0] - (rightBB.vertices[0][0] - leftBB.vertices[0][0]),
         rightBB.vertices[0][1]], rightBB.vertices[0]];
     }
 
-    return (distance2D(shortestDistanceLine[0], shortestDistanceLine[1]));
-
-}
-
-// Creates a complete graph from a point set.
-function generateCompleteGraph(S) {
-
-    var G = new Set();
-
-    for (let i = 0; i < S.length; i++) {
-        u = S[i];
-        for (let j = i + 1; j < S.length; j++) {
-            v = S[j];
-            G.add([u,v]);
-        }
-    }
-
-    return G;
-}
-
-// Prim's MST algorithm.
-function prim(G, n) {
-
-    // Convert the set to an array for sorting by edge weight.
-    let GPrime = Array.from(G);
-
-    // Sort the graph by edge weight.
-    GPrime.sort(function (a, b) { return distance2D(a[0], a[1]) - distance2D(b[0], b[1]) });
+    // Return the distance.
+    if (distance) 
+        return (distance2D(shortestDistanceLine[0], shortestDistanceLine[1]));
     
-    // Select the first vertex in the sorted set to be the arbitrary start.
-    let r = GPrime[0][0];
-
-    // Prims algorithm iterations.
-    var A = new Set();
-    A.add(r);
-    T = new Set();
-    let index = 0;
-
-    // While all vertices have not been connected, find the shortest edge such that a new vertex is added to A.
-    while (A.size != n) {
-        
-        let v = GPrime[index][0];
-        let w = GPrime[index][1];
-        if (A.has(v) && !A.has(w)) {
-            A.add(w); // Add the vertex.
-            T.add(GPrime[index]); // Add the edge to the MST.
-            GPrime.splice(index, 1); // Remove the edge, from the sorted set.
-            index = 0;
-        }
-        else if(A.has(w) && !A.has(v)) {
-            A.add(v); // Add the vertex.
-            T.add(GPrime[index]); // Add the edge to the MST.
-            GPrime.splice(index, 1); // Remove the edge, from the sorted set.
-            index = 0;
-        }
-        else {
-            index++; // Minimum edge is not yet valid check the next edge.
-        }
-    }
-
-    return T;
-}
-
-/*// FloydWarshall algorithm.
-function floydWarshall(S, G) {
-    
-    var dis = [];
-
-    for (let i = 0; i < G.size; i++) {
-       dis.push([]);
-       for (let j = 0; j < G.size; j++) {
-
-            if(i == j)
-                dis[i].push(0);
-            else if(G.get())
-       } 
-    }
-
-}*/
-
-// Iterate over all edges in a graph and compute their total weight.
-function computeGraphWeight(G) {
-    
-    var weight = 0;
-
-    for (var edge of G) { 
-        weight += distance2D(edge[0], edge[1]);
-    }
-
-    return weight;
+    return shortestDistanceLine; // Return the shortest line.
 }
 
 /* Math helper functions. */
@@ -406,6 +325,86 @@ function tToSeparationFactor(t) {
 function separationFactorToT(s) {
     return (s+4)/(s-4);
 }
+
+function downloadData() {
+    return;
+}
+
+// Download function.
+//Screen shot button to capture board image, saves the board as an SVG tree.
+function downloadBoardImage(type) {
+
+    //Converts to SVG tag.
+    var svg = board.renderer.svgRoot;
+
+    var xml = new XMLSerializer().serializeToString(svg);
+
+    var svg64 = btoa(xml);
+
+    var b64start = 'data:image/svg+xml;base64,';
+
+    var img = b64start + svg64;
+
+    var imgT = document.getElementById('screenShot');
+
+    imgT.setAttribute('src', img);
+    imgT.setAttribute('width', svg.getAttribute('width'));
+    imgT.setAttribute('height', svg.getAttribute('height'));
+
+    //Saves svg tag to an svg file for viewing.
+    var mySVG = svg,     // Inline SVG element
+        tgtImage = document.getElementById('screenShot'),      // Where to draw the result
+        can = document.createElement('canvas'), // Not shown on page
+        ctx = can.getContext('2d'),
+        loader = new Image;
+    loader.width = can.width = tgtImage.width;
+    loader.height = can.height = tgtImage.height;
+
+    loader.onload = function () {
+        ctx.drawImage(loader, 0, 0, loader.width, loader.height);
+        console.log(can);
+        setTimeout(function () { return }, 1000)
+        tgtImage.src = can.toDataURL();
+    };
+
+    var svgAsXML = (new XMLSerializer).serializeToString(mySVG);
+    loader.src = 'data:image/svg+xml,' + encodeURIComponent(svgAsXML);
+
+    if (type == "SVG") {
+
+        setTimeout(function () { downloadScreenShot("img", xml, "SVG") }, 5000);
+    }
+    else if (type == "PNG") {
+        setTimeout(function () { downloadScreenShot("img", tgtImage.src, "PNG") }, 5000);
+    }
+}
+
+//Creates a hidden link tag for automatic download upon screen shot.
+function downloadScreenShot(filename, text, type) {
+
+    var element = document.createElement('a');
+    if (type == "SVG") {
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    }
+
+    else if (type == "PNG") {
+        element.setAttribute('href', text);
+    }
+
+    else {
+        return;
+    }
+
+    element.setAttribute('download', filename + "." + type);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
 
 
 

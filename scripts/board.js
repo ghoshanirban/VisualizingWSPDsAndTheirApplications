@@ -54,8 +54,24 @@ function animate(direction, speed) {
     let animationSpeed = 500 / parseFloat(speed);
 
     // Disables animation if selected, all steps will occur instantaneously.
-    if (!animationSelection.checked)
-        animationSpeed = 0
+    if (!animationSelection.checked) {
+        
+        board.suspendUpdate();
+
+        while (eventQueue.length > 0) {
+            let animationObject = eventQueue.shift();
+
+            if (animationObject.isTemporary || typeof animationObject == 'string')
+                continue;
+
+            let boardObject = board.create(animationObject.type,
+                             animationObject.data, animationObject.style);     
+        }
+
+        board.unsuspendUpdate();
+
+        return;
+    }
 
     if(direction) {
         drawInterval = setInterval(draw, animationSpeed);
@@ -143,10 +159,9 @@ function draw() {
         if (animationObject.isTemporary) {
             removeQueue.push([animationObject, boardObject]);
         }
-
-        board.unsuspendUpdate();
-
     }
+
+    board.unsuspendUpdate();
 }
 
 // Removes an object from the board.

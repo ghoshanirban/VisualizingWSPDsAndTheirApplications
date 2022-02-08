@@ -46,6 +46,7 @@ let boardParams = {
     boundingbox: boundingboxStandard,
     showaxis: false,
     showcopyright: false,
+    shownavigation: false,
 };
 
 // Basic point.

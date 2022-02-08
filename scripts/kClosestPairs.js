@@ -66,7 +66,7 @@ function computeKClosestPairs(k) {
         kClosestLthBoundingBoxStyle, 'kCLosestBoundingBox', true))
     eventQueue.push(new AnimationObject('polygon', Bl.R.vertices,
         kClosestLthBoundingBoxStyle, 'kCLosestBoundingBox', true))
-    eventQueue.push(new AnimationObject('line', calculateRectangleConnectionLine(Al.R, Bl.R), 
+    eventQueue.push(new AnimationObject('line', distanceBetweenBoundingBoxes(Al.R, Bl.R, false), 
         kClosestLthConnectionLineHighlightStyle, 'kCLosestBoundingBox', true));
 
     eventQueue.push('ClearTemps');
@@ -77,7 +77,7 @@ function computeKClosestPairs(k) {
 
     // Find the index lPrime such that the distance between the ith pairs bounding box is <=
     // (1 + (4 /s) * r).
-    while (pair[2] <= distanceConstant) {
+    while (lPrime < wspdSortedPairs.length && pair[2] <= distanceConstant) {
             
         // Given a point set create a circle containing the points via the bounding box.
         var C1 = new Circle(pair[0].R.getCenter(), distance2D(pair[0].R.getCenter(), pair[0].R.vertices[0]));
