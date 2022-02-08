@@ -40,7 +40,8 @@ class WSPD {
 
         // Nodes are well separated add as a valid pair.
         if(isWellSeparated(v, w, this.s)) {
-            this.pairs.push([v,w]);
+            var d = distanceBetweenBoundingBoxes(v.R, w.R); // Used in k-closest pairs.
+            this.pairs.push([v,w,d]);
         }
 
         // Compute node with larger longest side, and recur on that subtree.

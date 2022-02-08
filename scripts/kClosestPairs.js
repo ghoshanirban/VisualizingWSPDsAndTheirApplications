@@ -10,8 +10,7 @@
 function computeKClosestPairs(k) {
 
     let wspdSortedPairs = [...wspd.pairs];
-    wspdSortedPairs.sort(function (a, b) {
-        return distanceBetweenBoundingBoxes(a[0].R, a[1].R) - distanceBetweenBoundingBoxes(b[0].R, b[1].R)});
+    wspdSortedPairs.sort(function (a, b) {return a[2] - b[2]});
     
     var l = 0;
     let sumL = 0;
@@ -72,32 +71,31 @@ function computeKClosestPairs(k) {
 
     eventQueue.push('ClearTemps');
 
+    const distanceConstant = (1 + (4 / wspd.s) * r);
     var lPrime = 0;
+    var pair = wspdSortedPairs[lPrime]; // Get the first pair.
 
     // Find the index lPrime such that the distance between the ith pairs bounding box is <=
     // (1 + (4 /s) * r).
-    for (var pair of wspdSortedPairs) {
-
-        if (distanceBetweenBoundingBoxes(pair[0].R, pair[1].R) <= (1 + (4 / wspd.s) * r)) {
+    while (pair[2] <= distanceConstant) {
             
-            // Given a point set create a circle containing the points via the bounding box.
-            var C1 = new Circle(pair[0].R.getCenter(), distance2D(pair[0].R.getCenter(), pair[0].R.vertices[0]));
-            var C2 = new Circle(pair[1].R.getCenter(), distance2D(pair[1].R.getCenter(), pair[1].R.vertices[0]));
+        // Given a point set create a circle containing the points via the bounding box.
+        var C1 = new Circle(pair[0].R.getCenter(), distance2D(pair[0].R.getCenter(), pair[0].R.vertices[0]));
+        var C2 = new Circle(pair[1].R.getCenter(), distance2D(pair[1].R.getCenter(), pair[1].R.vertices[0]));
 
-            // Find the circle with the maximum radius.
-            let maxRadius = Math.max(C1.radius, C2.radius);
+        // Find the circle with the maximum radius.
+        let maxRadius = Math.max(C1.radius, C2.radius);
 
-            // Animations for the WSPD pairs with valid points for the k closest pairs.
-            eventQueue.push(new AnimationObject('circle', [C1.center, pair[0].R.vertices[0]],
-                kClosestWSPDCircleHighlightStyle2, 'kClosestWSPDPairSelection2', true));
-            eventQueue.push(new AnimationObject('circle', [C2.center, pair[1].R.vertices[0]],
-                kClosestWSPDCircleHighlightStyle2, 'kClosestWSPDPairSelection2', true));
-            eventQueue.push(new AnimationObject('line',
-                calculateCircleConnectionLine(C1.center, pair[0].R.vertices[0], C2.center, pair[1].R.vertices[0]),
-                kClosestWSPDConnectionLineHighlightStyle2, 'kClosestWSPDPairSelection2', true));
+        // Animations for the WSPD pairs with valid points for the k closest pairs.
+        eventQueue.push(new AnimationObject('circle', [C1.center, pair[0].R.vertices[0]],
+            kClosestWSPDCircleHighlightStyle2, 'kClosestWSPDPairSelection2', true));
+        eventQueue.push(new AnimationObject('circle', [C2.center, pair[1].R.vertices[0]],
+            kClosestWSPDCircleHighlightStyle2, 'kClosestWSPDPairSelection2', true));
+        eventQueue.push(new AnimationObject('line',
+            calculateCircleConnectionLine(C1.center, pair[0].R.vertices[0], C2.center, pair[1].R.vertices[0]),
+            kClosestWSPDConnectionLineHighlightStyle2, 'kClosestWSPDPairSelection2', true));
 
-            lPrime++;
-        }
+        pair = wspdSortedPairs[++lPrime]; // Increment lPrime and get the next pair.
     }
 
     var L = [];
