@@ -347,3 +347,29 @@ let kClosestPairLineStyle = {
     fixed: true,
     strokeWidth: 5,
 };
+
+
+// Style for line connecting ANN pairs.
+let ANNSeparationLineStyle = {
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#FFFFFF',
+    fixed: true,
+};
+
+let pointSetStyleANNNode1 = {
+    size: 3,
+    withLabel: false,
+    fixed: true,
+    color: '#FF0000'
+};
+
+let pointSetStyleANNNode2 = {
+    size: 3,
+    withLabel: false,
+    fixed: true,
+    color: '#0000FF'
+};
+
+

@@ -36,3 +36,111 @@
     width: 2vw;
     background-color: #FFF;
 }
+
+
+textarea {
+    text-align: left;
+    width: 100%;
+    height: 55px;
+    padding-top:0;
+    padding-bottom:20px;
+    padding-right: 22px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 2px;
+    background-color: #faf5f5;
+    font-size: 15px;
+    resize: auto;
+  }
+
+  labelP{
+      padding-left: 20px;
+  }
+  .formfield *{
+    vertical-align: top;
+  }
+
+  .buttonE {
+    background-color: #04bd32; /* Green */
+    /* color: white; */
+    padding: 2px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 1px 1px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 50px;
+    border-width: 5px;
+  }
+
+  .button1 {
+    background-color: rgb(239, 229, 252); 
+    color: black; 
+    border: 1px solid #e8ddf7;    
+    padding-top: 5px;
+    width: 120px;
+  }
+  
+  
+  .button1:hover {
+    background-color: #04bd32;
+    color: white;
+  }
+
+  :focus,.focus-visible:focus:not(:focus-visible) {
+    color: rgb(10, 14, 236);
+    /* background-color: rgb(245, 207, 207); */
+}
+
+  .button1:active {
+    background-color: #04bd32;
+    box-shadow: 0 5px rgb(16, 164, 233);
+    transform: translateY(6px);
+  }
+
+  
+  .button2 {
+    background-color: #f85656; 
+    color: rgb(247, 243, 243); 
+    border: 1px solid #000000;    
+    padding-top: 5px;
+    width: 120px;
+  }
+
+  .button2:hover {
+    background-color: #ff0000;
+    color: rgb(12, 0, 0);
+  }
+
+  .button2:active {
+    background-color: #ff002b;
+    box-shadow: 0 5px rgb(252, 4, 4);
+    transform: translateY(4px);
+  }
+
+  .bigButton {
+    background-color: #04A777;
+    padding: 20px 18px;
+    border-radius: 40px;
+    font-size: 1.61em;
+    border-width: 5px;
+    margin:15px;
+  }
+
+#numPoints {
+    height: 18px;
+}
+
+#separationFactor {
+    height: 18px;
+}
+
+#t{
+  height: 18px;
+}
+
+#kPairs{
+  height: 18px;
+}
