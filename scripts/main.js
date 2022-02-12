@@ -5,7 +5,6 @@
  * David Wisnosky
  */
 
-
 // Globals
 var pointSet = []; // List of points.
 var pointSetMap = new Map(); // Maps point index to the points (x,y) value.
@@ -18,7 +17,7 @@ var tApproxMST = new Set(); // Edge set.
 var kClosestPairs = [] // List of size k of closest pairs.
 
 // Data fields.
-let stepsField = document.getElementById('stepsField');
+let stepsField = document.getElementById('stepsBox');
 let metricsBox = document.getElementById('metricsBox');
 
 // Controls
@@ -71,12 +70,9 @@ let animationSelection = document.getElementById('animationSelection');
 let separationFactorEntry = document.getElementById('separationFactor');
 let wspdButton = document.getElementById('WSPD');
 wspdButton.addEventListener('click', generateWSPD);
-function generateWSPD(s=2, tSpanner=false) {
+function generateWSPD() {
 
-    // If the WSPD is not created for a t-spanner get the input value for separation factor.
-    if(!tSpanner) {
-        s = parseFloat(separationFactorEntry.value);
-    }
+    s = separationFactorEntry.value;
 
     // Check that s is valid (s >= 0).
     if (!isFinite(s) || s < 0) {
@@ -94,7 +90,6 @@ function generateWSPD(s=2, tSpanner=false) {
     
     displaySteps('WSPD');
     populateMetrics('WSPD');
-
     animate(1, animationSpeedSelection.value);
 }
 

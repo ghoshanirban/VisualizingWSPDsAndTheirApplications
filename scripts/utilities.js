@@ -355,7 +355,7 @@ function downloadBoardImage(type) {
     let can = document.createElement('canvas'); // Creates a canvas to draw the SVG to for PNG format. 
     let ctx = can.getContext('2d'); // 2D canvas.
 
-    // Create a image with same dimentions as the canvas.
+    // Create a image with same dimensions as the canvas.
     let loader = new Image();
     loader.width = can.width = tgtImage.width;
     loader.height = can.height = tgtImage.height;

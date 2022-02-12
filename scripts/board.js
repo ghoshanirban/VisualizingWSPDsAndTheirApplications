@@ -151,7 +151,7 @@ function draw() {
     }
     
     else {
-
+        displaySteps(animationObject.text);
         let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
 
         undoQueue.push([animationObject, boardObject]);

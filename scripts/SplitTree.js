@@ -61,7 +61,7 @@ class SplitTree {
             let R2 = subRectangles[1];
 
             // Animates the splitting of the bounding box of the point set.
-            eventQueue.push(new AnimationObject('line', subRectangles[2], boundingBoxSplitLineStyle, 'split', true));
+            eventQueue.push(new AnimationObject('line', subRectangles[2], boundingBoxSplitLineStyle, 'splitBoundingBox', true));
 
             // Subsets partitioned from original.
             var S1 = [];
