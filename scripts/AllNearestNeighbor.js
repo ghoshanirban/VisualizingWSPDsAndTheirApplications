@@ -20,6 +20,7 @@ function pointDist(checkPoint, onFirst, wspdPairFirstPart, wspdPairSecondPart, p
             if (minDist > dist) {
                 minDist = dist;
                 minPoint = pointofSecondPart;
+                // NearestNeighborAnimatePointWiseCurrentClosestPair(checkPoint,pointofSecondPart,3);
             }
         }
     }
@@ -36,6 +37,43 @@ function isExistWhere(wspdPart, checkPoint, pointSetMap) {
     }
 }
 
+
+function NearestNeighborAnimatePointWiseCurrentClosestPair(v, w, s) {
+    var C1 = new Circle(v, 0);
+    var C2 = new Circle(w, 0);
+    console.log(C1);
+    console.log(C2);
+
+    // Set the color of the animation objects.
+    wspdCircleStyle.color = getColor();
+    var style1 = {};
+    Object.assign(style1, wspdCircleStyle);
+
+    //ANNCurrentClosestLine.color = '#59FF33';
+    //ANNSeparationLineStyle.
+
+    var style2 = {};
+    Object.assign(style2, ANNCurrentClosestLine);
+
+    //pointSetStyle.color = '#FF0000';    
+    let animationCircle1 = new AnimationObject('point', v, pointSetStyleANNCurrentClosestNode1, 'wellSeparatedCheck', true);
+    //pointSetStyle.color = '#0000FF';    
+    let animationCircle2 = new AnimationObject('point', w, pointSetStyleANNCurrentClosestNode2, 'wellSeparatedCheck', true);
+    let animationLine = new AnimationObject('line',
+        [v, w],
+        style2, 'wellSeparatedCheck', true);
+
+
+    // Set the AnimationObjects as non-temporary.
+    animationCircle1.isTemporary = false;
+    animationCircle2.isTemporary = false;
+    animationLine.isTemporary = false;
+
+    // Adds the AnimationObjects to the animation event queue.
+    eventQueue.push(animationCircle1);
+    eventQueue.push(animationCircle2);
+    eventQueue.push(animationLine);
+}
 
 function NearestNeighborAnimatePointWise(v, w, s) {
     var C1 = new Circle(v, 0);
@@ -112,6 +150,7 @@ function NaiveAllNN(pointSet, pointSetMap, treeArray, wspd) {
                 minDist = dist;
                 minDistPoint = NNPair;
                 nearestWspdPair = wspdPairs;
+                NearestNeighborAnimatePointWiseCurrentClosestPair(checkPoint,minDistPoint,3);
             }
             eventQueue.push('ClearWSPD');
         }

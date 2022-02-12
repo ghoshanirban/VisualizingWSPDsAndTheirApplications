@@ -27,6 +27,7 @@ resetButton.addEventListener('click', reset);
 
 //Animation controls.
 let animationSpeedSelection = document.getElementById('animationSpeed');
+console.log("animationSpeedSelection "+animationSpeedSelection.value);
 
 /*let animationSlider = document.getElementById('animationSlider');
 animationSlider.min = 0;
@@ -99,6 +100,7 @@ function generateWSPD(s=2, tSpanner=false) {
     splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
 
     wspd = new WSPD(splitTree, s);
+    console.log("animationSpeedSelection "+animationSpeedSelection.value);
     animate(1, animationSpeedSelection.value);
 }
 
@@ -124,6 +126,7 @@ function generateTSpanner() {
     generateWSPD(tToSeparationFactor(parseFloat(t)), true);
 
     graph = constructTSpanner(parseFloat(t));
+    console.log("animationSpeedSelection "+animationSpeedSelection.value);
     animate(1, animationSpeedSelection.value);
 }
 
@@ -180,8 +183,8 @@ function generateKClosestPairs(params) {
 }
 
 let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');
-//allNearestNeighborsButton.addEventListener('click', computeAllNearestNeighbors);
 allNearestNeighborsButton.addEventListener('click', AllNearestNeighborConstruction);
+
 
 function AllNearestNeighborConstruction()
 {    
@@ -212,3 +215,4 @@ function AllNearestNeighborConstruction()
         continue;
     }
 }*/
+

@@ -372,4 +372,26 @@ let pointSetStyleANNNode2 = {
     color: '#0000FF'
 };
 
+let pointSetStyleANNCurrentClosestNode1 = {
+    size: 6,
+    withLabel: false,
+    fixed: true,
+    color: '#59FF33'
+};
+
+let pointSetStyleANNCurrentClosestNode2 = {
+    size: 6,
+    withLabel: false,
+    fixed: true,
+    color: '#59FF33'
+};
+
+let ANNCurrentClosestLine = {
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#59FF33',
+    fixed: true,
+    strokeWidth: 5,
+};
 
