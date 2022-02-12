@@ -337,71 +337,78 @@ function downloadBoardImage(type) {
     //Converts to SVG tag.
     var svg = board.renderer.svgRoot;
 
+    // Prepares SVG as a string for export to file as an image.
     var xml = new XMLSerializer().serializeToString(svg);
-
     var svg64 = btoa(xml);
-
     var b64start = 'data:image/svg+xml;base64,';
-
     var img = b64start + svg64;
 
+    // Creates populates a HTML tag to be the downloaded file.
     var imgT = document.getElementById('screenShot');
-
     imgT.setAttribute('src', img);
     imgT.setAttribute('width', svg.getAttribute('width'));
     imgT.setAttribute('height', svg.getAttribute('height'));
 
     //Saves svg tag to an svg file for viewing.
-    var mySVG = svg,     // Inline SVG element
-        tgtImage = document.getElementById('screenShot'),      // Where to draw the result
-        can = document.createElement('canvas'), // Not shown on page
-        ctx = can.getContext('2d'),
-        loader = new Image;
+    let mySVG = svg;  // Inline SVG element.
+    let tgtImage = document.getElementById('screenShot'); // Draws the SVG to the image tag.
+    let can = document.createElement('canvas'); // Creates a canvas to draw the SVG to for PNG format. 
+    let ctx = can.getContext('2d'); // 2D canvas.
+
+    // Create a image with same dimentions as the canvas.
+    let loader = new Image();
     loader.width = can.width = tgtImage.width;
     loader.height = can.height = tgtImage.height;
 
+    // Draws the image to the canvas on load, for PNG download.
     loader.onload = function () {
         ctx.drawImage(loader, 0, 0, loader.width, loader.height);
-        console.log(can);
-        setTimeout(function () { return }, 1000)
         tgtImage.src = can.toDataURL();
     };
 
+    // Encodes SVG for download.
     var svgAsXML = (new XMLSerializer).serializeToString(mySVG);
     loader.src = 'data:image/svg+xml,' + encodeURIComponent(svgAsXML);
 
+    // Pass the XML encoding for SVG format download.
     if (type == "SVG") {
-
-        setTimeout(function () { downloadScreenShot("img", xml, "SVG") }, 5000);
+        setTimeout(function () { downloadScreenShot("img", xml, "SVG") }, 1000);
     }
+    // Pass the PNG image string for PNG download.
     else if (type == "PNG") {
-        setTimeout(function () { downloadScreenShot("img", tgtImage.src, "PNG") }, 5000);
+        setTimeout(function () { downloadScreenShot("img", tgtImage.src, "PNG") }, 1000);
     }
 }
 
 //Creates a hidden link tag for automatic download upon screen shot.
 function downloadScreenShot(filename, text, type) {
 
+    // Hidden download link tag.
     var element = document.createElement('a');
+
+    // Set tag for SVG encoding.
     if (type == "SVG") {
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     }
-
+    // Set tag for SVG encoding.
     else if (type == "PNG") {
         element.setAttribute('href', text);
     }
-
     else {
         return;
     }
 
+    // Prepare element to download the file.
     element.setAttribute('download', filename + "." + type);
 
+    // Hide the element.
     element.style.display = 'none';
     document.body.appendChild(element);
 
+    // Download the image file.
     element.click();
 
+    // Remove the tag.
     document.body.removeChild(element);
 }
 

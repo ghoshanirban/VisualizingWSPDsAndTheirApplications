@@ -11,7 +11,8 @@ var pointSet = []; // List of points.
 var pointSetMap = new Map(); // Maps point index to the points (x,y) value.
 var splitTree = null; // Object defined in SplitTree.js
 var wspd = null; // Object defined in WSPD.js
-var graph = new Set(); // Edge set.
+var graph = []; // Adjacency list representation for the graph.
+var graphEdges = new Set(); // Edge set.
 var closestPair = []; // Pair of points in R^2.
 var tApproxMST = new Set(); // Edge set.
 var kClosestPairs = [] // List of size k of closest pairs.
@@ -19,23 +20,6 @@ var kClosestPairs = [] // List of size k of closest pairs.
 // Data fields.
 let stepsField = document.getElementById('stepsField');
 let metricsBox = document.getElementById('metricsBox');
-
-// Download controls.
-let dataDownloadButton = document.getElementById('dataDownload');
-dataDownloadButton.addEventListener('click', downloadData);
-
-
-let boardDownloadButtonPNG = document.getElementById('boardDownloadPNG');
-boardDownloadButtonPNG.addEventListener('click', downloadPNG);
-function downloadPNG() {
-    downloadBoardImage('PNG');
-}
-    
-let boardDownloadButtonSVG = document.getElementById('boardDownloadSVG');
-boardDownloadButtonSVG.addEventListener('click', downloadSVG);
-function downloadSVG() {
-    downloadBoardImage('SVG');
-}
 
 // Controls
 
@@ -203,3 +187,23 @@ let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');
         continue;
     }
 }*/
+
+// Download controls.
+
+// Data download (points, pairs, edges ...).
+let dataDownloadButton = document.getElementById('dataDownload');
+dataDownloadButton.addEventListener('click', downloadData);
+
+// Download board as a PNG image.
+let boardDownloadButtonPNG = document.getElementById('boardDownloadPNG');
+boardDownloadButtonPNG.addEventListener('click', downloadPNG);
+function downloadPNG() {
+    downloadBoardImage('PNG');
+}
+
+// Download board as an SVG image.
+let boardDownloadButtonSVG = document.getElementById('boardDownloadSVG');
+boardDownloadButtonSVG.addEventListener('click', downloadSVG);
+function downloadSVG() {
+    downloadBoardImage('SVG');
+}
