@@ -21,12 +21,12 @@ steps.set('WSPD',
 
 steps.set('boundingBox',
         '<p> <strong> \\(SpitTree(S):\\) </strong> </p>' +
-        '<p> 1) If $S is singleton create a leaf node.$ <p>' +
-        '<p> <strong> \\(2) Compute bounding box, R(S), for the point set.\\) </strong> </p>' +
-        '<p> \\(3) Split the bounding box along the longest edge.\\) </p>' +
-        '<p> \\(4) Partition the point set S into two subsets S_1 and S_2 with respect to the splitting line.\\)</p>' +
-        '<p> \\(5) Recursively call SplitTree(S_1) and Split Tree(S_2) and create a tree node with both calls as its left and right children respectively.\\)' +
-        '<p> \\(6) Return the split tree T\\) </p>' +
+        '<p> 1) \\textsf{If} S is singleton create a leaf node. <p>' +
+        '<p> <strong> 2) Compute bounding box, R(S), for the point set. </strong> </p>' +
+        '<p> 3) Split the bounding box along the longest edge. </p>' +
+        '<p> 4) Partition the point set S into two subsets S_1 and S_2 with respect to the splitting line.</p>' +
+        '<p> 5) Recursively call SplitTree(S_1) and Split Tree(S_2) and create a tree node with both calls as its left and right children respectively.' +
+        '<p> 6) Return the split tree T </p>' +
         '<p> \\(Compute WSPD(T)\\) </p>');
 
 
@@ -50,6 +50,6 @@ function displaySteps(selection) {
 
     stepsBox.innerHTML += steps.get(selection)
 
-    MathJax.typeset();
+    //MathJax.typeset();
 }
 

@@ -4,13 +4,13 @@
     overflow: hidden;
 }
 
-#controlBar{
+#controlBar {
     width: calc(((100vw - 100vh)/ 2) - 2vw);
     height: 100vh;
     float: left;
 }
 
-#jxgbox{
+#jxgbox {
     top: 1vh;
     width: 95vh;
     height: 95vh;
@@ -18,10 +18,16 @@
     margin: 0 2vw;
 }
 
-#dataBar{
+#dataBar {
     width: calc(((100vw - 100vh)/ 2) - 2vw);
     height: 100vh;
     float: left;
+}
+
+#stepsBox {
+    border-radius: 25px;
+    background-color: lightgrey;
+    text-align: center;
 }
 
 #screenShot{
