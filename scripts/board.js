@@ -35,9 +35,9 @@ var undoQueue = [];
 var removeQueue = [];
 
 // General object for animation objects, contains data for JSXGraph board objects and their status.
-class AnimationObject{
+class AnimationObject {
 
-    constructor(type, data, style, text, isTemporary){
+    constructor(type, data, style, text, isTemporary) {
         this.type = type;
         this.data = data;
         this.style = style;
@@ -52,20 +52,20 @@ var drawInterval;
 // Animates the board by drawing or removing objects.
 function animate(direction, speed) {
 
-    // Compute animation speed, based on user selection.
+    // Compute animation speed, based on user selection.    
     let animationSpeed = 500 / parseFloat(speed);
 
     // Disables animation if selected, all steps will occur instantaneously.
     if (!animationSelection.checked)
         animationSpeed = 0
 
-    if(direction) {
+    if (direction) {
         drawInterval = setInterval(draw, animationSpeed);
     }
 }
 
 // Draws an object onto the board.
-function draw() {   
+function draw() {
 
     if (eventQueue.length == 0) {
         clearInterval(drawInterval);
@@ -76,8 +76,8 @@ function draw() {
 
     let animationObject = eventQueue.shift();
 
-    if (animationObject == 'RemoveNonWellSeparated'){
-        
+    if (animationObject == 'RemoveNonWellSeparated') {
+
         var notWellSeparated = [];
         var newRemoveQueue = [];
 
@@ -98,8 +98,8 @@ function draw() {
         removeQueue = newRemoveQueue;
     }
 
-    else if (animationObject == 'ClearWSPD'){
-        
+    else if (animationObject == 'ClearWSPD') {
+
         var wspdRemoveQueue = [];
 
         for (var i = 0; i < undoQueue.length; i++) {
@@ -109,7 +109,7 @@ function draw() {
             }
         }
 
-        while(wspdRemoveQueue.length > 0) {
+        while (wspdRemoveQueue.length > 0) {
             remove(wspdRemoveQueue.shift()[1]);
         }
     }
@@ -131,11 +131,27 @@ function draw() {
     }
 
     else if (animationObject == 'ClearTemps') {
-        while(removeQueue.length > 0) {
+        while (removeQueue.length > 0) {
             remove(removeQueue.shift()[1]);
         }
     }
-    
+
+    else if (animationObject == 'ClearANN') {
+
+        var ANNRemoveQueue = [];
+
+        for (var i = 0; i < undoQueue.length; i++) {
+
+            if (undoQueue[i][0].text == 'ANNConstructionSteps') {
+                ANNRemoveQueue.push(undoQueue[i]);
+            }
+        }
+
+        while (ANNRemoveQueue.length > 0) {
+            remove(ANNRemoveQueue.shift()[1]);
+        }
+    }
+
     else {
 
         let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
@@ -161,15 +177,15 @@ function remove(boardObject) {
 function boundsCheck() {
 
     let bounds = board.getBoundingBox();
-    
-    if(isFinite(bounds[0]) && isFinite(bounds[1]) && isFinite(bounds[2]) && isFinite(bounds[3]))
+
+    if (isFinite(bounds[0]) && isFinite(bounds[1]) && isFinite(bounds[2]) && isFinite(bounds[3]))
         return;
     else
         board.setBoundingBox(boundingboxStandard, true);
 }
 
 // Clears the board and deletes all its child objects.
-function clear(){
+function clear() {
     boardPoints.clear();
     boardEdges.clear();
     boardCircles.clear();
@@ -181,7 +197,7 @@ function clear(){
 }
 
 // Places all generated or entered points on the board, no animation instant plotting.
-function plot(){
+function plot() {
 
     // If the board edit is locked return.
     if (!editPointsSelection.value)
@@ -197,7 +213,7 @@ function plot(){
     board.suspendUpdate()
 
     // Plot point set points on the board.
-    for(let i = 0; i < pointSet.length; i++){
+    for (let i = 0; i < pointSet.length; i++) {
 
         pointSetStyle.name = i.toString();
 
@@ -240,7 +256,7 @@ function pointClick(e) {
                 case 1: // Left click = do nothing, point already exists.
                     return;
                 case 3: // Right click = remove existing point.
-                    
+
                     // Copy all points but the one clicked.
                     var newPointSet = [];
                     var selectedPoint = [
@@ -263,7 +279,7 @@ function pointClick(e) {
                     // Reset text box without removed point.
                     pointTextBox.value = '';
                     updatePointTextBox(pointSet);
-                    
+
                     plot();
                     return;
             }

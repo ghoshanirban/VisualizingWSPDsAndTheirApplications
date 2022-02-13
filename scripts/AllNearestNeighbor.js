@@ -4,7 +4,7 @@ function colorAllWSPDPair(wspdPoints) {
     Object.assign(style1, wspdCircleStyle);
 
     for (let i = 0; i < wspdPoints; i++) {
-        let animationCircle1 = new AnimationObject('point', wspdPoints[i], style1, 'wellSeparatedCheck', true);
+        let animationCircle1 = new AnimationObject('point', wspdPoints[i], style1, 'ANNConstructionSteps', true);
         eventQueue.push(animationCircle1);
     }
 }
@@ -38,7 +38,7 @@ function isExistWhere(wspdPart, checkPoint, pointSetMap) {
 }
 
 
-function NearestNeighborAnimatePointWiseCurrentClosestPair(v, w, s) {
+function NearestNeighborAnimatePointWiseCurrentClosestPair(v, w) {
     var C1 = new Circle(v, 0);
     var C2 = new Circle(w, 0);
     console.log(C1);
@@ -56,12 +56,12 @@ function NearestNeighborAnimatePointWiseCurrentClosestPair(v, w, s) {
     Object.assign(style2, ANNCurrentClosestLine);
 
     //pointSetStyle.color = '#FF0000';    
-    let animationCircle1 = new AnimationObject('point', v, pointSetStyleANNCurrentClosestNode1, 'wellSeparatedCheck', true);
+    let animationCircle1 = new AnimationObject('point', v, pointSetStyleANNCurrentClosestNode1, 'ANNConstructionSteps', true);
     //pointSetStyle.color = '#0000FF';    
-    let animationCircle2 = new AnimationObject('point', w, pointSetStyleANNCurrentClosestNode2, 'wellSeparatedCheck', true);
+    let animationCircle2 = new AnimationObject('point', w, pointSetStyleANNCurrentClosestNode2, 'ANNConstructionSteps', true);
     let animationLine = new AnimationObject('line',
         [v, w],
-        style2, 'wellSeparatedCheck', true);
+        style2, 'ANNConstructionSteps', true);
 
 
     // Set the AnimationObjects as non-temporary.
@@ -75,7 +75,7 @@ function NearestNeighborAnimatePointWiseCurrentClosestPair(v, w, s) {
     eventQueue.push(animationLine);
 }
 
-function NearestNeighborAnimatePointWise(v, w, s) {
+function NearestNeighborAnimatePointWise(v, w) {
     var C1 = new Circle(v, 0);
     var C2 = new Circle(w, 0);
     console.log(C1);
@@ -93,12 +93,12 @@ function NearestNeighborAnimatePointWise(v, w, s) {
 
 
     //pointSetStyle.color = '#FF0000';    
-    let animationCircle1 = new AnimationObject('point', v, pointSetStyleANNNode1, 'wellSeparatedCheck', true);
+    let animationCircle1 = new AnimationObject('point', v, pointSetStyleANNNode1, 'ANNConstructionSteps', true);
     //pointSetStyle.color = '#0000FF';    
-    let animationCircle2 = new AnimationObject('point', w, pointSetStyleANNNode2, 'wellSeparatedCheck', true);
+    let animationCircle2 = new AnimationObject('point', w, pointSetStyleANNNode2, 'ANNConstructionSteps', true);
     let animationLine = new AnimationObject('line',
         [v, w],
-        style2, 'wellSeparatedCheck', true);
+        style2, 'ANNConstructionSteps', true);
 
 
     // Set the AnimationObjects as non-temporary.
@@ -150,13 +150,12 @@ function NaiveAllNN(pointSet, pointSetMap, treeArray, wspd) {
                 minDist = dist;
                 minDistPoint = NNPair;
                 nearestWspdPair = wspdPairs;
-                NearestNeighborAnimatePointWiseCurrentClosestPair(checkPoint,minDistPoint,3);
+                NearestNeighborAnimatePointWiseCurrentClosestPair(checkPoint,minDistPoint);
             }
-            eventQueue.push('ClearWSPD');
+            eventQueue.push('ClearANN');
         }
-        eventQueue.push('ClearWSPD');
-
-
+        eventQueue.push('ClearANN');
+        finalANNPairConstruction(checkPoint,minDistPoint);
         ANNList.push(checkPoint);
         ANNList.push(minDistPoint);
         console.log("PointSet Naive");
@@ -164,6 +163,31 @@ function NaiveAllNN(pointSet, pointSetMap, treeArray, wspd) {
         console.log(minDistPoint);
     }
     finalANNAnimation(ANNList);
+}
+
+function finalANNPairConstruction(checkPoint,minDistPoint)
+{
+    wspdCircleStyle.color = getColor();
+    var style1 = {};
+    Object.assign(style1, wspdCircleStyle);
+
+    ANNSeparationLineStyle.color = '#0000FF'//'#FA5B3D';
+    var style2 = {};
+    Object.assign(style2, ANNSeparationLineStyle);
+
+    let animationCircleP1 = new AnimationObject('point', checkPoint[0],
+        style1, 'ANNConstructionStepsPermanent', true);
+    let animationCircleP2 = new AnimationObject('point', minDistPoint[0], style1, 'ANNConstructionStepsPermanent', true);
+
+    let animationCircleP3 = new AnimationObject('arrow', [checkPoint, minDistPoint], style2, 'ANNConstructionStepsPermanent', true);
+
+    animationCircleP1.isTemporary = false;
+    animationCircleP2.isTemporary = false;
+    animationCircleP3.isTemporary = false;
+
+    eventQueue.push(animationCircleP1);
+    eventQueue.push(animationCircleP2);
+    eventQueue.push(animationCircleP3);
 }
 
 function finalANNAnimation(ANNList) {
@@ -180,10 +204,10 @@ function finalANNAnimation(ANNList) {
         Object.assign(style2, ANNSeparationLineStyle);
 
         let animationCircleP1 = new AnimationObject('point', checkPoint[0],
-            style1, 'wellSeparatedCheck', true);
-        let animationCircleP2 = new AnimationObject('point', minDistPoint[0], style1, 'wellSeparatedCheck', true);
+            style1, 'ANNConstructionSteps', true);
+        let animationCircleP2 = new AnimationObject('point', minDistPoint[0], style1, 'ANNConstructionSteps', true);
 
-        let animationCircleP3 = new AnimationObject('arrow', [checkPoint, minDistPoint], style2, 'wellSeparatedCheck', true);
+        let animationCircleP3 = new AnimationObject('arrow', [checkPoint, minDistPoint], style2, 'ANNConstructionSteps', true);
 
         eventQueue.push(animationCircleP1);
         eventQueue.push(animationCircleP2);

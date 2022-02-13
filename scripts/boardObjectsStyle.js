@@ -356,6 +356,7 @@ let ANNSeparationLineStyle = {
     straightLast: false,
     color: '#FFFFFF',
     fixed: true,
+    strokeWidth: 4,
 };
 
 let pointSetStyleANNNode1 = {
