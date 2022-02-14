@@ -10,11 +10,12 @@ var pointSet = []; // List of points.
 var pointSetMap = new Map(); // Maps point index to the points (x,y) value.
 var splitTree = null; // Object defined in SplitTree.js
 var wspd = null; // Object defined in WSPD.js
-var graph = []; // Adjacency list representation for the graph.
+var graph = new Map(); // Adjacency list representation for the graph.
 var graphEdges = new Set(); // Edge set.
 var closestPair = []; // Pair of points in R^2.
 var tApproxMST = new Set(); // Edge set.
-var kClosestPairs = [] // List of size k of closest pairs.
+var kClosestPairs = []; // List of size k of closest pairs.
+var algorithm = ''; // The algorithm currently being computed/animated.
 
 // Data fields.
 let stepsField = document.getElementById('stepsBox');
@@ -35,7 +36,8 @@ function reset() {
     pointSetMap = new Map();
     splitTree = null;
     wspd = null;
-    graph = new Set();
+    graph = new Map();
+    graphEdges = new Set();
     closestPair = [];
     tApproxMST = new Set();
     kClosestPairs = [];
@@ -70,7 +72,7 @@ let animationSelection = document.getElementById('animationSelection');
 let separationFactorEntry = document.getElementById('separationFactor');
 let wspdButton = document.getElementById('WSPD');
 wspdButton.addEventListener('click', generateWSPD);
-function generateWSPD() {
+function generateWSPD(s=2) {
 
     s = separationFactorEntry.value;
 
@@ -83,13 +85,14 @@ function generateWSPD() {
     // Reset the objects on the board and re-plot the points to prepare for WSPD construction.
     reset(); 
     plot();
+    
+    algorithm = 'WSPD'
+    displaySteps(algorithm);
 
     splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
-
     wspd = new WSPD(splitTree, s);
-    
-    displaySteps('WSPD');
-    populateMetrics('WSPD');
+    populateMetrics(algorithm);
+
     animate(1, animationSpeedSelection.value);
 }
 
@@ -112,9 +115,18 @@ function generateTSpanner() {
     plot();
 
     // Generates the WSPD with separation factor based on t.
-    generateWSPD(tToSeparationFactor(parseFloat(t)), true);
+    //generateWSPD(tToSeparationFactor(parseFloat(t)));
+    splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
+    wspd = new WSPD(splitTree, tToSeparationFactor(parseFloat(t)));
 
-    graph = constructTSpanner(parseFloat(t));
+    algorithm = 'tSpanner';
+    displaySteps(algorithm);
+
+    var tSpannerReturn = constructTSpanner(parseFloat(t));
+    graph = tSpannerReturn[0];
+    graphEdges = tSpannerReturn[1];
+    populateMetrics(algorithm);
+
     animate(1, animationSpeedSelection.value);
 }
 

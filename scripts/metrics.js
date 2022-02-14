@@ -4,58 +4,96 @@
  * David Wisnosky
  */
 
+// Base metrics box text.
+var baseMetricsBoxInnerHTML = metricsBox.innerHTML;
 
+// Resets the metrics box text for new metrics.
+function resetMetricsBox() {
+    metricsBox.innerHTML = baseMetricsBoxInnerHTML;
+}
 
 function populateMetrics(selection) {
+
+    resetMetricsBox();
+
+    var metricsData = '';
     
     if (selection == 'WSPD') {
 
-        var metricsData = '';
-
-        metricsData += '<span>\\(|V|:' + getPointsetCardinality(pointSet) +'\\)</span> <br><br>'
-
-        metricsData += '<span>\\(WSPD Pairs:\\)</span> <br>';
-
-        metricsData += '<span>\\(|Pairs|:' + getWSPDPairsCardinality(wspd.pairs) +'\\)</span> <br>';
-
-        metricsData += '<textarea rows="3" col="50" readonly>';
-
-        for (pair of wspd.pairs) {
-
-            metricsData += '[['
-
-            for (point of pair[0].S) {
-                metricsData += pointSetMap.get(point) + ' ';
-            }
-
-            metricsData += '],['
-
-            for (point of pair[1].S) {
-                metricsData += pointSetMap.get(point) + ' ';
-            }
-
-            metricsData += ']]\n';
-
-        }
-
-        metricsData += '</textarea>';
-
+        metricsData += '<span class="metric">\\(|S|:' + getPointsetCardinality(pointSet) +'\\)</span>';
+        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
+        metricsData += '<span class="metric">\\(|m|:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span> <br>';
+        metricsData += '<span class="metric">\\(Points:\\)</span>';
+        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
+        metricsData += '<span> &nbsp </span>'
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
     }
 
-    metricsBox.innerHTML = metricsData;
+    else if (selection == 'tSpanner') {
+        
+        metricsData += '<span class="metric">\\(t:' + floydWarshall(pointSet, graph) + '\\)</span>';
+    }
+
+    metricsBox.innerHTML += metricsData;
 
     MathJax.typeset();
 }
 
 
-// Returns |V|.
+// Returns |S|.
 function getPointsetCardinality(S) {
     return S.length;
 }
 
-// Returns |WSPD.pairs|.
+// Returns a string with points matched to their IDs.
+function getPointIDs(S, m) {
+
+    var pointsString = ''
+
+    for (point of S) {
+
+        pointsString += m.get(point) + ': ' + '(' + point + ')' + '\n';
+    }
+
+    return pointsString;
+} 
+
+// Returns m.
 function getWSPDPairsCardinality(wspdPairs) {
     return wspdPairs.length;
+}
+
+// Returns s.
+function  getWSPDSeparationFactor(W) {
+    return W.s;
+}
+
+// Returns the WSPD pairs as a string.
+function getWSPDPairs(W) {
+
+    var pairsString = '{';
+
+    for (pair of W.pairs) {
+
+        pairsString += '{';
+
+        for (point of pair[0].S) {
+            pairsString += pointSetMap.get(point) + ',';
+        }
+
+        pairsString = pairsString.substring(0, pairsString.length - 1);
+        pairsString += '},{';
+
+        for (point of pair[1].S) {
+            pairsString += pointSetMap.get(point) + ',';
+        }
+
+        pairsString = pairsString.substring(0, pairsString.length - 1);
+        pairsString += '}}\n';
+    }
+
+    return pairsString;
 }
 
 // Returns |E|.
@@ -63,9 +101,7 @@ function getGraphEdgesCardinality(G) {
     return G.size;
 }
 
-function getWSPDPairs(W) {
-    return;
-}
+
 
 // Creates a complete graph from a point set.
 function generateCompleteGraph(S) {
@@ -138,20 +174,47 @@ function prim(G, n) {
     return T;
 }
 
-/*// Floyd-Warshall algorithm.
-function floydWarshall(S, G) {
-    
-    var dis = [];
+function floydWarshall(pointSet, graph){
 
-    for (let i = 0; i < G.size; i++) {
-       dis.push([]);
-       for (let j = 0; j < G.size; j++) {
+    var dist = [];
 
-            if(i == j)
-                dis[i].push(0);
-            else if(G.get())
-       } 
+    for (var i = 0; i < graph.size; i++) {
+        dist.push([]);
+        for (var j = 0; j < graph.size; j++) {
+            if (i == j) {
+                dist[i].push(0);
+            }
+            else if (graph.get(i).includes(j)) {
+                dist[i].push(distance2D(pointSet[i], pointSet[j], 2));
+            }
+            else {
+                dist[i].push(Infinity);
+            }
+        }
     }
 
-}*/
+    for (var k = 0; k < graph.size; k++) {
+        for (var i = 0; i < graph.size; i++) {
+            for (var j = 0; j < graph.size; j++) {
+                if (dist[i][j] > dist[i][k] + dist[k][j]) {
+                    dist[i][j] = dist[i][k] + dist[k][j];
+                }
+            }
+        }
+    }
+ 
+    var tMax = 0;
+    for (var i = 0; i < pointSet.length; i++) {
+        for (var j = i + 1; j < pointSet.length; j++) {
+            var t = dist[i][j] / distance2D(pointSet[i], pointSet[j], 2);
+            if (t > tMax) {
+                tMax = t;
+                worstPair = [i, j];
+            }
+
+        }
+    }
+
+    return tMax;
+}
 

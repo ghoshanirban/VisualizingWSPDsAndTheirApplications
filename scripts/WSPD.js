@@ -31,6 +31,8 @@ class WSPD {
         for(var u of internalNodes) {
             let v = u.left;
             let w = u.right;
+
+            eventQueue.push('findPairsInternalNodes'); // Used to show internal node step.
             this.findPairs(v,w);
         }
     }
@@ -50,12 +52,16 @@ class WSPD {
             let wRight = w.right;
             this.findPairs(v, wLeft);
             this.findPairs(v, wRight);
+
+            eventQueue.push('findPairsRecur'); // Used to show find pair recur step.
         }
         else {
             let vLeft = v.left;
             let vRight = v.right;
             this.findPairs(vLeft, w);
             this.findPairs(vRight, w);
+
+            eventQueue.push('findPairsRecur'); // Used to show find pair recur step.
         }
     }
 }

@@ -37,6 +37,7 @@ class SplitTree {
     constructor(S, R) {
         this.root = this.computeSplitTree(S, R);
         this.R = R;
+        eventQueue.push('returnSplitTree'); // Used to show return split tree step.
     }
 
     // O(n^2) algorithm.
@@ -81,14 +82,16 @@ class SplitTree {
 
                 if(R1.containsPoint(p)){
                     S1.push(p);
-                    eventQueue.push(new AnimationObject('point', p, style1, 'partitionHighligh1', true)); // Highlights the points partitioned into R1.
+                    eventQueue.push(new AnimationObject('point', p, style1, 'partitionHighlight', true)); // Highlights the points partitioned into R1.
                 }
 
                 else{
                     S2.push(p);
-                    eventQueue.push(new AnimationObject('point', p, style2, 'partitionHighlight2', true)); // Highlights the points partitioned into R2.
+                    eventQueue.push(new AnimationObject('point', p, style2, 'partitionHighlight', true)); // Highlights the points partitioned into R2.
                 }
             }
+
+            eventQueue.push('splitTreeRecur'); // For recursive step display.
 
             // Recursively call on the subsets of S.
             var v = this.computeSplitTree(S1, R1);

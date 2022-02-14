@@ -27,6 +27,22 @@
 #stepsBox {
     border-radius: 25px;
     background-color: lightgrey;
+    text-align: justify;
+    padding: 10px;
+}
+
+#stepsBoxHeader {
+    text-align: center;
+}
+
+#metricsBox {
+    border-radius: 25px;
+    background-color: lightgrey;
+    text-align: justify;
+    padding: 10px;
+}
+
+#metricsBoxHeader {
     text-align: center;
 }
 
@@ -43,4 +59,15 @@
 .spacer{
     width: 2vw;
     background-color: #FFF;
+}
+
+.metric {
+	display: inline-block;
+	background-color: #666;
+	color: #eee;
+	line-height: initial;
+	padding: 0.31em 0.63em;
+	margin: 3px 2px;
+	border-radius: calc(25px);
+	text-align: center;
 }

@@ -83,6 +83,7 @@ function draw() {
 
     if (eventQueue.length == 0) {
         clearInterval(drawInterval);
+        displaySteps(algorithm);
         return;
     }
 
@@ -149,8 +150,13 @@ function draw() {
             remove(removeQueue.shift()[1]);
         }
     }
+
+    else if (typeof animationObject == 'string'){
+        displaySteps(animationObject);
+    }
     
     else {
+        
         displaySteps(animationObject.text);
         let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
 
