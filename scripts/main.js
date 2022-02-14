@@ -54,8 +54,8 @@ let generatePointsButton = document.getElementById('generatePoints');
 generatePointsButton.addEventListener('click', generateRandomPointSet);
 let plotPointsButton = document.getElementById('plotPoints');
 plotPointsButton.addEventListener('click', plot);
-let clearPointTextBoxButton = document.getElementById('clearPoints');
-clearPointTextBoxButton.addEventListener('click', clearTextBox);
+//let clearPointTextBoxButton = document.getElementById('clearPoints');
+//clearPointTextBoxButton.addEventListener('click', clearTextBox);
 
 // Clears the point text box.
 function clearTextBox() {

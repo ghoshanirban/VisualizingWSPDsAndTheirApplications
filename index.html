@@ -62,12 +62,13 @@
                         <label for="points" class="labelP"> \(\textsf{Point coordinates}\) </label>
                         <textarea id="points" placeholder="Point coordinates"></textarea>
                         <button id="plotPoints" class="buttonE button1">\(\textsf{Plot points}\) </button>
-                        <button id="clearPoints" class="buttonE button2">\(\textsf{Clear points}\)</button>
                     </div>
+
+                    <br>
 
                     <div id="WSPDControls">
                         <button id="WSPD" class="buttonE button1">\(\textsf{Generate WSPD}\)</button>
-                        <input id="separationFactor" type="text" size="16" placeholder="Insert separation factor">
+                        <input id="separationFactor" type="text" size="5" placeholder="s">
                     </div>
 
                     <br>
@@ -77,23 +78,22 @@
                         <input id="keepWSPD" type="checkbox" value="true" checked>
                     </div>
                     <br>
-                    <label for="animationSelection"> \(\textsf{Animate}\)</label>
-                    <input id="animationSelection" type="checkbox" value="true" checked>
 
                     <div id=algorithmControls>
+                        <h4>\(\textsf{Applications}\)</h4>
                         <button id="tSpanner" class="buttonE button1">\(\textsf{$t$-Spanner}\)</button>
                         <label for="t"></label>
-                        <input id="t" type="text" size="16" placeholder="Insert value of t">
+                        <input id="t" type="text" size="5" placeholder=" t ">
                         <br>
                         <button id="closestPair" class="buttonE button1">\(\textsf{Closest pair}\)</button>
                         <br>
                         <button id="MST" class="buttonE button1">\(\textsf{$t$-Approx. MST}\)</button>
                         <label for="tMST"></label>
-                        <input id="tMST" type="text" size="16" placeholder="Insert value of t">
+                        <input id="tMST" type="text" size="5" placeholder=" t ">
                         <br>
                         
                         <button id="kClosestPairs" class="buttonE button1">\(\textsf{$k$-Closest Pairs}\)</button>
-                        <input id="kPairs" type="text" size="16" placeholder="Insert value of k">
+                        <input id="kPairs" type="text" size="5" placeholder=" k ">
 
                         <br>
                         <button id="allNearestNeighbors" class="buttonE button1">\(\textsf{ANN}\)</button>
@@ -101,9 +101,13 @@
 
                     <br>
                     <button id="reset" class="buttonE button2">\(\textsf{Reset}\)</button>
-
+                    <br>
+                    <br>
 
                     <div id="animationControls">
+                        <label for="animationSelection"> \(\textsf{Animate}\)</label>
+                        <input id="animationSelection" type="checkbox" value="true" checked>
+                        <br>
                         <label for="animationSpeed">\(\textsf{Animation speed}\)</label>
                         <input type="range" min="0.5" max="5" value="2.5" step="0.5" id="animationSpeed"
                             oninput="outputUpdate(value)">
@@ -115,16 +119,21 @@
                         }  
                     </script>
 
-                    <div id="downloadContols">
-                        <h1>Download</h1>
-                        <h2>Data</h2>
+                    <br>
+                    <br>
+
+                    <div id="downloadControls">
+                        <h3>\(\textsf{Download}\)</h3>
+                        <h4>\(\textsf{Data}\)</h4>
                         <label for="dataDownload"></label>
-                        <button id="dataDownload">Data</button>
-                        <h2>Board</h2>
+                        <button class="buttonE button1" id="dataDownload">Data</button>
+                        <br>
+                        <br>
+                        <h4>\(\textsf{Board}\)</h4>
                         <label for="boardDownloadPNG"></label>
-                        <button id="boardDownloadPNG">PNG</button>
+                        <button class="buttonE button1" id="boardDownloadPNG">PNG</button>
                         <label for="boardDownloadSVG"></label>
-                        <button id="boardDownloadSVG">SVG</button>
+                        <button class="buttonE button1" id="boardDownloadSVG">SVG</button>
                     </div>
                 </div>
             </div>

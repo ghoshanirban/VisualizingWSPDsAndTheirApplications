@@ -37,8 +37,7 @@ body {
 }
 
 #algorithmControls {
-  width:73%;
-  height:140px; 
+  text-align: center; 
   border:1.5px solid rgb(162, 152, 201);
 }
 
@@ -56,6 +55,7 @@ body {
     width: calc(((100vw - 100vh)/ 2) - 2vw);
     height: 100vh;
     float: left;
+    text-align: center;
 }
 
 /*#jxgbox {
@@ -232,4 +232,8 @@ labelP {
 
 #kPairs {
   height: 18px;
+}
+
+#downloadControls {
+  text-align: center;
 }
