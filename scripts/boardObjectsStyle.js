@@ -356,7 +356,7 @@ let ANNSeparationLineStyle = {
     straightLast: false,
     color: '#FFFFFF',
     fixed: true,
-    strokeWidth: 4,
+    strokeWidth: 3,
 };
 
 let pointSetStyleANNNode1 = {
@@ -393,6 +393,6 @@ let ANNCurrentClosestLine = {
     straightLast: false,
     color: '#59FF33',
     fixed: true,
-    strokeWidth: 5,
+    strokeWidth: 4,
 };
 

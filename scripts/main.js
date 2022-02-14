@@ -186,30 +186,34 @@ let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');
 allNearestNeighborsButton.addEventListener('click', AllNearestNeighborConstruction);
 
 
-function AllNearestNeighborConstruction() {
-    //reset();
-    //plot();
+function AllNearestNeighborConstruction() {    
     if (wspd == null) {
         alert('Please construct a WSPD.');
     }
 
     s = parseFloat(separationFactorEntry.value);
-    console.log(s);
-    // Check that s is valid (s >= 0).
-    if (!isFinite(s) || s < 2) {
-        alert('Please select a value for s > 2');
-        return;
-    }
+
+    // Check that s is valid (s > 2).
+    if (wspd != null)
+        if (!isFinite(s) || s <= 2) {
+            alert('Please select a value for s > 2 and construct WSPD');
+            reset();
+            plot();
+            return;
+        }
 
     //splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
     //wspd = new WSPD(splitTree, s);
+
     let treeArray;
     let pointSetMap = mappingPointSet(pointSet);
     let singletonWSPD = getSingletonWSPD(wspd);
 
-    //eventQueue.push('ClearWSPD');
-    //reset();
-    //plot();
+    
+    eventQueue = [];
+    undoQueue = [];
+    removeQueue = [];
+    
     NaiveAllNN(pointSet, pointSetMap, treeArray, singletonWSPD);
     animate(1, animationSpeedSelection.value);
 }

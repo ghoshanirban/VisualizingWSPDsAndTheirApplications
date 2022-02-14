@@ -102,9 +102,9 @@ function NearestNeighborAnimatePointWise(v, w) {
 
 
     // Set the AnimationObjects as non-temporary.
-    animationCircle1.isTemporary = false;
-    animationCircle2.isTemporary = false;
-    animationLine.isTemporary = false;
+    animationCircle1.isTemporary = true;
+    animationCircle2.isTemporary = true;
+    animationLine.isTemporary = true;
 
     // Adds the AnimationObjects to the animation event queue.
     eventQueue.push(animationCircle1);
@@ -162,7 +162,7 @@ function NaiveAllNN(pointSet, pointSetMap, treeArray, wspd) {
         console.log(checkPoint);
         console.log(minDistPoint);
     }
-    finalANNAnimation(ANNList);
+    // finalANNAnimation(ANNList);
 }
 
 function finalANNPairConstruction(checkPoint,minDistPoint)
@@ -181,9 +181,9 @@ function finalANNPairConstruction(checkPoint,minDistPoint)
 
     let animationCircleP3 = new AnimationObject('arrow', [checkPoint, minDistPoint], style2, 'ANNConstructionStepsPermanent', true);
 
-    animationCircleP1.isTemporary = false;
-    animationCircleP2.isTemporary = false;
-    animationCircleP3.isTemporary = false;
+    animationCircleP1.isTemporary = true;
+    animationCircleP2.isTemporary = true;
+    animationCircleP3.isTemporary = true;
 
     eventQueue.push(animationCircleP1);
     eventQueue.push(animationCircleP2);
