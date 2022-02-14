@@ -2,17 +2,18 @@
 
 <html lang="en">
 
-    <title>WSPD and Applications</title>
+<title>WSPD and Applications</title>
 
-    <head>
-        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- JSXGraph minified source, all viewable geometric objects. -->
-        <script type="text/javascript" charset="utf-8" src="scripts/jsxgraphcore.js"></script> 
-        <!-- MathJAX source, text and math font styling -->
-        <script type="text/javascript" charset="utf-8" src="scripts/mathjax/es5/tex-chtml.js"></script>
+    <!-- JSXGraph minified source, all viewable geometric objects. -->
+    <script type="text/javascript" charset="utf-8" src="scripts/jsxgraphcore.js"></script>
+    <!-- MathJAX source, text and math font styling -->
+    <script type="text/javascript" charset="utf-8" src="scripts/mathjax/es5/tex-chtml.js"></script>
 
-        <!-- Project scripts, board interaction, board object style, animation, point generation,
+
+    <!-- Project scripts, board interaction, board object style, animation, point generation,
             WSPD data structures and algorithms, t-spanner, closest pairs, mst. -->
         
         <script type="text/javascript" charset="utf-8" src="scripts/SplitTree.js" defer></script>
@@ -21,6 +22,7 @@
         <script type="text/javascript" charset="utf-8" src="scripts/closestPair.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/tApproxMST.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/kClosestPairs.js" defer></script>
+        <script type="text/javascript" charset="utf-8" src="scripts/AllNearestNeighbor.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/utilities.js" defer></script> 
         <script type="text/javascript" charset="utf-8" src="scripts/metrics.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/steps.js" defer></script>
@@ -34,104 +36,130 @@
         
         <link rel="stylesheet" type="text/css" href="css/style.css">
 
-    </head>
+</head>
 
-    <body id="container">
+<body id="container">
 
-        <div id="controlBar">
+    <div class="flex">
 
-            <h3>\(\text{Well-Separated Pair Decomposition and Applications}\)</h3>
+        <!-- Control container -->
+        <div class="flex-item">
+            <div class="control-container">
+                <div id="controlBar">
 
-            <div id="pointControl">
-                <p>Edit points</p>
-                <label for="editPoints"> Edit Points</label>
-                <input id="editPoints" type="checkbox" value="true" checked>
-                <label for="pointIDs"> Show point ID</label>
-                <input id="pointIDs" type="checkbox" value="true" checked>
-                <label for=numPoints>Number of points:</label> <input id="numPoints" type="text">
-                <button id="generatePoints">Generate</button>
-                <label for="points">Points</label> <textarea id="points"></textarea>
-                <button id="plotPoints">Plot</button>
-                <button id="clearPoints">Clear</button>
+                    <h3 id="toolName"> \[\textsf{Visualizing WSPDs and their applications}\]</h3>
+
+                    <div id="pointControl">
+                        <label for="editPoints"> \(\textsf{Edit points?}\)</label>
+                        <input id="editPoints" type="checkbox" value="true" checked>
+                        <label for="pointIDs"> \(\textsf{Show point IDs?}\)</label>
+                        <input id="pointIDs" type="checkbox" value="true" checked>
+                        <br>
+                        <input id="numPoints" type="text" size="16" placeholder="How many points?">
+                        <button id="generatePoints" class="buttonE button1">\(\textsf{Generate points}\)</button>
+                        <br>
+                        <br>
+                        <label for="points" class="labelP"> \(\textsf{Point coordinates}\) </label>
+                        <textarea id="points" placeholder="Point coordinates"></textarea>
+                        <button id="plotPoints" class="buttonE button1">\(\textsf{Plot points}\) </button>
+                        <button id="clearPoints" class="buttonE button2">\(\textsf{Clear points}\)</button>
+                    </div>
+
+                    <div id="WSPDControls">
+                        <button id="WSPD" class="buttonE button1">\(\textsf{Generate WSPD}\)</button>
+                        <input id="separationFactor" type="text" size="16" placeholder="Insert separation factor">
+                    </div>
+
+                    <br>
+
+                    <div>
+                        <label for="keepWSPD">\(\textsf{Keep WSPD}\)</label>
+                        <input id="keepWSPD" type="checkbox" value="true" checked>
+                    </div>
+                    <br>
+                    <label for="animationSelection"> \(\textsf{Animate}\)</label>
+                    <input id="animationSelection" type="checkbox" value="true" checked>
+
+                    <div id=algorithmControls>
+                        <button id="tSpanner" class="buttonE button1">\(\textsf{$t$-Spanner}\)</button>
+                        <label for="t"></label>
+                        <input id="t" type="text" size="16" placeholder="Insert value of t">
+                        <br>
+                        <button id="closestPair" class="buttonE button1">\(\textsf{Closest pair}\)</button>
+                        <br>
+                        <button id="MST" class="buttonE button1">\(\textsf{$t$-Approx. MST}\)</button>
+                        <label for="tMST"></label>
+                        <input id="tMST" type="text" size="16" placeholder="Insert value of t">
+                        <br>
+                        
+                        <button id="kClosestPairs" class="buttonE button1">\(\textsf{$k$-Closest Pairs}\)</button>
+                        <input id="kPairs" type="text" size="16" placeholder="Insert value of k">
+
+                        <br>
+                        <button id="allNearestNeighbors" class="buttonE button1">\(\textsf{ANN}\)</button>
+                    </div>
+
+                    <br>
+                    <button id="reset" class="buttonE button2">\(\textsf{Reset}\)</button>
+
+
+                    <div id="animationControls">
+                        <label for="animationSpeed">\(\textsf{Animation speed}\)</label>
+                        <input type="range" min="0.5" max="5" value="2.5" step="0.5" id="animationSpeed"
+                            oninput="outputUpdate(value)">
+                        <output for="fader" id="volume">2.5</output>
+                    </div>
+                    <script>
+                        function outputUpdate(vol) {
+                            document.querySelector('#volume').value = vol;
+                        }  
+                    </script>
+
+                    <div id="downloadContols">
+                        <h1>Download</h1>
+                        <h2>Data</h2>
+                        <label for="dataDownload"></label>
+                        <button id="dataDownload">Data</button>
+                        <h2>Board</h2>
+                        <label for="boardDownloadPNG"></label>
+                        <button id="boardDownloadPNG">PNG</button>
+                        <label for="boardDownloadSVG"></label>
+                        <button id="boardDownloadSVG">SVG</button>
+                    </div>
+                </div>
             </div>
-
-            <div class="separator"></div>
-                <label for="animationSelection"> Animate</label>
-                <input id="animationSelection" type="checkbox" value="true" checked>
-            <div class="separator"></div>
-
-            <div id="WSPDControls">
-                <label for="separationFactor">Separation factor</label> <input id="separationFactor" type="text">
-                <button id="WSPD">WSPD</button>
-            </div>
-
-            <div class="separator"></div>
-
-            <div id=algorithmControls>
-                <label for="t">t</label> <input id="t" type="text">
-                <button id="tSpanner">t-Spanner</button>
-                <button id="closestPair">Closest Pair</button>
-                <button id="MST">Approx. MST</button>
-                <label for="kPairs">k</label> <input id="kPairs" type="text">
-                <button id="kClosestPairs">K-Closest</button>
-                <button id="allNearestNeighbors">ANN</button>
-            </div>
-
-            <div class="separator"></div>
-
-            <button id="reset">Reset</button>
-
-            <div class="separator"></div>
-
-            <div id="animationControls">
-                <label for="animationSpeed">Speed</label>
-                <select name="animationSpeed" id="animationSpeed">
-                    <option value="0.5">0.5x</option>
-                    <option value="1" >1x</option>
-                    <option value="1.5">1.5x</option>
-                    <option value="2">2x</option>
-                    <option value="5" selected>5x</option>
-                </select>
-            </div>
-            
-            <div id="downloadContols">
-                <h1>Download</h1>
-                <h2>Data</h2>
-                <label for="dataDownload"></label>
-                <button id="dataDownload">Data</button>
-                <h2>Board</h2>
-                <label for="boardDownloadPNG"></label>
-                <button id="boardDownloadPNG">PNG</button>
-                <label for="boardDownloadSVG"></label>
-                <button id="boardDownloadSVG">SVG</button>
-            </div>
-
         </div>
 
-        <div class="spacer"></div>
-
-        <div id="jxgbox" class="jxgbox"></div>
-
-        <div class="spacer"></div>
-
-        <div id="dataBar">
-
-            <br>
-
-            <div id="stepsBox">
-                <h1 id="stepsBoxHeader">\(\textsf{Algorithm Steps}\)</h1>
-            </div>  
-
-            <br>
-
-            <div id="metricsBox">
-                <h1 id="metricsBoxHeader"> \(\textsf{Metrics}\)</h1>
+        <!-- Graph container -->
+        <div class="flex-item">
+            <div class="graph-container">
+                <div id="jxgbox" class="jxgbox"></div>
             </div>
+        </div>
 
+        <!-- Third container -->
+        <div class="flex-item">
+            <div class="dataBar">
+                
+                <br>
+            
+                <div id="stepsBox">
+                    <h1 id="stepsBoxHeader">\(\textsf{Algorithm Steps}\)</h1>
+                </div>
+            
+                <br>
+            
+                <div id="metricsBox">
+                    <h1 id="metricsBoxHeader"> \(\textsf{Metrics}\)</h1>
+                </div>
+            
+            </div>
+                
+                
         </div>
 
         <img id="screenShot" title="" alt="" src="">
 
-    </body>
+</body>
 
 </html>

@@ -60,7 +60,7 @@ clearPointTextBoxButton.addEventListener('click', clearTextBox);
 // Clears the point text box.
 function clearTextBox() {
 
-    if(editPointsSelection.checked)
+    if (editPointsSelection.checked)
         pointTextBox.value = '';
 
 }
@@ -83,7 +83,7 @@ function generateWSPD(s=2) {
     }
 
     // Reset the objects on the board and re-plot the points to prepare for WSPD construction.
-    reset(); 
+    reset();
     plot();
     
     algorithm = 'WSPD'
@@ -135,7 +135,7 @@ closestPairButton.addEventListener('click', findClosestPair);
 function findClosestPair() {
 
     // Check that a t-spanner exists.
-    if(graph.size == 0){
+    if (graph.size == 0) {
         graph = generateTSpanner();
     }
 
@@ -147,7 +147,7 @@ let mstButton = document.getElementById('MST');
 mstButton.addEventListener('click', generateApproxMST);
 function generateApproxMST() {
 
-     // Check that a t-spanner exists.
+    // Check that a t-spanner exists.
     if (graph.size == 0) {
         graph = constructTSpanner();
     }
@@ -167,33 +167,55 @@ kClosestPairsButton.addEventListener('click', generateKClosestPairs);
 function generateKClosestPairs(params) {
 
     // Check that a WSPD exists.
-    if(wspd == null){
+    if (wspd == null) {
         alert('Please construct a WSPD.');
     }
 
     let k = parseInt(kPairsEntry.value);
 
     // Check k is valid ( 1 <= k <= C(n,2)).
-    if(k < 1 || k > combination(pointSet.length, 2)){
+    if (k < 1 || k > combination(pointSet.length, 2)) {
         alert('k must be greater than 0 and less than C(n,2).');
     }
 
-    kClosestPairs  = computeKClosestPairs(k);
+    kClosestPairs = computeKClosestPairs(k);
     animate(1, animationSpeedSelection.value);
 }
 
 let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');
-//allNearestNeighborsButton.addEventListener('click', computeAllNearestNeighbors);
+allNearestNeighborsButton.addEventListener('click', AllNearestNeighborConstruction);
 
-//Reuse current WSPD button.
-/*unction reUseWSPD() {
-    if (wspd == null)
-        return;
 
-    if (confirm('')){
-        continue;
+function AllNearestNeighborConstruction() {    
+    if (wspd == null) {
+        alert('Please construct a WSPD.');
     }
-}*/
+
+    s = parseFloat(separationFactorEntry.value);
+
+    // Check that s is valid (s > 2).
+    if (wspd != null)
+        if (!isFinite(s) || s <= 2) {
+            alert('Please select a value for s > 2 and construct WSPD');
+            reset();
+            plot();
+            return;
+        }
+
+    //splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
+    //wspd = new WSPD(splitTree, s);
+
+    let treeArray;
+    let singletonWSPD = getSingletonWSPD(wspd);
+
+    
+    eventQueue = [];
+    undoQueue = [];
+    removeQueue = [];
+    
+    NaiveAllNN(pointSet, pointSetMap, treeArray, singletonWSPD);
+    animate(1, animationSpeedSelection.value);
+}
 
 // Download controls.
 
