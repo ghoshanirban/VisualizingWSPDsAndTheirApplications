@@ -11,7 +11,7 @@ function computeClosestPair() {
     var distance = Infinity;
     var closestPair = [];
 
-    for(edge of graph) {
+    for(edge of graphEdges) {
         
         // Get current considered points distance.
         var currentDistance = distance2D(edge[0], edge[1]);

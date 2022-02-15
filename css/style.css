@@ -33,9 +33,10 @@ body {
   overflow: hidden;
 }
 
-#container .flex .flex-item .control-container {
+.flex .flex-item .control-container {
   width: 25vw !important;
   height: 100%;
+  max-width: 25vw;
 }
 
 #algorithmControls {
@@ -43,12 +44,12 @@ body {
   border:1.5px solid rgb(162, 152, 201);
 }
 
-#container .flex .flex-item .graph-container {
+.flex .flex-item .graph-container {
   width: 50vw !important;
   height: 95vh;
 }
 
-#container .flex .flex-item .third-container {
+.flex .flex-item .third-container {
   width: 25vw !important;
   height: 100%;
 }
@@ -71,14 +72,15 @@ body {
 #jxgbox {
   width: 90%;
   height: 100%;
-  
 }
 
 #dataBar {
     /*width: calc(((100vw - 100vh)/ 2) - 2vw);
     height: 100vh;
     float: left;*/
+    width: 25vw;
     text-align: center;
+    max-width: 10vw;
 }
 
 .dataBox {

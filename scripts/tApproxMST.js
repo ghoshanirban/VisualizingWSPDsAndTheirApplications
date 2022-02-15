@@ -8,7 +8,7 @@
 function computeTApproxMST() {
     
     // Calls prims MST algorithm on the t-spanner.
-    let mst = animatedPrim(graph, pointSet.length);
+    let mst = animatedPrim(graphEdges, pointSet.length);
 
     return mst;
 }

@@ -37,7 +37,6 @@ class SplitTree {
     constructor(S, R) {
         this.root = this.computeSplitTree(S, R);
         this.R = R;
-        eventQueue.push('returnSplitTree'); // Used to show return split tree step.
     }
 
     // O(n^2) algorithm.
