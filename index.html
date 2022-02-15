@@ -48,7 +48,7 @@
             <div class="control-container">
                 <div id="controlBar">
 
-                    <h1 id="toolName"> \(\textsf{Visualizing WSPDs and}\) <br> \(\textsf{their applications}\)</h1>
+                    <h1 id="toolName">\(\textsf{Visualizing WSPDs and}\) <br> \(\textsf{their applications}\)</h1>
 
                     <div id="pointControl">
                         <label for="editPoints"> \(\textsf{Edit points?}\)</label>
@@ -59,7 +59,17 @@
                         <label for="numPoints">\(\textsf{Number of points:}\)</label>
                         <input id="numPoints" type="number" min="0" max="100" step="1" size="50" value="10">
                         <br>
-                        <button id="generatePoints" class="buttonE button1">\(\textsf{Generate points}\)</button>
+                        <button id="generatePoints" class="buttonE button1">\(\textsf{Generate}\)</button>
+                        <br>
+                        <br>
+                        <label for="preGeneratedPointSets">\(\textsf{Pre-generated Pointsets}\)</label>
+                        <select name="preGenPointSets" id="preGeneratedPointSets">
+                            <option disabled selected value="">Pre-generated Pointsets</option>
+                            <option value="circle">Circle</option>
+                            <option value="archimedeanSpiral">Archimedean spiral</option>
+                            <option value="grid">Grid</option>
+                            <option value="usCities">U.S. Cities</option>
+                        </select>
                         <br>
                         <br>
                         <label for="points" class="labelP"> \(\textsf{Point coordinates}\) </label>
@@ -89,7 +99,7 @@
 
                     <div id="WSPDControls">
                         <button id="WSPD" class="buttonE button1">\(\textsf{Generate WSPD}\)</button>
-                        <input id="separationFactor" type="text" size="5" placeholder="s">
+                        <input id="separationFactor" type="text" size="15" placeholder="Separation Factor">
                     </div>
 
                     <br>

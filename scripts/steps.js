@@ -19,9 +19,9 @@ var steps = new Map();
  * WSPD Steps (Contains Split Tree)
 */
 steps.set('WSPD', 
-        '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
+        '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)}\\) </p>' +
         '<p> \\(\\text{1)}\\) \\(SpitTree(P):\\) </p>' +
-        '<p> \\(\\text{1.1) If \\(\\S\\) is singleton create a leaf node.}\\) <p>' +
+        '<p> \\(\\text{1.1) If \\(S\\) is singleton create a leaf node.}\\) <p>' +
         '<p> \\(\\text{1.2) Compute the bounding box, \\(R(S)\\), for \\(S\\).}\\) </p>' +
         '<p> \\(\\text{1.3) Split \\(R(S)\\) along its longest edge.}\\) </p>' +
         '<p> \\(\\text{1.4) Partition \\(S\\) into subsets \\(S_1\\) and \\(S_2\\)}\\) <br>' +
