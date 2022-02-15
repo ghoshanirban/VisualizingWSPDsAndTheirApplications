@@ -74,6 +74,7 @@ function animate(direction, speed) {
     }
 
     if (direction) {
+        animationSpeedSelection.setAttribute('disabled', '')
         drawInterval = setInterval(draw, animationSpeed);
     }
 }
@@ -85,6 +86,7 @@ function draw() {
     if (eventQueue.length == 0) {
         clearInterval(drawInterval);
         displaySteps(algorithm);
+        animationSpeedSelection.removeAttribute('disabled');
         return;
     }
 

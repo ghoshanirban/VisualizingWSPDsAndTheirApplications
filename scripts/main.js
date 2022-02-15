@@ -88,6 +88,8 @@ function computeWSPD() {
     generateWSPD(s);
 
     animate(1, animationSpeedSelection.value);
+
+
 }
 
 function generateWSPD(s) {
