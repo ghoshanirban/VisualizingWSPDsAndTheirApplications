@@ -34,7 +34,7 @@ steps.set('WSPD',
         '<p> 3.1) If \\(S_v\\) and \\(S_w\\) are well-separated with respect to ' +
             '\\(s\\) return a pair \\({u,v}\\) </p>' +
         '<p>3.2) Otherwise, compute the node with the shorter longest bounding box ' +
-            'side and call \\(FindPairs()\\)}\\) on that node and the others children. </p>'*/
+            'side and call \\(FindPairs()\\)}\\) on that node and the others children. </p>'
         );
 
 /**
