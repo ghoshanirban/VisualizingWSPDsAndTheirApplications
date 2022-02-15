@@ -73,6 +73,11 @@ function generateRandomPointSet() {
 // Scales a point set to conform to a grid with min x,y -10 and max x,y 10.
 function scalePointSet(S, maxCoord) {
 
+    // Don't scale for 1 point.
+    if (S.length < 2) {
+        return S
+    }
+
     let scaledPoints = [...S]; // Copy for edits.
 
     // To get the highest individual coordinate.
