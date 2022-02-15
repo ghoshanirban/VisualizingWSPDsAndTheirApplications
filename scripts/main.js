@@ -25,12 +25,12 @@ let metricsBox = document.getElementById('metricsBox');
 
 // Board controls.
 let resetButton = document.getElementById('reset');
-resetButton.addEventListener('click', reset);
+resetButton.addEventListener('click', resetAll);
 
 //Animation controls.
 let animationSpeedSelection = document.getElementById('animationSpeed');
 
-// Resets the entire state, all containers and the entire board.
+// Resets all containers and the entire board.
 function reset() {
     pointSet = [];
     pointSetMap = new Map();
@@ -44,8 +44,15 @@ function reset() {
     clear();
 }
 
+// Resets the entire state.
+function resetAll() {
+    pointTextBox.value = '';
+    reset();
+}
+
 // Pointset, controls.
 let editPointsSelection = document.getElementById('editPoints');
+editPointsSelection.addEventListener('change', lockPoints);
 let pointIDSelection = document.getElementById('pointIDs');
 pointIDSelection.addEventListener('change', changePointIDStatus);
 let numPointsEntry = document.getElementById('numPoints');
@@ -54,16 +61,7 @@ let generatePointsButton = document.getElementById('generatePoints');
 generatePointsButton.addEventListener('click', generateRandomPointSet);
 let plotPointsButton = document.getElementById('plotPoints');
 plotPointsButton.addEventListener('click', plot);
-//let clearPointTextBoxButton = document.getElementById('clearPoints');
-//clearPointTextBoxButton.addEventListener('click', clearTextBox);
 
-// Clears the point text box.
-function clearTextBox() {
-
-    if (editPointsSelection.checked)
-        pointTextBox.value = '';
-
-}
 
 // Animation control.
 let animationSelection = document.getElementById('animationSelection');
@@ -71,14 +69,15 @@ let animationSelection = document.getElementById('animationSelection');
 // WSPD controls.
 let separationFactorEntry = document.getElementById('separationFactor');
 let wspdButton = document.getElementById('WSPD');
-wspdButton.addEventListener('click', generateWSPD);
-function generateWSPD(s=2) {
+wspdButton.addEventListener('click', computeWSPD);
+function computeWSPD() {
 
-    s = separationFactorEntry.value;
+    // Get s.
+    s = separationFactorEntry.value
 
     // Check that s is valid (s >= 0).
     if (!isFinite(s) || s < 0) {
-        alert('Please select a value for the separation factor of the WSPD.');
+        alert('Please select a valid value for the separation factor of the WSPD (s > 0).');
         return;
     }
 
@@ -86,14 +85,22 @@ function generateWSPD(s=2) {
     reset();
     plot();
     
+    generateWSPD(s);
+
+    animate(1, animationSpeedSelection.value);
+}
+
+function generateWSPD(s) {
+
+    // Set the algorithm name and display its steps.
     algorithm = 'WSPD'
     displaySteps(algorithm);
 
+    // Construct the WSPD.
     splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
     wspd = new WSPD(splitTree, s);
     populateMetrics(algorithm);
-
-    animate(1, animationSpeedSelection.value);
+    
 }
 
 // Algorithm controls.
@@ -218,10 +225,6 @@ function AllNearestNeighborConstruction() {
 }
 
 // Download controls.
-
-// Data download (points, pairs, edges ...).
-let dataDownloadButton = document.getElementById('dataDownload');
-dataDownloadButton.addEventListener('click', downloadData);
 
 // Download board as a PNG image.
 let boardDownloadButtonPNG = document.getElementById('boardDownloadPNG');

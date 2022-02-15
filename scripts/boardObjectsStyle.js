@@ -39,7 +39,7 @@ function setPartitionColor(styleID) {
 }
 
 // Starting and normal bounding box.
-let boundingboxStandard = [-10, 10, 10, -10];
+let boundingboxStandard = [-11, 11, 11, -11];
 
 // Board specifications
 let boardParams = {

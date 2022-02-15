@@ -18,12 +18,12 @@ class WSPD {
     constructor(T, s) {
         this.s = s;
         this.pairs = [];
-        this.computeWSPD(T);
+        this.constructWSPD(T);
         eventQueue.push('ClearTemps'); // Clear all the intermediate step animations.
     }
 
     // Constructs the WSPD by finding all separated pairs of the split tree.
-    computeWSPD(T) {
+    constructWSPD(T) {
 
         let internalNodes = T.findInternalNodes();
 

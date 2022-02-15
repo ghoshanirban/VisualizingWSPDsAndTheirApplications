@@ -81,6 +81,7 @@ function animate(direction, speed) {
 // Draws an object onto the board.
 function draw() {
 
+    // Exit the draw, set board zoom, and set static state.
     if (eventQueue.length == 0) {
         clearInterval(drawInterval);
         displaySteps(algorithm);
@@ -227,7 +228,7 @@ function plot() {
     // Adds a label if selected.
     pointSetStyle.withLabel = pointIDSelection.checked;
 
-    board.suspendUpdate()
+    board.suspendUpdate();
 
     // Plot point set points on the board.
     for (let i = 0; i < pointSet.length; i++) {
@@ -239,7 +240,7 @@ function plot() {
         boardPoints.set(boardPoint, parseInt(boardPoint.name));
     }
 
-    board.unsuspendUpdate()
+    board.unsuspendUpdate();
 }
 
 // Changes the visibility of the point IDs to match the user's selection.
@@ -265,8 +266,10 @@ function pointClick(e) {
     if (!editPointsSelection.checked)
         return;
 
-    if (pointSet.length + 1 > 100)
+    if (pointSet.length + 1 > 100){
         alert('100 points maximum.');
+        return;
+    }
 
     // Prevents a point from being located on the control bar.
     if (e.composedPath().includes(boardControl))

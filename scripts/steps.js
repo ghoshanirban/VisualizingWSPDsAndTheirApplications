@@ -19,21 +19,22 @@ var steps = new Map();
  * WSPD Steps (Contains Split Tree)
 */
 steps.set('WSPD', 
-        '<p> \\(\\text{1)}\\) \\(SpitTree(S):\\) </p>' +
-        '<p> \\(\\text{1.1) If \\(S\\) is singleton create a leaf node.}\\) <p>' +
+        '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
+        '<p> \\(\\text{1)}\\) \\(SpitTree(P):\\) </p>' +
+        '<p> \\(\\text{1.1) If \\(\\S\\) is singleton create a leaf node.}\\) <p>' +
         '<p> \\(\\text{1.2) Compute the bounding box, \\(R(S)\\), for \\(S\\).}\\) </p>' +
         '<p> \\(\\text{1.3) Split \\(R(S)\\) along its longest edge.}\\) </p>' +
         '<p> \\(\\text{1.4) Partition \\(S\\) into subsets \\(S_1\\) and \\(S_2\\)}\\) <br>' +
             '\\(\\text{with respect to the splitting line.}\\)</p>' +
         '<p> \\(\\text{1.5) Recur \\(SplitTree(S_1)\\) and \\(SplitTree(S_2)\\),}\\) <br>' +
         '<p> \\(\\text{1.6) Return the split tree \\(T\\).}\\) </p>' +
-        '<p> \\(\\text{2)}\\) \\(Compute WSPD(T):\\) </p>' +
-        '<p> \\(\\text{2.1) For each internal node \\(u\\) of \\(T\\) call}\\) <br>'+
-            '\\(\\text{\\(FindPairs(v,w)\\) on its children.}\\)</p>' +
-        '<p> \\(\\text{2.2.1) If \\(v\\) and \\(w\\) are well-separated}\\) <br>' +
+        '<p> \\(\\text{2) For each internal node \\(u\\) of \\(T\\) call}\\) <br>'+
+            '\\(\\text{\\(FindPairs(v,w,s)\\) on its children.}\\)</p>' +
+        '<p> \\(\\text{3)}\\) \\(FindPairs(v,w,s)\\) </p>' +     
+        '<p> \\(\\text{3.1) If \\(v\\) and \\(w\\) are well-separated}\\) <br>' +
             '\\(\\text{with respect to \\(s\\) create a pair}\\) </p>' +
-        '<p>\\(\\text{2.2.2) \\(v\\) and \\(w\\) are NOT well-separated, call}\\) <br>' +
-            '\\(\\text{\\(findPairs()\\) recursively on each node and}\\) <br>' +
+        '<p>\\(\\text{3.2) \\(v\\) and \\(w\\) are NOT well-separated, call}\\) <br>' +
+            '\\(\\text{\\(FindPairs()\\) recursively on each node and}\\) <br>' +
             '\\(\\text{the others children.}\\) </p>'
         );
 
@@ -50,7 +51,7 @@ steps.set('leafPoint',
             '\\(\\text{with respect to the splitting line.}\\)</p>' +
         '<p> \\(\\text{1.5) Recur \\(SplitTree(S_1)\\) and \\(SplitTree(S_2)\\),}\\) <br>' +
         '<p> \\(\\text{1.6) Return the split tree \\(T\\).}\\) </p>' +
-        '<p> \\(\\text{2)}\\) \\(Compute WSPD(T)\\) </p>'
+        '<p> \\(\\text{2)}\\) \\(ConstructWSPD(T)\\) </p>'
         );
 
 steps.set('boundingBox',
@@ -62,7 +63,7 @@ steps.set('boundingBox',
             '\\(\\text{with respect to the splitting line.}\\)</p>' +
         '<p> \\(\\text{1.5) Recur \\(SplitTree(S_1)\\) and \\(SplitTree(S_2)\\),}\\) <br>' +
         '<p> \\(\\text{1.6) Return the split tree \\(T\\).}\\) </p>' +
-        '<p> \\(\\text{2)}\\) \\(Compute WSPD(T)\\) </p>'
+        '<p> \\(\\text{2)}\\) \\(ConstructWSPD(T)\\) </p>'
         );
     
 steps.set('splitBoundingBox',
@@ -74,7 +75,7 @@ steps.set('splitBoundingBox',
             '\\(\\text{with respect to the splitting line.}\\)</p>' +
         '<p> \\(\\text{1.5) Recur \\(SplitTree(S_1)\\) and \\(SplitTree(S_2)\\),}\\) <br>' +
         '<p> \\(\\text{1.6) Return the split tree \\(T\\).}\\) </p>' +
-        '<p> \\(\\text{2)}\\) \\(Compute WSPD(T)\\) </p>'
+        '<p> \\(\\text{2)}\\) \\(ConstructWSPD(T)\\) </p>'
         );
 
 steps.set('partitionHighlight',
@@ -86,7 +87,7 @@ steps.set('partitionHighlight',
             '\\(\\textbf{with respect to the splitting line.}\\)</p>' +
         '<p> \\(\\text{1.5) Recur \\(SplitTree(S_1)\\) and \\(SplitTree(S_2)\\),}\\) <br>' +
         '<p> \\(\\text{1.6) Return the split tree \\(T\\).}\\) </p>' +
-        '<p> \\(\\text{2)}\\) \\(Compute WSPD(T)\\) </p>'
+        '<p> \\(\\text{2)}\\) \\(ConstructWSPD(T)\\) </p>'
         );
     
 steps.set('splitTreeRecur',
@@ -98,7 +99,7 @@ steps.set('splitTreeRecur',
             '\\(\\text{with respect to the splitting line.}\\)</p>' +
         '<p> \\(\\textbf{1.5) Recur \\(SplitTree(S_1)\\) and \\(SplitTree(S_2)\\),}\\) <br>' +
         '<p> \\(\\text{1.6) Return the split tree \\(T\\).}\\) </p>' +
-        '<p> \\(\\text{2)}\\) \\(Compute WSPD(T)\\) </p>'
+        '<p> \\(\\text{2)}\\) \\(ConstructWSPD(T)\\) </p>'
         );
     
 steps.set('returnSplitTree',
@@ -110,7 +111,7 @@ steps.set('returnSplitTree',
             '\\(\\text{with respect to the splitting line.}\\)</p>' +
         '<p> \\(\\text{1.5) Recur \\(SplitTree(S_1)\\) and \\(SplitTree(S_2)\\),}\\) <br>' +
         '<p> \\(\\textbf{1.6) Return the split tree \\(T\\).}\\) </p>' +
-        '<p> \\(\\text{2)}\\) \\(Compute WSPD(T)\\) </p>'
+        '<p> \\(\\text{2)}\\) \\(ConstructWSPD(T)\\) </p>'
         );
 
 
@@ -120,37 +121,37 @@ steps.set('returnSplitTree',
 
 steps.set('findPairsInternalNodes', 
         '<p> \\(\\text{1)}\\) \\(SpitTree(S)\\) </p>' +
-        '<p> \\(\\textbf{2)}\\) \\(Compute WSPD(T):\\) </p>' +
+        '<p> \\(\\textbf{2)}\\) \\(ConstructWSPD(T):\\) </p>' +
         '<p> \\(\\textbf{2.1) For each internal node \\(u\\) of \\(T\\) call}\\) <br>'+
-            '\\(\\textbf{\\(FindPairs(v,w)\\) on its children.}\\)</p>' +
+            '\\(\\textbf{\\(FindPairs(v,w,s)\\) on its children.}\\)</p>' +
         '<p> \\(\\text{2.2.1) If \\(v\\) and \\(w\\) are well-separated}\\) <br>' +
             '\\(\\text{with respect to \\(s\\) create a pair}\\) </p>' +
         '<p>\\(\\text{2.2.2) \\(v\\) and \\(w\\) are NOT well-separated, call}\\) <br>' +
-            '\\(\\text{ \\(findPairs()\\) recursively on each node and}\\) <br>' +
+            '\\(\\text{ \\(FindPairs()\\) recursively on each node and}\\) <br>' +
             '\\(\\text{the others children.}\\) </p>'
         );
 
 steps.set('wellSeparatedCheck', 
         '<p> \\(\\text{1)}\\) \\(SpitTree(S)\\) </p>' +
-        '<p> \\(\\textbf{2)}\\) \\(Compute WSPD(T):\\) </p>' +
+        '<p> \\(\\textbf{2)}\\) \\(ConstructWSPD(T):\\) </p>' +
         '<p> \\(\\text{2.1) For each internal node \\(u\\) of \\(T\\) call}\\) <br>'+
-            '\\(\\text{\\(FindPairs(v,w)\\) on its children.}\\)</p>' +
+            '\\(\\text{\\(FindPairs(v,w,s)\\) on its children.}\\)</p>' +
         '<p> \\(\\textbf{2.2.1) If \\(v\\) and \\(w\\) are well-separated}\\) <br>' +
             '\\(\\textbf{with respect to \\(s\\) create a pair}\\) </p>' +
         '<p>\\(\\text{2.2.2) \\(v\\) and \\(w\\) are NOT well-separated, call}\\) <br>' +
-            '\\(\\text{ \\(findPairs()\\) recursively on each node and}\\) <br>' +
+            '\\(\\text{ \\(FindPairs()\\) recursively on each node and}\\) <br>' +
             '\\(\\text{the others children.}\\) </p>'
         );
 
 steps.set('findPairsRecur', 
         '<p> \\(\\text{1)}\\) \\(SpitTree(S)\\) </p>' +
-        '<p> \\(\\textbf{2)}\\) \\(Compute WSPD(T):\\) </p>' +
+        '<p> \\(\\textbf{2)}\\) \\(ConstructWSPD(T):\\) </p>' +
         '<p> \\(\\text{2.1) For each internal node \\(u\\) of \\(T\\) call}\\) <br>'+
-            '\\(\\text{\\(FindPairs(v,w)\\) on its children.}\\)</p>' +
+            '\\(\\text{\\(FindPairs(v,w,s)\\) on its children.}\\)</p>' +
         '<p> \\(\\text{2.2.1) If \\(v\\) and \\(w\\) are well-separated}\\) <br>' +
             '\\(\\text{with respect to \\(s\\) create a pair}\\) </p>' +
         '<p>\\(\\textbf{2.2.2) \\(v\\) and \\(w\\) are NOT well-separated, call}\\) <br>' +
-            '\\(\\textbf{\\(findPairs()\\) recursively on each node and}\\) <br>' +
+            '\\(\\textbf{\\(FindPairs()\\) recursively on each node and}\\) <br>' +
             '\\(\\textbf{the others children.}\\) </p>'
         );
 
