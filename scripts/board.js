@@ -172,6 +172,22 @@ function specialAnimationOPCheck(animationObject) {
         }
     }
 
+    else if (animationObject == 'RemovePreviousWSPDHighlight') {
+
+        var wspdHighlightRemoveQueue = [];
+
+        for (var i = 0; i < undoQueue.length; i++) {
+
+            if (undoQueue[i][0].text == 'wellSeparatedHighlight') {
+                wspdHighlightRemoveQueue.push(undoQueue[i]);
+            }
+        }
+
+        while (wspdHighlightRemoveQueue.length > 0) {
+            remove(wspdHighlightRemoveQueue.shift()[1]);
+        }
+    }
+
     else if (animationObject == 'ClearOldClosest') {
 
         var oldClosestRemoveQueue = [];

@@ -133,6 +133,17 @@ steps.set('wellSeparatedCheck',
         '<p> 3.2) Otherwise, compute the node with the shorter longest bounding box ' +
         'side and call \\(FindPairs()\\) on that node and the others children. </p>');
 
+steps.set('wellSeparatedHighlight',
+        '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
+        '<p> 1) \\(SpitTree(P):\\) </p>' +
+        '<p> 2) For each internal node \\(u\\) of \\(T\\) call \\(FindPairs(v,w,s)\\) ' +
+        'on its children \\(u\\) and \\(v\\).</p>' +
+        '<p> <strong> 3) \\(FindPairs(v,w,s)\\) </strong> </p>' +
+        '<p> <strong> 3.1) If \\(S_v\\) and \\(S_w\\) are well-separated with respect to ' +
+        '\\(s\\) return a pair \\({u,v}\\) </strong> </p>' +
+        '<p> 3.2) Otherwise, compute the node with the shorter longest bounding box ' +
+        'side and call \\(FindPairs()\\) on that node and the others children. </p>');
+
 steps.set('findPairsRecur', 
         '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
         '<p> 1) \\(SpitTree(P):\\) </p>' +
@@ -388,7 +399,7 @@ function displaySteps(selection) {
     resetStepsBox(); // Set the header.
 
     stepsBox.innerHTML += steps.get(selection) // Set the steps.
-    //console.log(selection, steps.get(selection));
+    console.log(selection, steps.get(selection));
 
     MathJax.typeset(); // Latex typeset.
 }
