@@ -126,6 +126,33 @@ let wspdConnectionLineStyle = {
     fixed: true,
 };
 
+// Style for new WSPD circle highlight.
+let wspdCircleHighlightStyle = {
+    fillOpacity: 0,
+    withLabel: false,
+    color: '#00FF00',
+    fixed: true,
+    center: {
+        visible: false,
+    },
+    midpoint: {
+        visible: false,
+    },
+    point2: {
+        visible: false,
+    }
+}
+
+// Style for new WSPD lien highlight.
+let wspdLineHighlightStyle = {
+    strokeWidth: 5,
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#00FF00',
+    fixed: true,
+};
+
 // Style for lines in the t-Spanner.
 let tSpannerLineStyle = {
     withLabel: false,

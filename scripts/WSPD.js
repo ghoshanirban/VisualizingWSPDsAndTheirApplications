@@ -115,6 +115,17 @@ function isWellSeparated(v, w, s, shape=0) {
             animationCircle2.isTemporary = false;
             animationLine.isTemporary = false;
 
+            // Highlight the new WSPD. 
+            eventQueue.push(new AnimationObject('circle', [C1.center, v.R.vertices[0]],
+                wspdCircleHighlightStyle, 'wellSeparatedHighlight', true));
+            eventQueue.push(new AnimationObject('circle', [C2.center, w.R.vertices[0]],
+                wspdCircleHighlightStyle, 'wellSeparatedHighlight', true));
+            eventQueue.push(new AnimationObject('line',
+                calculateCircleConnectionLine(C1.center, v.R.vertices[0], C2.center, w.R.vertices[0]),
+                wspdLineHighlightStyle, 'wellSeparatedHighlight', true));
+
+            //eventQueue.push('ClearTemps');
+
             // Adds the AnimationObjects to the animation event queue.
             eventQueue.push(animationCircle1);
             eventQueue.push(animationCircle2);

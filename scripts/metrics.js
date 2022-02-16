@@ -26,9 +26,9 @@ function populateMetrics(selection) {
     
     if (selection == 'WSPD') {
 
-        metricsData += '<span class="metric">\\(|S|:' + getPointsetCardinality(pointSet) +'\\)</span>';
+        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) +'\\)</span>';
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(|m|:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span> <br>';
+        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
         metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
@@ -37,9 +37,9 @@ function populateMetrics(selection) {
 
     else if (selection == 'tSpanner') {
         
-        metricsData += '<span class="metric">\\(|S|:' + getPointsetCardinality(pointSet) + '\\)</span>';
+        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(|m|:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
+        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
         metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
         metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
@@ -53,9 +53,9 @@ function populateMetrics(selection) {
 
     else if (selection == 'closestPair') {
 
-        metricsData += '<span class="metric">\\(|S|:' + getPointsetCardinality(pointSet) + '\\)</span>';
+        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(|m|:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
+        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
         metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
         metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
         metricsData += '<span class="metric">\\(Closest pair:' + getClosestPair(closestPair) + '\\)</span>';
@@ -70,9 +70,9 @@ function populateMetrics(selection) {
 
     else if (selection == 'tApproxMST') {
 
-        metricsData += '<span class="metric">\\(|S|:' + getPointsetCardinality(pointSet) + '\\)</span>';
+        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(|m|:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
+        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
         metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
         metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
         metricsData += '<span class="metric">\\(W_{t-ApproxMST}:' + computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length)) + '\\)</span>';
@@ -98,9 +98,9 @@ function populateMetrics(selection) {
 }
 
 
-// Returns |S|.
-function getPointsetCardinality(S) {
-    return S.length;
+// Returns |P|.
+function getPointsetCardinality(P) {
+    return P.length;
 }
 
 // Returns a string with points matched to their IDs.
@@ -133,7 +133,7 @@ function getWSPDPairs(W) {
 
     for (pair of W.pairs) {
 
-        pairsString += '{';
+        pairsString += '{{';
 
         for (point of pair[0].S) {
             pairsString += pointSetMap.get(point) + ',';
@@ -147,7 +147,7 @@ function getWSPDPairs(W) {
         }
 
         pairsString = pairsString.substring(0, pairsString.length - 1);
-        pairsString += '}\n';
+        pairsString += '}}\n';
     }
 
     return pairsString;
