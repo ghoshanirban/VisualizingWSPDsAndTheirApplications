@@ -30,15 +30,23 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
         metricsData += '<span class="metric">\\(|m|:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span> &nbsp </span>'
+        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
     }
 
     else if (selection == 'tSpanner') {
         
-        metricsData += '<span class="metric">\\(t:' + floydWarshall(pointSet, graph) + '\\)</span>';
+        metricsData += '<span class="metric">\\(|S|:' + getPointsetCardinality(pointSet) + '\\)</span>';
+        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
+        metricsData += '<span class="metric">\\(|m|:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
+        metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
+        metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
+        metricsData += '<span class="metric">\\(Points:\\)</span>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
+        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
+        
     }
 
     metricsBox.innerHTML += metricsData; /*+ dataDownloadHTML;
@@ -109,6 +117,11 @@ function getWSPDPairs(W) {
 // Returns |E|.
 function getGraphEdgesCardinality(G) {
     return G.size;
+}
+
+// Returns t
+function getTValue(t) {
+    return t;
 }
 
 

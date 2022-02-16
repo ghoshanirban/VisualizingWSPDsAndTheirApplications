@@ -46,9 +46,14 @@ body {
   text-align: center;
 }
 
-#WSPDControls {
+#controls {
+  text-align: center;
+  border: 3px solid black;
+}
+
+#algorithmControls {
+  padding-left: 20%;
   text-align: left;
-  border:1.5px solid rgb(162, 152, 201);
 }
 
 #graphContainer {
@@ -93,11 +98,15 @@ body {
     border-radius: 25px;
     padding: 3%;
     background-color: rgb(167, 151, 189);
-    text-align: justify;
+    text-align: left;
 }
 
 .dataBoxHeader {
     text-align: center;
+}
+
+#metricsBox {
+  text-align: center;
 }
 
 #dataDownloadBox {
@@ -125,7 +134,7 @@ body {
 }
 
 .metric {
-	display: inline-block;
+	display: block;
 	background-color: grey;
 	color: #000000;
 	line-height: initial;

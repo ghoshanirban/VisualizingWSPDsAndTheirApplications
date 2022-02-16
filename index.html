@@ -46,9 +46,9 @@
                 <h1 id="toolName">\(\textsf{Visualizing WSPDs and}\) <br> \(\textsf{their applications}\)</h1>
 
                 <div id="pointControl">
-                    <label for="editPoints"> \(\textsf{Edit points?}\)</label>
+                    <label for="editPoints"> \(\textsf{Edit points}\)</label>
                     <input id="editPoints" type="checkbox" value="true" checked>
-                    <label for="pointIDs"> \(\textsf{Show point IDs?}\)</label>
+                    <label for="pointIDs"> \(\textsf{Show point IDs}\)</label>
                     <input id="pointIDs" type="checkbox" value="true" checked>
                     <br>
                     <label for="numPoints">\(\textsf{Number of points:}\)</label>
@@ -56,18 +56,18 @@
                     <button id="generatePoints" class="buttonE button1">\(\textsf{Generate}\)</button>
                     <br>
                     <br>
-                    <label for="preGeneratedPointSets">\(\textsf{Pre-generated Pointsets}\)</label>
+                    <label for="preGeneratedPointSets">\(\textsf{Pre-generated pointsets}\)</label>
                     <select name="preGenPointSets" id="preGeneratedPointSets">
-                        <option disabled selected value="">Pre-generated Pointsets</option>
+                        <option disabled selected value="">Select a pointset</option>
                         <option value="circle">Circle</option>
                         <option value="archimedeanSpiral">Archimedean spiral</option>
                         <option value="grid">Grid</option>
                     </select>
                     <br>
                     <br>
-                    <label for="points" class="labelP"> \(\textsf{Point coordinates}\) </label>
+                    <label for="points" class="labelP"> \(\textsf{Enter point(s)}\) </label>
                     <br>
-                    <textarea id="points" cols="15" placeholder="Point coordinates" ></textarea>
+                    <textarea id="points" cols="15" placeholder="" ></textarea>
                     <br>
                     <button id="plotPoints" class="buttonE button1">\(\textsf{Plot points}\) </button>
                 </div>
@@ -90,25 +90,28 @@
 
                 <br>
 
-                <div id="WSPDControls">
-                    <h4 class="title"> \(\textsf{WSPD and Application Algorithms}\)</h4>
-                    <button id="WSPD" class="buttonE button1">\(\textsf{ConstructWSPD}\)</button>
-                    <input id="separationFactor" type="text" size="15" placeholder="Separation Factor">
+                <div id="controls">
+                    <h2 class="title"> \(\textsf{Algorithms}\)</h2>
+                    <div id="algorithmControls">
+                        <button id="WSPD" class="buttonE button1">\(\textsf{ConstructWSPD}\)</button>
+                        <input id="separationFactor" type="text" size="5" placeholder="s">
+                        <br>
+                        <button id="tSpanner" class="buttonE button1">\(\textsf{$t$-Spanner}\)</button>
+                        <label for="t"></label>
+                        <input id="t" type="text" size="5" placeholder=" t ">
+                        <br>
+                        <button id="closestPair" class="buttonE button1">\(\textsf{Closest pair}\)</button>
+                        <br>
+                        <button id="kClosestPairs" class="buttonE button1">\(\textsf{$k$-Closest pairs}\)</button>
+                        <input id="kPairs" type="text" size="5" placeholder=" k ">
+                        <br>
+                        <button id="allNearestNeighbors" class="buttonE button1">\(\textsf{ANN}\)</button>
+                        <br>
+                        <button id="MST" class="buttonE button1">\(\textsf{$t$-Approx. MST}\)</button>
+                        <label for="tMST"></label>
+                        <input id="tMST" type="text" size="5" placeholder=" t ">
+                    </div>
                     <br>
-                    <button id="tSpanner" class="buttonE button1">\(\textsf{$t$-Spanner}\)</button>
-                    <label for="t"></label>
-                    <input id="t" type="text" size="5" placeholder=" t ">
-                    <br>
-                    <button id="closestPair" class="buttonE button1">\(\textsf{Closest pair}\)</button>
-                    <br>
-                    <button id="kClosestPairs" class="buttonE button1">\(\textsf{$k$-Closest Pairs}\)</button>
-                    <input id="kPairs" type="text" size="5" placeholder=" k ">
-                    <br>
-                    <button id="allNearestNeighbors" class="buttonE button1">\(\textsf{ANN}\)</button>
-                    <br>
-                    <button id="MST" class="buttonE button1">\(\textsf{$t$-Approx. MST}\)</button>
-                    <label for="tMST"></label>
-                    <input id="tMST" type="text" size="5" placeholder=" t ">
                 </div>
 
                 <br>

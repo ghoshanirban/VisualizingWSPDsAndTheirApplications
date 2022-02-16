@@ -26,7 +26,7 @@ function animatedPrim(G, n) {
     let r = GPrime[0][0];
     eventQueue.push(new AnimationObject('point', r, tApproxMSTStartPointStyle, 'tApproxMSTStartPoint', true)); // Highlight the start point.
     // Highlight the start point to permanent color.
-    eventQueue.push(new AnimationObject('point', r, tApproxMSTSelectedPointStyle, 'tApproxMSTPoint', false)); 
+    eventQueue.push(new AnimationObject('point', r, tApproxMSTSelectedPointStyle, 'tApproxMSTStartPoint', false)); 
 
     // Prims algorithm iterations.
     var A = new Set();
@@ -40,16 +40,16 @@ function animatedPrim(G, n) {
         let v = GPrime[index][0];
         let w = GPrime[index][1];
         // Highlight the considered points and edge.
-        eventQueue.push(new AnimationObject('point', v, tApproxMSTConsideredPointStyle, 'tApproxMSTConsideredPoint', true)); 
-        eventQueue.push(new AnimationObject('point', w, tApproxMSTConsideredPointStyle, 'tApproxMSTConsideredPoint', true));
-        eventQueue.push(new AnimationObject('line', [v, w], tApproxMSTConsideredLineStyle, 'tApproxMSTConsideredLine', true));
+        eventQueue.push(new AnimationObject('point', v, tApproxMSTConsideredPointStyle, 'tApproxMSTConsidered', true)); 
+        eventQueue.push(new AnimationObject('point', w, tApproxMSTConsideredPointStyle, 'tApproxMSTConsidered', true));
+        eventQueue.push(new AnimationObject('line', [v, w], tApproxMSTConsideredLineStyle, 'tApproxMSTConsidered', true));
         if (A.has(v) && !A.has(w)) {
             A.add(w); // Add the vertex.
             T.add(GPrime[index]); // Add the edge to the MST.
 
             // Permanently highlight the new t-Approx MST point and edge.
-            eventQueue.push(new AnimationObject('point', w, tApproxMSTSelectedPointStyle, 'tApproxMSTPoint', false));
-            eventQueue.push(new AnimationObject('line', GPrime[index], tApproxMSTSelectedLineStyle, 'tApproxMSTEdge', false));
+            eventQueue.push(new AnimationObject('point', w, tApproxMSTSelectedPointStyle, 'tApproxMSTAdd', false));
+            eventQueue.push(new AnimationObject('line', GPrime[index], tApproxMSTSelectedLineStyle, 'tApproxMSTAdd', false));
 
             GPrime.splice(index, 1); // Remove the edge, from the sorted set.
             index = 0;
@@ -59,14 +59,15 @@ function animatedPrim(G, n) {
             T.add(GPrime[index]); // Add the edge to the MST.
 
             // Permanently highlight the new t-Approx MST point and edge.
-            eventQueue.push(new AnimationObject('point', v, tApproxMSTSelectedPointStyle, 'tApproxMSTPoint', false));
-            eventQueue.push(new AnimationObject('line', GPrime[index], tApproxMSTSelectedLineStyle, 'tApproxMSTEdge', false));
+            eventQueue.push(new AnimationObject('point', v, tApproxMSTSelectedPointStyle, 'tApproxMSTAdd', false));
+            eventQueue.push(new AnimationObject('line', GPrime[index], tApproxMSTSelectedLineStyle, 'tApproxMSTAdd', false));
 
             GPrime.splice(index, 1); // Remove the edge, from the sorted set.
             index = 0;
         }
 
         else{
+            eventQueue.add('cycleEdge');
             index++; // Minimum edge is not yet valid check the next edge.
         }
 

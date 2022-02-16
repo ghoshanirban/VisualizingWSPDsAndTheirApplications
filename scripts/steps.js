@@ -149,19 +149,19 @@ steps.set('findPairsRecur',
 */
 
 steps.set('tSpanner',
-    '<p style="text-align: center;"> \\(Construct-t-Spanner(P,t>1)\\) </p>' +
+    '<p style="text-align: center;"> \\(Construct\\)-\\(t\\)-\\(Spanner(P,t>1)\\) </p>' +
     '<p> 1) Let \\(s = 4(t+1)/(t-1)\\). Construct a WSPD of \\(p\\) with \\(s\\).</p>' +
     '<p> 2) For each pair \\({A_i, B_i}\\) select an arbitrary point \\(a_i\\) in \\(A_i\\)' +
     'and \\(b_i\\) in \\(B_i\\), then add the edge \\({a_i,b_i}\\). </p>');
 
 steps.set('tSpannerWSPD',
-        '<p style="text-align: center;"> \\(Construct-t-Spanner(P,t>1)\\) </p>' +
+        '<p style="text-align: center;"> \\(Construct\\)-\\(t\\)-\\(Spanner(P,t>1)\\) </p>' +
         '<p> <strong> 1) Let \\(s = 4(t+1)/(t-1)\\). Construct a WSPD of \\(p\\) with \\(s\\). </strong> </p>' +
         '<p> 2) For each pair \\({A_i, B_i}\\) select an arbitrary point \\(a_i\\) in \\(A_i\\)' +
         'and \\(b_i\\) in \\(B_i\\), then add the edge \\({a_i,b_i}\\). </p>');
 
 steps.set('tSpannerStep', 
-        '<p style="text-align: center;"> \\(Construct-t-Spanner(P,t>1)\\) </p>' +
+        '<p style="text-align: center;"> \\(Construct\\)-\\(t\\)-\\(Spanner(P,t>1)\\) </p>' +
         '<p> 1) Let \\(s = 4(t+1)/(t-1)\\). Construct a WSPD of \\(p\\) with \\(s\\).</p>' +
         '<p> <strong> 2) For each pair \\({A_i, B_i}\\) select an arbitrary point \\(a_i\\) in \\(A_i\\)' +
         'and \\(b_i\\) in \\(B_i\\), then add the edge \\({a_i,b_i}\\). </strong> </p>');
@@ -172,7 +172,7 @@ steps.set('tSpannerStep',
 
 steps.set('closestPair',
         '<p style="text-align: center;"> \\(ClosestPair(P)\\) </p>' +
-        '<p> 1) Construct a 2-spanner \\((Construct-t-Spanner(P,2))\\). </p>' +
+        '<p> 1) Construct a 2-spanner (\\(Construct\\)\\(-\\)t\\(-\\)\\(Spanner(P,2)\\)). </p>' +
         '<p> 2) For each edge in the spanner compute the distance weight of the edge. </p>' +
         '<p> 2.1) If the weight of the edge is less than the current shortest edge distance replace' +
         'the current shortest pair. </p>' +
@@ -180,7 +180,7 @@ steps.set('closestPair',
 
 steps.set('possibleClosestPair',
         '<p style="text-align: center;"> \\(ClosestPair(P)\\) </p>' +
-        '<p> 1) Construct a 2-spanner \\((Construct-t-Spanner(P,2))\\). </p>' +
+        '<p> 1) Construct a 2-spanner (\\(Construct\\)\\(-\\)t\\(-\\)\\(Spanner(P,2)\\)). </p>' +
         '<p> <strong> 2) For each edge in the spanner compute the distance weight of the edge. </strong> </p>' +
         '<p> 2.1) If the weight of the edge is less than the current shortest edge distance replace' +
         'the current shortest pair. </p>' +
@@ -188,15 +188,15 @@ steps.set('possibleClosestPair',
 
 steps.set('currentPossibleClosestPair',
         '<p style="text-align: center;"> \\(ClosestPair(P)\\) </p>' +
-        '<p> 1) Construct a 2-spanner \\((Construct-t-Spanner(P,2))\\). </p>' +
-        '<p> 2) For each edge in the spanner compute the distance weight of the edge. </p>' +
+        '<p> 1) Construct a 2-spanner (\\(Construct\\)\\(-\\)t\\(-\\)\\(Spanner(P,2)\\)). </p>' +
+        '<p> <strong> 2) For each edge in the spanner compute the distance weight of the edge. </strong> </p>' +
         '<p> <strong> 2.1) If the weight of the edge is less than the current shortest edge distance replace ' +
         'the current shortest pair. </strong></p>' +
         '<p> 3) Return the closest pair. </p>');
 
 steps.set('closestPairReturn',
         '<p style="text-align: center;"> \\(ClosestPair(P)\\) </p>' +
-        '<p> 1) Construct a 2-spanner \\((Construct-t-Spanner(P,2))\\). </p>' +
+        '<p> 1) Construct a 2-spanner (\\(Construct\\)\\(-\\)t\\(-\\)\\(Spanner(P,2)\\)). </p>' +
         '<p> 2) For each edge in the spanner compute the distance weight of the edge. </p>' +
         '<p> 2.1) If the weight of the edge is less than the current shortest edge distance replace ' +
         'the current shortest pair. </p>' +
@@ -207,14 +207,54 @@ steps.set('closestPairReturn',
  */
 
 steps.set('tApproxMST',
-    '<p style="text-align: center;"> \\(t-ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
-    '<p> 1) Construct a t-spanner \\(G\\) via \\((Construct-t-Spanner(P,2))\\). </p>' +
-    '<p> 2) Prims(G) </p>' +
-    '<p> 2.1) Select an arbitrary starting point. <p>' +
-    '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
-    '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
-    '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
-    '<p> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </p>');
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> 2) Prims(G) </p>' +
+        '<p> 2.1) Select an arbitrary starting point. <p>' +
+        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
+        '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
+        '<p> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </p>');
+
+steps.set('tApproxMSTStartPoint',
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> <strong> 2) Prims(G) </strong> </p>' +
+        '<p> <strong> 2.1) Select an arbitrary starting point. </strong> <p>' +
+        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
+        '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
+        '<p> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </p>');
+
+steps.set('tApproxMSTConsidered',
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> 2) <strong> Prims(G) </strong> </p>' +
+        '<p> 2.1) Select an arbitrary starting point. <p>' +
+        '<p> <strong> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '\\(G\\) with at least one vertex in \\(T\\). </strong> </p> ' +
+        '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
+        '<p> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </p>');
+
+steps.set('cycleEdge',
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> <strong> 2) Prims(G) </strong> </p>' +
+        '<p> 2.1) Select an arbitrary starting point. <p>' +
+        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
+        '<p> <strong> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </strong> </p>' +
+        '<p> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </p>');
+
+steps.set('tApproxMSTAdd',
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> <strong> 2) Prims(G) </strong> </p>' +
+        '<p> 2.1) Select an arbitrary starting point. <p>' +
+        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
+        '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
+        '<p> <strong> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </strong> </p>');
 
 
 // Called during animation to display the steps for the current algorithm

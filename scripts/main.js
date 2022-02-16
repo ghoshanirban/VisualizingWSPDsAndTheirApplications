@@ -10,6 +10,7 @@ var pointSet = []; // List of points.
 var pointSetMap = new Map(); // Maps point index to the points (x,y) value.
 var splitTree = null; // Object defined in SplitTree.js
 var wspd = null; // Object defined in WSPD.js
+var tValue = null; // The t value used by the current algorithm.
 var graph = new Map(); // Adjacency list representation for the graph.
 var graphEdges = new Set(); // Edge set.
 var closestPair = []; // Pair of points in R^2.
@@ -158,6 +159,7 @@ function computeTSpanner() {
     algorithm = 'tSpanner';
     displaySteps(algorithm);
     generateTSpanner(t);
+    tValue = t;
     populateMetrics(algorithm);
 
     animate(1, animationSpeedSelection.value);
@@ -180,6 +182,7 @@ function findClosestPair() {
 
     generateWSPD(s);
     generateTSpanner(t);
+    tValue = t;
 
     algorithm = 'closestPair';
     displaySteps(algorithm)
@@ -215,6 +218,7 @@ function generateApproxMST() {
     generateWSPD(s);
 
     generateTSpanner(t);
+    tValue = t;
 
     // Run prims on the t-spanner.
     algorithm = 'tApproxMST';
