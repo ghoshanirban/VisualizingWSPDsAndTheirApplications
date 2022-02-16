@@ -294,49 +294,44 @@ steps.set('kClosestPairsSelection',
  */
 
 steps.set('ANN',
+        '<p> 1) For each point \\(p\\) in \\(P\\) <p>' +
+        '<p> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
+        'is a singleton containing \\(p\\). </p>' +
+        '<p> 1.2) For every such pair \\(A_i, B_i\\), if \\(A_i = {p}\\), then \\(S_p = S_p \\cup B_i\\), else if ' +
+        '\\(B_i = {p}\\) then \\(S_p = S_p \\cup A_i\\)</p>' +
+        '<p> 1.3) The nearest neighbor of \\(p\\) is the point in \\(S_p\\) closest to \\(p\\).</p>');
+
+steps.set('ANNLoop',
         '<p> <strong> 1) For each point \\(p\\) in \\(P\\) </strong> <p>' +
-        '<p> 2) Consider all such pairs of the WSPD, for which at least one of their sets ' +
-        'is a singleton containing \\(p\\) </p>' +
-        '<p> 3) Otherwise, find WSPD pairs \\((A_i,B_i)\\) where \\(B_i = p\\).</p>' +
-        '<p> 4) If \\(A_i = p\\), compute set, \\(Sp = Sp \\cup B_i \\).</p>' +
-        '<p> 5) Otherwise \\(B_i = p\\), compute set, \\(Sp = Sp \\cup A_i \\).</p>' +
-        '<p> 6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\). <p>');
+        '<p> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
+        'is a singleton containing \\(p\\). </p>' +
+        '<p> 1.2) For every such pair \\(A_i, B_i\\), if \\(A_i = {p}\\), then \\(S_p = S_p \\cup B_i\\), else if ' +
+        '\\(B_i = {p}\\) then \\(S_p = S_p \\cup A_i\\)</p>' +
+        '<p> 1.3) The nearest neighbor of \\(p\\) is the point in \\(S_p\\) closest to \\(p\\).</p>');
 
-steps.set('ANNWSPD',
-        '<p> 1) For each point \\(p\\) in \\(P\\) <p>' +
-        '<p> <strong> 2) Consider all such pairs of the WSPD, for which at least one of their sets ' +
-        'is a singleton containing \\(p\\) </strong> </p>' +
-        '<p> 3) Otherwise, find WSPD pairs \\((A_i,B_i)\\) where \\(B_i = p\\).</p>' +
-        '<p> 4) If \\(A_i = p\\), compute set, \\(Sp = Sp \\cup B_i \\).</p>' +
-        '<p> 5) Otherwise \\(B_i = p\\), compute set, \\(Sp = Sp \\cup A_i \\).</p>' +
-        '<p> 6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\). <p>');
+steps.set('considerWSPDPairs',
+        '<p> <strong> 1) For each point \\(p\\) in \\(P\\) </strong> <p>' +
+        '<p> <strong> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
+        'is a singleton containing \\(p\\). </strong> </p>' +
+        '<p> 1.2) For every such pair \\(A_i, B_i\\), if \\(A_i = {p}\\), then \\(S_p = S_p \\cup B_i\\), else if ' +
+        '\\(B_i = {p}\\) then \\(S_p = S_p \\cup A_i\\)</p>' +
+        '<p> 1.3) The nearest neighbor of \\(p\\) is the point in \\(S_p\\) closest to \\(p\\).</p>');
 
-steps.set('ANNWSPDBi',
-        '<p> 1) For each point \\(p\\) in \\(P\\) <p>' +
-        '<p> 2) Consider all such pairs of the WSPD, for which at least one of their sets ' +
-        'is a singleton containing \\(p\\) </p>' +
-        '<p> <strong> 3) Otherwise, find WSPD pairs \\((A_i,B_i)\\) where \\(B_i = p\\). </strong> </p>' +
-        '<p> 4) If \\(A_i = p\\), compute set, \\(Sp = Sp \\cup B_i \\).</p>' +
-        '<p> 5) Otherwise \\(B_i = p\\), compute set, \\(Sp = Sp \\cup A_i \\).</p>' +
-        '<p> 6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\). <p>');
+steps.set('selectSingletonWSPD',
+        '<p> <strong> 1) For each point \\(p\\) in \\(P\\) </strong> <p>' +
+        '<p> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
+        'is a singleton containing \\(p\\). </p>' +
+        '<p> <strong> 1.2) For every such pair \\(A_i, B_i\\), if \\(A_i = {p}\\), then \\(S_p = S_p \\cup B_i\\), else if ' +
+        '\\(B_i = {p}\\) then \\(S_p = S_p \\cup A_i\\) </strong> </p>' +
+        '<p> 1.3) The nearest neighbor of \\(p\\) is the point in \\(S_p\\) closest to \\(p\\).</p>');
 
-steps.set('ANNWSPDSP',
-        '<p> 1) For each point \\(p\\) in \\(P\\) <p>' +
-        '<p> 2) Consider all such pairs of the WSPD, for which at least one of their sets ' +
-        'is a singleton containing \\(p\\) </p>' +
-        '<p> 3) Otherwise, find WSPD pairs \\((A_i,B_i)\\) where \\(B_i = p\\).</p>' +
-        '<p> <strong> 4) If \\(A_i = p\\), compute set, \\(Sp = Sp \\cup B_i \\). </strong> </p>' +
-        '<p> 5) Otherwise \\(B_i = p\\), compute set, \\(Sp = Sp \\cup A_i \\).</p>' +
-        '<p> 6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\). <p>');
-
-steps.set('ANNWSPDQ',
-        '<p> 1) For each point \\(p\\) in \\(P\\) <p>' +
-        '<p> 2) Consider all such pairs of the WSPD, for which at least one of their sets ' +
-        'is a singleton containing \\(p\\) </p>' +
-        '<p> 3) Otherwise, find WSPD pairs \\((A_i,B_i)\\) where \\(B_i = p\\).</p>' +
-        '<p> 4) If \\(A_i = p\\), compute set, \\(Sp = Sp \\cup B_i \\).</p>' +
-        '<p> 5) Otherwise \\(B_i = p\\), compute set, \\(Sp = Sp \\cup A_i \\).</p>' +
-        '<p> <strong> 6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\). </strong> <p>');
+steps.set('getNearestNeighbor',
+        '<p> <strong> 1) For each point \\(p\\) in \\(P\\) </strong> <p>' +
+        '<p> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
+        'is a singleton containing \\(p\\). </p>' +
+        '<p> 1.2) For every such pair \\(A_i, B_i\\), if \\(A_i = {p}\\), then \\(S_p = S_p \\cup B_i\\), else if ' +
+        '\\(B_i = {p}\\) then \\(S_p = S_p \\cup A_i\\)</p>' +
+        '<p> <strong> 1.3) The nearest neighbor of \\(p\\) is the point in \\(S_p\\) closest to \\(p\\). </strong> </p>');
 
 /**
  * t-Approx MST steps.

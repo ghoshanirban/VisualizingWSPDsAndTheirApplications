@@ -91,9 +91,8 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
         metricsData += '<span class="metric">\\(|m|:' + getANNPairsCardinality(ANNList) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
-        metricsData += '<span class="metric">\\(ANN Pairs:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span> &nbsp </span>'
+        metricsData += '<span class="metric">\\(ANN Pairs:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getANNPairs(ANNList) + '</textarea>';
     }
 
