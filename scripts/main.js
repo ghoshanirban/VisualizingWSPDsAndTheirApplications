@@ -256,8 +256,8 @@ function AllNearestNeighborConstruction() {
     
     s = parseFloat(sANNEntry.value);
 
-    // Check that s is valid (s >= 0).
-    if (!isFinite(s) || s < 0) {
+    // Check that s is valid (s > 2).
+    if (!isFinite(s) || s <= 2) {
         alert('Please select a valid value for the separation factor of the WSPD (s > 0).');
         return;
     }

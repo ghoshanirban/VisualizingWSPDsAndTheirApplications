@@ -43,7 +43,7 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
         metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
-        metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
+        metricsData += '<span class="metric">\\(t:' + getTValue(tValue) + '\\)</span>';
         metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
@@ -59,7 +59,7 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
         metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
-        metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
+        metricsData += '<span class="metric">\\(t:' + getTValue(tValue) + '\\)</span>';
         metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
         metricsData += '<span class="metric">\\(Closest pair:' + getClosestPair(closestPair) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
@@ -89,7 +89,7 @@ function populateMetrics(selection) {
     else if (selection == 'ANN') {
         metricsData += '<span class="metric">\\(|S|:' + getPointsetCardinality(pointSet) + '\\)</span>';
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(|m|:' + getANNPairsCardinality(ANNList) + '\\)</span> <br>';
+        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
         metricsData += '<span class="metric">\\(ANN Pairs:\\)</span>';
@@ -101,7 +101,7 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
         metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
-        metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
+        metricsData += '<span class="metric">\\(t:' + getTValue(tValue) + '\\)</span>';
         metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
         metricsData += '<span class="metric">\\(W_{t-ApproxMST}:' + computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length)) + '\\)</span>';
         metricsData += '<span class="metric">\\(W_{MST}:' + computeGraphWeight(tApproxMST) + '\\)</span> <br>';
@@ -198,7 +198,7 @@ function getGraphEdges(G) {
 
     for(var edge of G) {
 
-        edgeString += '(' + pointSetMap.get(edge[0]) + ',' + pointSetMap.get(edge[1]) + ')\n';
+        edgeString += '{' + pointSetMap.get(edge[0]) + ',' + pointSetMap.get(edge[1]) + '}\n';
     }
 
     return edgeString;
