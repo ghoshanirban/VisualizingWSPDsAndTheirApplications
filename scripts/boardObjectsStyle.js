@@ -375,16 +375,18 @@ let pointSetStyleANNNode2 = {
 };
 
 let pointSetStyleANNCurrentClosestNode1 = {
-    size: 6,
+    size: 10,
     withLabel: false,
     fixed: true,
-    color: '#59FF33'
+    face: 'square',
+    color: '#FF0000'
 };
 
 let pointSetStyleANNCurrentClosestNode2 = {
-    size: 6,
+    size: 10,
     withLabel: false,
     fixed: true,
+    face: 'square',
     color: '#59FF33'
 };
 
@@ -397,3 +399,23 @@ let ANNCurrentClosestLine = {
     strokeWidth: 4,
 };
 
+let pointSetStyleANNWSPDPair = {
+    size: 7,
+    withLabel: false,
+    fixed: true,
+    color: '#FF0000'
+};
+
+let pointSetStyleANNCurrentNode = {
+    size: 7,
+    withLabel: false,
+    fixed: true,
+    color: '#FF0000'
+};
+
+let pointSetStyleANNFinal = {
+    size: 3,
+    withLabel: false,
+    fixed: true,
+    color: '#000000'
+};

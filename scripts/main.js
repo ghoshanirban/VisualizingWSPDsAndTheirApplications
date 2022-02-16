@@ -15,6 +15,7 @@ var graphEdges = new Set(); // Edge set.
 var closestPair = []; // Pair of points in R^2.
 var tApproxMST = new Set(); // Edge set.
 var kClosestPairs = []; // List of size k of closest pairs.
+var ANNList = []; // List of all nearest neighbors.
 var algorithm = ''; // The algorithm currently being computed/animated.
 
 // Data fields.
@@ -186,10 +187,12 @@ let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');
 allNearestNeighborsButton.addEventListener('click', AllNearestNeighborConstruction);
 
 
-function AllNearestNeighborConstruction() {    
+function AllNearestNeighborConstruction() {
     if (wspd == null) {
         alert('Please construct a WSPD.');
     }
+
+    algorithm = 'ANN';
 
     s = parseFloat(separationFactorEntry.value);
 
@@ -202,20 +205,25 @@ function AllNearestNeighborConstruction() {
             return;
         }
 
-    //splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
-    //wspd = new WSPD(splitTree, s);
+
+    splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
+    wspd = new WSPD(splitTree, s);
 
     let treeArray;
     let singletonWSPD = getSingletonWSPD(wspd);
 
-    
+
     eventQueue = [];
     undoQueue = [];
     removeQueue = [];
-    
+
+    displaySteps(algorithm);
     NaiveAllNN(pointSet, pointSetMap, treeArray, singletonWSPD);
+    populateMetrics(algorithm);
+
     animate(1, animationSpeedSelection.value);
 }
+
 
 // Download controls.
 

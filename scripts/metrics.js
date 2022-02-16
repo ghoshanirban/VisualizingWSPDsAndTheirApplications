@@ -35,6 +35,18 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(t:' + floydWarshall(pointSet, graph) + '\\)</span>';
     }
 
+    else if (selection == 'ANN') {
+        metricsData += '<span class="metric">\\(|S|:' + getPointsetCardinality(pointSet) + '\\)</span>';
+        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
+        metricsData += '<span class="metric">\\(|m|:' + getANNPairsCardinality(ANNList) + '\\)</span> <br>';
+        metricsData += '<span class="metric">\\(Points:\\)</span>';
+        metricsData += '<span class="metric">\\(ANN Pairs:\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
+        metricsData += '<span> &nbsp </span>'
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getANNPairs(ANNList) + '</textarea>';
+    }
+
+
     metricsBox.innerHTML += metricsData;
 
     MathJax.typeset();
@@ -218,3 +230,28 @@ function floydWarshall(pointSet, graph){
     return tMax;
 }
 
+
+function getANNPairsCardinality(ANNList) {
+    return ANNList.length / 2;
+}
+
+
+// Returns the WSPD pairs as a string.
+function getANNPairs(ANNList) {
+
+    var pairsString = '';
+
+    pairsString += '{';
+
+    for (let i = 0; i < ANNList.length - 2; i += 2) {
+        pairsString += '{' + ANNList[i] + ',';
+        pairsString += ANNList[i + 1] + '},\n';
+
+    }
+    pairsString += '{' + ANNList[ANNList.length - 2] + ',';
+    pairsString += ANNList[ANNList.length - 1] + '}';
+
+    pairsString += '}\n';
+
+    return pairsString;
+}
