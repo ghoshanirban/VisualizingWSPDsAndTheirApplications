@@ -124,6 +124,7 @@ function computeWSPD() {
     // Set the algorithm name and display its steps.
     algorithm = 'WSPD'
     displaySteps(algorithm);
+    populateMetrics('processing');
     generateWSPD(s);
     populateMetrics(algorithm);
 
@@ -158,6 +159,7 @@ function computeTSpanner() {
 
     algorithm = 'tSpanner';
     displaySteps(algorithm);
+    populateMetrics('processing');
     generateTSpanner(t);
     tValue = t;
     populateMetrics(algorithm);
@@ -180,6 +182,7 @@ function findClosestPair() {
     reset();
     plot();
 
+    populateMetrics('processing');
     generateWSPD(s);
     generateTSpanner(t);
     tValue = t;
@@ -215,8 +218,9 @@ function generateApproxMST() {
 
     // Generates the WSPD with separation factor based on t.
     let s = tToSeparationFactor(t)
-    generateWSPD(s);
 
+    populateMetrics('processing');
+    generateWSPD(s);
     generateTSpanner(t);
     tValue = t;
 
@@ -231,6 +235,7 @@ function generateApproxMST() {
 
 let kClosestPairsButton = document.getElementById('kClosestPairs');
 let kPairsEntry = document.getElementById('kPairs');
+let sKPairsEntry = document.getElementById('sKPairs');
 kClosestPairsButton.addEventListener('click', generateKClosestPairs);
 function generateKClosestPairs() {
 
@@ -239,17 +244,24 @@ function generateKClosestPairs() {
         return;
 
     let k = parseInt(kPairsEntry.value);
+    let s = parseFloat(sKPairsEntry.value);
 
     // Check k is valid ( 1 <= k <= C(n,2)).
     if (k < 1 || k > combination(pointSet.length, 2)) {
         alert('Please select a valid value for k (0 < k <= C(n,2)).');
     }
 
+    // Check that s is valid (s >= 0).
+    if (!isFinite(s) || s < 0) {
+        alert('Please select a valid value for the separation factor of the WSPD (s > 0).');
+        return;
+    }
+
     // Reset the objects on the board and re-plot the points to prepare animation.
     reset();
     plot();
 
-    let s = 2;
+    populateMetrics('processing');
     generateWSPD(s);
 
     algorithm = 'kClosestPairs';

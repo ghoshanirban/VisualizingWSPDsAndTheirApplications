@@ -23,8 +23,11 @@ function populateMetrics(selection) {
     resetMetricsBox();
 
     var metricsData = '';
+
+    if (selection == 'processing')
+        metricsData += '<span class="metric">\\(\\text{Processing}\\)</span>';
     
-    if (selection == 'WSPD') {
+    else if (selection == 'WSPD') {
 
         metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) +'\\)</span>';
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
@@ -65,6 +68,21 @@ function populateMetrics(selection) {
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
         metricsData += '<span class="metric">\\(Edges :\\)</span> <br>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(graphEdges) + '</textarea>';
+
+    }
+
+    else if (selection == 'kClosestPairs') {
+
+        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
+        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
+        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
+        metricsData += '<span class="metric">\\(k:' + getK(kPairs.value) + '\\)</span>';
+        metricsData += '<span class="metric">\\(Points:\\)</span>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
+        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
+        metricsData += '<span class="metric">\\(' + getK(kPairs.value) + '\\)-\\(closest \\text{ } pairs :\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getKClosestPairs(kClosestPairs) + '</textarea>';
 
     }
 
@@ -180,6 +198,25 @@ function getGraphEdges(G) {
 function getClosestPair(pair) {
     var returnString = '(' + pointSetMap.get(pair[0]) + ',' + pointSetMap.get(pair[1]) + ')';
     return returnString;
+}
+
+// Returns k for k-closest pairs.
+function getK(k) {
+    return k;
+}
+
+// Returns the k-closest pairs as a string.
+function getKClosestPairs(K) {
+
+    var kClosestPairsString = '';
+    
+    for (var pair of K) {
+
+        kClosestPairsString += '(' + pointSetMap.get(pair[0]) + ',' + pointSetMap.get(pair[1]) + ')\n';
+    }
+
+    return kClosestPairsString;
+
 }
 
 // Creates a complete graph from a point set.

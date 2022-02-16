@@ -203,6 +203,82 @@ steps.set('closestPairReturn',
         '<p> <strong> 3) Return the closest pair. </strong> </p>');
 
 /**
+ * k-Closest Pairs steps.
+ */
+
+steps.set('kClosestPairs', 
+        '<p style="text-align: center;"> \\(k\\)\\(-\\)\\(ClosestPairs(P)\\) </p>' +
+        '<p> 1) Construct a WSPD with \\(s>0\\) where the set of pairs is sorted by the minimum distance '+
+        'between the bounding boxes of the first set of the pair \\(R(A_i)\\) and the second set of pair ' +
+        '\\(R(B_i)\\) denoted as \\(|R(A_i)R(B_i)|\\). </p>' +
+        '<p> 2) Compute the smallest integer \\(l\\) such that \\(\sum{i = 1}{l} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
+        '<p> 3) Let \\(r\\) denote \\(|R(A_l)R(B_l)|\\).</p>' +
+        '<p> 4) Compute \\(l\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
+        '<p> 5) Compute \\(L\\) which contains all pairs \\({p,q}\\) for which there is an index \\(1 \\leq i \\leq l\\) ' +
+        'such that \\(p \\in A_i, q \\in B_i\\) or  \\(q \\in A_i, p \\in B_i\\)' +
+        '<p> 6) Return the first \\(k\\) pairs ordered by smallest distances in \\(L\\).</p>');
+
+steps.set('kClosestWSPDPairSelection',
+    '<p style="text-align: center;"> \\(k\\)\\(-\\)\\(ClosestPairs(P)\\) </p>' +
+    '<p> 1) Construct a WSPD with \\(s>0\\) where the set of pairs is sorted by the minimum distance ' +
+    'between the bounding boxes of the first set of the pair \\(R(A_i)\\) and the second set of pair ' +
+    '\\(R(B_i)\\) denoted as \\(|R(A_i)R(B_i)|\\). </p>' +
+    '<p> <strong> 2) Compute the smallest integer \\(l\\) such that \\(\sum{i = 1}{l} |A_i| \\cdot |B_i| \\geq k\\). </strong> </p>' +
+    '<p> 3) Let \\(r\\) denote \\(|R(A_l)R(B_l)|\\).</p>' +
+    '<p> 4) Compute \\(l\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
+    '<p> 5) Compute \\(L\\) which contains all pairs \\({p,q}\\) for which there is an index \\(1 \\leq i \\leq l\\) ' +
+    'such that \\(p \\in A_i, q \\in B_i\\) or  \\(q \\in A_i, p \\in B_i\\)' +
+    '<p> 6) Return the first \\(k\\) pairs ordered by smallest distances in \\(L\\).</p>');
+
+steps.set('kClosestBoundingBox',
+    '<p style="text-align: center;"> \\(k\\)\\(-\\)\\(ClosestPairs(P)\\) </p>' +
+    '<p> 1) Construct a WSPD with \\(s>0\\) where the set of pairs is sorted by the minimum distance ' +
+    'between the bounding boxes of the first set of the pair \\(R(A_i)\\) and the second set of pair ' +
+    '\\(R(B_i)\\) denoted as \\(|R(A_i)R(B_i)|\\). </p>' +
+    '<p> 2) Compute the smallest integer \\(l\\) such that \\(\sum{i = 1}{l} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
+    '<p> <strong> 3) Let \\(r\\) denote \\(|R(A_l)R(B_l)|\\). </strong> </p>' +
+    '<p> 4) Compute \\(l\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
+    '<p> 5) Compute \\(L\\) which contains all pairs \\({p,q}\\) for which there is an index \\(1 \\leq i \\leq l\\) ' +
+    'such that \\(p \\in A_i, q \\in B_i\\) or  \\(q \\in A_i, p \\in B_i\\)' +
+    '<p> 6) Return the first \\(k\\) pairs ordered by smallest distances in \\(L\\).</p>');
+
+steps.set('kClosestWSPDPairSelection2',
+    '<p style="text-align: center;"> \\(k\\)\\(-\\)\\(ClosestPairs(P)\\) </p>' +
+    '<p> 1) Construct a WSPD with \\(s>0\\) where the set of pairs is sorted by the minimum distance ' +
+    'between the bounding boxes of the first set of the pair \\(R(A_i)\\) and the second set of pair ' +
+    '\\(R(B_i)\\) denoted as \\(|R(A_i)R(B_i)|\\). </p>' +
+    '<p> 2) Compute the smallest integer \\(l\\) such that \\(\sum{i = 1}{l} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
+    '<p> 3) Let \\(r\\) denote \\(|R(A_l)R(B_l)|\\).</p>' +
+    '<p> <strong> 4) Compute \\(l\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </strong> </p>' +
+    '<p> 5) Compute \\(L\\) which contains all pairs \\({p,q}\\) for which there is an index \\(1 \\leq i \\leq l\\) ' +
+    'such that \\(p \\in A_i, q \\in B_i\\) or  \\(q \\in A_i, p \\in B_i\\)' +
+    '<p> 6) Return the first \\(k\\) pairs ordered by smallest distances in \\(L\\).</p>');
+
+steps.set('possibleKClosestPairs',
+    '<p style="text-align: center;"> \\(k\\)\\(-\\)\\(ClosestPairs(P)\\) </p>' +
+    '<p> 1) Construct a WSPD with \\(s>0\\) where the set of pairs is sorted by the minimum distance ' +
+    'between the bounding boxes of the first set of the pair \\(R(A_i)\\) and the second set of pair ' +
+    '\\(R(B_i)\\) denoted as \\(|R(A_i)R(B_i)|\\). </p>' +
+    '<p> 2) Compute the smallest integer \\(l\\) such that \\(\sum{i = 1}{l} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
+    '<p> 3) Let \\(r\\) denote \\(|R(A_l)R(B_l)|\\).</p>' +
+    '<p> 4) Compute \\(l\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
+    '<p> <strong> 5) Compute \\(L\\) which contains all pairs \\({p,q}\\) for which there is an index \\(1 \\leq i \\leq l\\) ' +
+    'such that \\(p \\in A_i, q \\in B_i\\) or  \\(q \\in A_i, p \\in B_i\\) </strong> </p>' +
+    '<p> 6) Return the first \\(k\\) pairs ordered by smallest distances in \\(L\\).</p>');
+
+steps.set('kClosestPairsSelection',
+    '<p style="text-align: center;"> \\(k\\)\\(-\\)\\(ClosestPairs(P)\\) </p>' +
+    '<p> 1) Construct a WSPD with \\(s>0\\) where the set of pairs is sorted by the minimum distance ' +
+    'between the bounding boxes of the first set of the pair \\(R(A_i)\\) and the second set of pair ' +
+    '\\(R(B_i)\\) denoted as \\(|R(A_i)R(B_i)|\\). </p>' +
+    '<p> 2) Compute the smallest integer \\(l\\) such that \\(\sum{i = 1}{l} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
+    '<p> 3) Let \\(r\\) denote \\(|R(A_l)R(B_l)|\\).</p>' +
+    '<p> 4) Compute \\(l\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
+    '<p> 5) Compute \\(L\\) which contains all pairs \\({p,q}\\) for which there is an index \\(1 \\leq i \\leq l\\) ' +
+    'such that \\(p \\in A_i, q \\in B_i\\) or  \\(q \\in A_i, p \\in B_i\\)' +
+    '<p> <strong> 6) Return the first \\(k\\) pairs ordered by smallest distances in \\(L\\). </strong> </p>');
+
+/**
  * t-Approx MST steps.
  */
 
@@ -255,7 +331,6 @@ steps.set('tApproxMSTAdd',
         '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
         '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
         '<p> <strong> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </strong> </p>');
-
 
 // Called during animation to display the steps for the current algorithm
 // and bold the current step of the algorithm.
