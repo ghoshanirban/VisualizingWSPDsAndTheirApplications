@@ -12,7 +12,6 @@
     <!-- MathJAX source, text and math font styling -->
     <script type="text/javascript" charset="utf-8" src="scripts/mathjax/es5/tex-chtml.js"></script>
 
-
     <!-- Project scripts, board interaction, board object style, animation, point generation,
             WSPD data structures and algorithms, t-spanner, closest pairs, mst. -->
         
@@ -63,7 +62,6 @@
                         <option value="circle">Circle</option>
                         <option value="archimedeanSpiral">Archimedean spiral</option>
                         <option value="grid">Grid</option>
-                        <option value="usCities">U.S. Cities</option>
                     </select>
                     <br>
                     <br>
@@ -81,7 +79,7 @@
                     <input id="animationSelection" type="checkbox" value="true" checked>
                     <br>
                     <label for="animationSpeed">\(\textsf{Animation speed}\)</label>
-                    <input type="range" min="0.25" max="5" value="2.5" step="0.25" id="animationSpeed" oninput="outputUpdate(value)">
+                    <input type="range" min="0.5" max="5" value="2.5" step="0.5" id="animationSpeed" oninput="outputUpdate(value)">
                     <output for="fader" id="volume">2.5</output>
                 </div>
                 <script>

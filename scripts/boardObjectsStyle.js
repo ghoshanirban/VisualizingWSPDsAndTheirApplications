@@ -146,20 +146,39 @@ let tSpannerLineHighlightStyle = {
 };
 
 // Style to highligh potential closest pair points.
+let closestPairPotentialHighlightStyle = {
+    size: 7,
+    withLabel: false,
+    fixed: true,
+    face: 'square',
+    color: '#0000FF',
+};
+
+// Style to highlight a potential closest pair line.
+let closestPairPotentialLineHighlightStyle = {
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#0000FF',
+    fixed: true,
+    strokeWidth: 7,
+};
+
+// Style to highligh selected closest pair points.
 let closestPairHighlightStyle = {
     size: 7,
     withLabel: false,
     fixed: true,
     face: 'square',
-    color: '#FF0000',
+    color: '#009999',
 };
 
-// Style to highlight a potential closest pair line.
+// Style to highlight a selected closest pair line.
 let closestPairLineHighlightStyle = {
     withLabel: false,
     straightFirst: false,
     straightLast: false,
-    color: '#FF0000',
+    color: '#009999',
     fixed: true,
     strokeWidth: 7,
 };

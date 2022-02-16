@@ -61,11 +61,18 @@ function animate(direction, speed) {
         while (eventQueue.length > 0) {
             let animationObject = eventQueue.shift();
 
-            if (animationObject.isTemporary || typeof animationObject == 'string')
+            if (animationObject.isTemporary)
                 continue;
+            
+            else if(typeof animationObject == 'string') {
+                specialAnimationOPCheck(animationObject);
+                continue;
+            }
 
             let boardObject = board.create(animationObject.type,
                              animationObject.data, animationObject.style);     
+            
+            undoQueue.push([animationObject, boardObject]);
         }
 
         board.unsuspendUpdate();
@@ -74,7 +81,7 @@ function animate(direction, speed) {
     }
 
     if (direction) {
-        animationSpeedSelection.setAttribute('disabled', '')
+        disableAllControls();
         drawInterval = setInterval(draw, animationSpeed);
     }
 }
@@ -86,13 +93,46 @@ function draw() {
     if (eventQueue.length == 0) {
         clearInterval(drawInterval);
         displaySteps(algorithm);
-        animationSpeedSelection.removeAttribute('disabled');
+        enableAllControls();
         return;
     }
 
     board.suspendUpdate();
 
     let animationObject = eventQueue.shift();
+
+    if(specialAnimationOPCheck(animationObject)){
+        board.unsuspendUpdate();
+        return;
+    }
+
+    else if (typeof animationObject == 'string') {
+        displaySteps(animationObject);
+    }
+
+    else {
+        
+        displaySteps(animationObject.text);
+        let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
+
+        undoQueue.push([animationObject, boardObject]);
+
+        if (animationObject.isTemporary) {
+            removeQueue.push([animationObject, boardObject]);
+        }
+    }
+
+    board.unsuspendUpdate();
+}
+
+// Removes an object from the board.
+function remove(boardObject) {
+
+    board.removeObject(boardObject);
+}
+
+// Checks for special animation operation actions.
+function specialAnimationOPCheck(animationObject) {
 
     if (animationObject == 'RemoveNonWellSeparated') {
 
@@ -129,6 +169,22 @@ function draw() {
 
         while (wspdRemoveQueue.length > 0) {
             remove(wspdRemoveQueue.shift()[1]);
+        }
+    }
+
+    else if (animationObject == 'ClearOldClosest') {
+
+        var oldClosestRemoveQueue = [];
+
+        for (var i = 0; i < undoQueue.length; i++) {
+
+            if (undoQueue[i][0].text == 'currentPossibleClosestPair') {
+                oldClosestRemoveQueue.push(undoQueue[i]);
+            }
+        }
+
+        while (oldClosestRemoveQueue.length > 0) {
+            remove(oldClosestRemoveQueue.shift()[1]);
         }
     }
 
@@ -170,29 +226,10 @@ function draw() {
         }
     }
 
-    else if (typeof animationObject == 'string') {
-        displaySteps(animationObject);
-    }
+    else
+        return false;
 
-    else {
-        
-        displaySteps(animationObject.text);
-        let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
-
-        undoQueue.push([animationObject, boardObject]);
-
-        if (animationObject.isTemporary) {
-            removeQueue.push([animationObject, boardObject]);
-        }
-    }
-
-    board.unsuspendUpdate();
-}
-
-// Removes an object from the board.
-function remove(boardObject) {
-
-    board.removeObject(boardObject);
+    return true;
 }
 
 // Checks board boundingbox is valid.

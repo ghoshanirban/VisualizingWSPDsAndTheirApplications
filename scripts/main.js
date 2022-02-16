@@ -64,9 +64,9 @@ editPointsSelection.addEventListener('change', lockPoints);
 let pointIDSelection = document.getElementById('pointIDs');
 pointIDSelection.addEventListener('change', changePointIDStatus);
 let numPointsEntry = document.getElementById('numPoints');
-let pointTextBox = document.getElementById('points');
 let generatePointsButton = document.getElementById('generatePoints');
 generatePointsButton.addEventListener('click', generateRandomPointSet);
+let pointTextBox = document.getElementById('points');
 let plotPointsButton = document.getElementById('plotPoints');
 plotPointsButton.addEventListener('click', plot);
 

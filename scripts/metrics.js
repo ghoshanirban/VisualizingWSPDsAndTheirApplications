@@ -8,10 +8,10 @@
 let baseMetricsBoxInnerHTML = metricsBox.innerHTML;
 
 // Data download button
-let dataDownloadHTML = '<div id="dataDownloadBox">' +
+/*let dataDownloadHTML = '<div id="dataDownloadBox">' +
                             '<label for="dataDownload"></label >' +
                             '<button class="buttonE button1" id="dataDownload">Download Data</button>' +
-                        '</div >'
+                        '</div >'*/
 
 // Resets the metrics box text for new metrics.
 function resetMetricsBox() {
@@ -41,11 +41,11 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(t:' + floydWarshall(pointSet, graph) + '\\)</span>';
     }
 
-    metricsBox.innerHTML += metricsData + dataDownloadHTML;
+    metricsBox.innerHTML += metricsData; /*+ dataDownloadHTML;
 
     // Data download control (points, pairs, edges ...).
     let dataDownloadButton = document.getElementById('dataDownload');
-    dataDownloadButton.addEventListener('click', downloadData);
+    dataDownloadButton.addEventListener('click', downloadData);*/
 
     MathJax.typeset();
 }

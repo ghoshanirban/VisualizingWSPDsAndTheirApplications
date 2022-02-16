@@ -467,6 +467,55 @@ function downloadScreenShot(filename, text, type) {
     document.body.removeChild(element);
 }
 
+// Disables all controls during animation.
+function disableAllControls() {
+    editPointsSelection.setAttribute('disabled', '');
+    //pointIDSelection.setAttribute('disabled', '');
+    generatePointsButton.setAttribute('disabled', '');
+    preGenPointSetsSelection.setAttribute('disabled', '');
+    pointTextBox.setAttribute('readonly', '');
+    plotPointsButton.setAttribute('disabled', '');
+    animationSelection.setAttribute('disabled', '');
+    animationSpeedSelection.setAttribute('disabled', '');
+    wspdButton.setAttribute('disabled', '');
+    separationFactorEntry.setAttribute('disabled', '');
+    tSpannerButton.setAttribute('disabled', '');
+    tEntry.setAttribute('disabled', '');
+    closestPairButton.setAttribute('disabled', '');
+    mstButton.setAttribute('disabled', '');
+    mstTEntry.setAttribute('disabled', '');
+    kClosestPairsButton.setAttribute('disabled', '');
+    kPairsEntry.setAttribute('disabled', '');
+    allNearestNeighborsButton.setAttribute('disabled', '');
+    boardDownloadButtonPNG.setAttribute('disabled', '');
+    boardDownloadButtonSVG.setAttribute('disabled', '');
+    resetButton.setAttribute('disabled', '');
+}
+
+// Enables all controls after animation.
+function enableAllControls() {
+    editPointsSelection.removeAttribute('disabled');
+    //pointIDSelection.removeAttribute('disabled');
+    generatePointsButton.removeAttribute('disabled');
+    preGenPointSetsSelection.removeAttribute('disabled');
+    pointTextBox.removeAttribute('readonly');
+    plotPointsButton.removeAttribute('disabled');
+    animationSelection.removeAttribute('disabled');
+    animationSpeedSelection.removeAttribute('disabled');
+    wspdButton.removeAttribute('disabled');
+    separationFactorEntry.removeAttribute('disabled');
+    tSpannerButton.removeAttribute('disabled');
+    tEntry.removeAttribute('disabled');
+    closestPairButton.removeAttribute('disabled');
+    mstButton.removeAttribute('disabled');
+    mstTEntry.removeAttribute('disabled');
+    kClosestPairsButton.removeAttribute('disabled');
+    kPairsEntry.removeAttribute('disabled');
+    allNearestNeighborsButton.removeAttribute('disabled');
+    boardDownloadButtonPNG.removeAttribute('disabled');
+    boardDownloadButtonSVG.removeAttribute('disabled');
+    resetButton.removeAttribute('disabled');
+}
 
 
 

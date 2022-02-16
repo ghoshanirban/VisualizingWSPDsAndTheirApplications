@@ -27,12 +27,13 @@ class WSPD {
 
         let internalNodes = T.findInternalNodes();
 
+        eventQueue.push('findPairsInternalNodes'); // Used to show internal node step.
+
         // Loop through all internal nodes and check if they are well-separated.
         for(var u of internalNodes) {
             let v = u.left;
             let w = u.right;
 
-            eventQueue.push('findPairsInternalNodes'); // Used to show internal node step.
             this.findPairs(v,w);
         }
     }
@@ -121,10 +122,6 @@ function isWellSeparated(v, w, s, shape=0) {
 
             return true;
         }
-
-        // Remove a non well-separated pair animation step.
-        eventQueue.push('RemoveNonWellSeparated');
-
         return false;
     }
 }
