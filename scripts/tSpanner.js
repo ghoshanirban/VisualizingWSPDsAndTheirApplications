@@ -9,9 +9,11 @@
 // Constructs a t-spanner of a point set in O(n) time given a WSPD.
 function constructTSpanner() {
 
+    eventQueue.push('tSpannerWSPD'); // Shows the t to s calculation step.
+
     var adjacencyList = new Map();
     var edges = new Set();
-    
+
     // For each pair take a representative point and create an edge.
     for(var pair of wspd.pairs) {
         edges.add([pair[0].S[0], pair[1].S[0]]);
@@ -36,7 +38,7 @@ function constructTSpanner() {
         }
 
         eventQueue.push(new AnimationObject('line', [pair[0].S[0], pair[1].S[0]], tSpannerLineHighlightStyle, 'tSpannerStep', true));
-        eventQueue.push(new AnimationObject('line', [pair[0].S[0], pair[1].S[0]], tSpannerLineStyle, 'tSpanner', false));
+        eventQueue.push(new AnimationObject('line', [pair[0].S[0], pair[1].S[0]], tSpannerLineStyle, 'tSpannerStep', false));
     }
 
     eventQueue.push('ClearWSPD'); // Remove the WSPD from the board.

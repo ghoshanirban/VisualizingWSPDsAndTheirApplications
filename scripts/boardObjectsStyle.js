@@ -39,7 +39,7 @@ function setPartitionColor(styleID) {
 }
 
 // Starting and normal bounding box.
-let boundingboxStandard = [-10, 10, 10, -10];
+let boundingboxStandard = [-11, 11, 11, -11];
 
 // Board specifications
 let boardParams = {
@@ -126,6 +126,33 @@ let wspdConnectionLineStyle = {
     fixed: true,
 };
 
+// Style for new WSPD circle highlight.
+let wspdCircleHighlightStyle = {
+    fillOpacity: 0,
+    withLabel: false,
+    color: '#00FF00',
+    fixed: true,
+    center: {
+        visible: false,
+    },
+    midpoint: {
+        visible: false,
+    },
+    point2: {
+        visible: false,
+    }
+}
+
+// Style for new WSPD lien highlight.
+let wspdLineHighlightStyle = {
+    strokeWidth: 5,
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#00FF00',
+    fixed: true,
+};
+
 // Style for lines in the t-Spanner.
 let tSpannerLineStyle = {
     withLabel: false,
@@ -146,20 +173,39 @@ let tSpannerLineHighlightStyle = {
 };
 
 // Style to highligh potential closest pair points.
+let closestPairPotentialHighlightStyle = {
+    size: 7,
+    withLabel: false,
+    fixed: true,
+    face: 'square',
+    color: '#0000FF',
+};
+
+// Style to highlight a potential closest pair line.
+let closestPairPotentialLineHighlightStyle = {
+    withLabel: false,
+    straightFirst: false,
+    straightLast: false,
+    color: '#0000FF',
+    fixed: true,
+    strokeWidth: 7,
+};
+
+// Style to highligh selected closest pair points.
 let closestPairHighlightStyle = {
     size: 7,
     withLabel: false,
     fixed: true,
     face: 'square',
-    color: '#FF0000',
+    color: '#009999',
 };
 
-// Style to highlight a potential closest pair line.
+// Style to highlight a selected closest pair line.
 let closestPairLineHighlightStyle = {
     withLabel: false,
     straightFirst: false,
     straightLast: false,
-    color: '#FF0000',
+    color: '#009999',
     fixed: true,
     strokeWidth: 7,
 };

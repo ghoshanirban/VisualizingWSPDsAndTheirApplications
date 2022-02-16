@@ -61,11 +61,18 @@ function animate(direction, speed) {
         while (eventQueue.length > 0) {
             let animationObject = eventQueue.shift();
 
-            if (animationObject.isTemporary || typeof animationObject == 'string')
+            if (animationObject.isTemporary)
                 continue;
+            
+            else if(typeof animationObject == 'string') {
+                specialAnimationOPCheck(animationObject);
+                continue;
+            }
 
             let boardObject = board.create(animationObject.type,
                              animationObject.data, animationObject.style);     
+            
+            undoQueue.push([animationObject, boardObject]);
         }
 
         board.unsuspendUpdate();
@@ -74,6 +81,7 @@ function animate(direction, speed) {
     }
 
     if (direction) {
+        disableAllControls();
         drawInterval = setInterval(draw, animationSpeed);
     }
 }
@@ -81,15 +89,50 @@ function animate(direction, speed) {
 // Draws an object onto the board.
 function draw() {
 
+    // Exit the draw, set board zoom, and set static state.
     if (eventQueue.length == 0) {
         clearInterval(drawInterval);
         displaySteps(algorithm);
+        enableAllControls();
         return;
     }
 
     board.suspendUpdate();
 
     let animationObject = eventQueue.shift();
+
+    if(specialAnimationOPCheck(animationObject)){
+        board.unsuspendUpdate();
+        return;
+    }
+
+    else if (typeof animationObject == 'string') {
+        displaySteps(animationObject);
+    }
+
+    else {
+        
+        displaySteps(animationObject.text);
+        let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
+
+        undoQueue.push([animationObject, boardObject]);
+
+        if (animationObject.isTemporary) {
+            removeQueue.push([animationObject, boardObject]);
+        }
+    }
+
+    board.unsuspendUpdate();
+}
+
+// Removes an object from the board.
+function remove(boardObject) {
+
+    board.removeObject(boardObject);
+}
+
+// Checks for special animation operation actions.
+function specialAnimationOPCheck(animationObject) {
 
     if (animationObject == 'RemoveNonWellSeparated') {
 
@@ -126,6 +169,22 @@ function draw() {
 
         while (wspdRemoveQueue.length > 0) {
             remove(wspdRemoveQueue.shift()[1]);
+        }
+    }
+
+    else if (animationObject == 'ClearOldClosest') {
+
+        var oldClosestRemoveQueue = [];
+
+        for (var i = 0; i < undoQueue.length; i++) {
+
+            if (undoQueue[i][0].text == 'currentPossibleClosestPair') {
+                oldClosestRemoveQueue.push(undoQueue[i]);
+            }
+        }
+
+        while (oldClosestRemoveQueue.length > 0) {
+            remove(oldClosestRemoveQueue.shift()[1]);
         }
     }
 
@@ -167,29 +226,10 @@ function draw() {
         }
     }
 
-    else if (typeof animationObject == 'string') {
-        displaySteps(animationObject);
-    }
+    else
+        return false;
 
-    else {
-        
-        displaySteps(animationObject.text);
-        let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
-
-        undoQueue.push([animationObject, boardObject]);
-
-        if (animationObject.isTemporary) {
-            removeQueue.push([animationObject, boardObject]);
-        }
-    }
-
-    board.unsuspendUpdate();
-}
-
-// Removes an object from the board.
-function remove(boardObject) {
-
-    board.removeObject(boardObject);
+    return true;
 }
 
 // Checks board boundingbox is valid.
@@ -227,7 +267,7 @@ function plot() {
     // Adds a label if selected.
     pointSetStyle.withLabel = pointIDSelection.checked;
 
-    board.suspendUpdate()
+    board.suspendUpdate();
 
     // Plot point set points on the board.
     for (let i = 0; i < pointSet.length; i++) {
@@ -239,7 +279,7 @@ function plot() {
         boardPoints.set(boardPoint, parseInt(boardPoint.name));
     }
 
-    board.unsuspendUpdate()
+    board.unsuspendUpdate();
 }
 
 // Changes the visibility of the point IDs to match the user's selection.
@@ -265,8 +305,10 @@ function pointClick(e) {
     if (!editPointsSelection.checked)
         return;
 
-    if (pointSet.length + 1 > 100)
+    if (pointSet.length + 1 > 100){
         alert('100 points maximum.');
+        return;
+    }
 
     // Prevents a point from being located on the control bar.
     if (e.composedPath().includes(boardControl))

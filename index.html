@@ -12,7 +12,6 @@
     <!-- MathJAX source, text and math font styling -->
     <script type="text/javascript" charset="utf-8" src="scripts/mathjax/es5/tex-chtml.js"></script>
 
-
     <!-- Project scripts, board interaction, board object style, animation, point generation,
             WSPD data structures and algorithms, t-spanner, closest pairs, mst. -->
         
@@ -26,6 +25,7 @@
         <script type="text/javascript" charset="utf-8" src="scripts/utilities.js" defer></script> 
         <script type="text/javascript" charset="utf-8" src="scripts/metrics.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/steps.js" defer></script>
+        <script type="text/javascript" charset="utf-8" src="scripts/points.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/geometricObjects.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/boardObjectsStyle.js" defer></script>
         <script type="text/javascript" charset="utf-8" src="scripts/board.js" defer></script>
@@ -40,131 +40,113 @@
 
 <body id="container">
 
-    <div class="flex">
-
         <!-- Control container -->
-        <div class="flex-item">
-            <div class="control-container">
-                <div id="controlBar">
+        <div class="controlContainer">
+            <div class="center">
+                <h1 id="toolName">\(\textsf{Visualizing WSPDs and}\) <br> \(\textsf{their applications}\)</h1>
 
-                    <h3 id="toolName"> \[\textsf{Visualizing WSPDs and their applications}\]</h3>
-
-                    <div id="pointControl">
-                        <label for="editPoints"> \(\textsf{Edit points?}\)</label>
-                        <input id="editPoints" type="checkbox" value="true" checked>
-                        <label for="pointIDs"> \(\textsf{Show point IDs?}\)</label>
-                        <input id="pointIDs" type="checkbox" value="true" checked>
-                        <br>
-                        <input id="numPoints" type="text" size="16" placeholder="How many points?">
-                        <button id="generatePoints" class="buttonE button1">\(\textsf{Generate points}\)</button>
-                        <br>
-                        <br>
-                        <label for="points" class="labelP"> \(\textsf{Point coordinates}\) </label>
-                        <textarea id="points" placeholder="Point coordinates"></textarea>
-                        <button id="plotPoints" class="buttonE button1">\(\textsf{Plot points}\) </button>
-                    </div>
-
+                <div id="pointControl">
+                    <label for="editPoints"> \(\textsf{Edit points}\)</label>
+                    <input id="editPoints" type="checkbox" value="true" checked>
+                    <label for="pointIDs"> \(\textsf{Show point IDs}\)</label>
+                    <input id="pointIDs" type="checkbox" value="true" checked>
                     <br>
+                    <label for="numPoints">\(\textsf{Number of points:}\)</label>
+                    <input id="numPoints" type="number" min="0" max="100" step="1" size="3" value="10">
+                    <button id="generatePoints" class="buttonE button1">\(\textsf{Generate}\)</button>
+                    <br>
+                    <br>
+                    <label for="preGeneratedPointSets">\(\textsf{Pre-generated pointsets}\)</label>
+                    <select name="preGenPointSets" id="preGeneratedPointSets">
+                        <option disabled selected value="">Select a pointset</option>
+                        <option value="circle">Circle (25)</option>
+                        <option value="archimedeanSpiral">Archimedean spiral (50)</option>
+                        <option value="grid">Grid (25)</option>
+                    </select>
+                    <br>
+                    <br>
+                    <label for="points" class="labelP"> \(\textsf{Enter point(s)}\) </label>
+                    <br>
+                    <textarea id="points" cols="15" placeholder="" ></textarea>
+                    <br>
+                    <button id="plotPoints" class="buttonE button1">\(\textsf{Plot points}\) </button>
+                </div>
 
-                    <div id="WSPDControls">
-                        <button id="WSPD" class="buttonE button1">\(\textsf{Generate WSPD}\)</button>
+                <br>
+
+                <div id="animationControls">
+                    <label for="animationSelection"> \(\textsf{Animate}\)</label>
+                    <input id="animationSelection" type="checkbox" value="true" checked>
+                    <br>
+                    <label for="animationSpeed">\(\textsf{Animation speed}\)</label>
+                    <input type="range" min="0.5" max="5" value="2.5" step="0.5" id="animationSpeed"></input>
+                </div>
+                <script>
+                    function outputUpdate(vol) {
+                        document.querySelector('#volume').value = vol;
+                    }  
+                </script>
+
+                <br>
+
+                <div id="controls">
+                    <h2 class="title"> \(\textsf{Algorithms}\)</h2>
+                    <div id="algorithmControls">
+                        <button id="WSPD" class="buttonE button1">\(\textsf{ConstructWSPD}\)</button>
                         <input id="separationFactor" type="text" size="5" placeholder="s">
-                    </div>
-
-                    <br>
-
-                    <div>
-                        <label for="keepWSPD">\(\textsf{Keep WSPD}\)</label>
-                        <input id="keepWSPD" type="checkbox" value="true" checked>
-                    </div>
-                    <br>
-
-                    <div id=algorithmControls>
-                        <h4>\(\textsf{Applications}\)</h4>
+                        <br>
                         <button id="tSpanner" class="buttonE button1">\(\textsf{$t$-Spanner}\)</button>
                         <label for="t"></label>
                         <input id="t" type="text" size="5" placeholder=" t ">
                         <br>
                         <button id="closestPair" class="buttonE button1">\(\textsf{Closest pair}\)</button>
                         <br>
+                        <button id="kClosestPairs" class="buttonE button1">\(\textsf{$k$-Closest pairs}\)</button>
+                        <input id="kPairs" type="text" size="5" placeholder=" k ">
+                        <input id="sKPairs" type="text" size="5" placeholder=" s ">
+                        <br>
+                        <button id="allNearestNeighbors" class="buttonE button1">\(\textsf{ANN}\)</button>
+                        <br>
                         <button id="MST" class="buttonE button1">\(\textsf{$t$-Approx. MST}\)</button>
                         <label for="tMST"></label>
                         <input id="tMST" type="text" size="5" placeholder=" t ">
-                        <br>
-                        
-                        <button id="kClosestPairs" class="buttonE button1">\(\textsf{$k$-Closest Pairs}\)</button>
-                        <input id="kPairs" type="text" size="5" placeholder=" k ">
-
-                        <br>
-                        <button id="allNearestNeighbors" class="buttonE button1">\(\textsf{ANN}\)</button>
                     </div>
+                    <br>
+                </div>
 
-                    <br>
-                    <button id="reset" class="buttonE button2">\(\textsf{Reset}\)</button>
-                    <br>
-                    <br>
+                <br>
+                <button id="reset" class="buttonE button2">\(\textsf{Reset}\)</button>
 
-                    <div id="animationControls">
-                        <label for="animationSelection"> \(\textsf{Animate}\)</label>
-                        <input id="animationSelection" type="checkbox" value="true" checked>
-                        <br>
-                        <label for="animationSpeed">\(\textsf{Animation speed}\)</label>
-                        <input type="range" min="0.5" max="5" value="2.5" step="0.5" id="animationSpeed"
-                            oninput="outputUpdate(value)">
-                        <output for="fader" id="volume">2.5</output>
-                    </div>
-                    <script>
-                        function outputUpdate(vol) {
-                            document.querySelector('#volume').value = vol;
-                        }  
-                    </script>
-
-                    <br>
-                    <br>
-
-                    <div id="downloadControls">
-                        <h3>\(\textsf{Download}\)</h3>
-                        <h4>\(\textsf{Data}\)</h4>
-                        <label for="dataDownload"></label>
-                        <button class="buttonE button1" id="dataDownload">Data</button>
-                        <br>
-                        <br>
-                        <h4>\(\textsf{Board}\)</h4>
-                        <label for="boardDownloadPNG"></label>
-                        <button class="buttonE button1" id="boardDownloadPNG">PNG</button>
-                        <label for="boardDownloadSVG"></label>
-                        <button class="buttonE button1" id="boardDownloadSVG">SVG</button>
-                    </div>
+                <div id="downloadControls">
+                    <h3>\(\textsf{Download Board}\)</h3>
+                    <label for="boardDownloadPNG"></label>
+                    <button class="buttonE button1" id="boardDownloadPNG">PNG</button>
+                    <label for="boardDownloadSVG"></label>
+                    <button class="buttonE button1" id="boardDownloadSVG">SVG</button>
                 </div>
             </div>
         </div>
 
         <!-- Graph container -->
-        <div class="flex-item">
-            <div class="graph-container">
+        <div id="graphContainer">
                 <div id="jxgbox" class="jxgbox"></div>
-            </div>
         </div>
 
         <!-- Third container -->
-        <div class="flex-item">
-            <div class="dataBar">
-                
-                <br>
-            
-                <div id="stepsBox">
-                    <h1 id="stepsBoxHeader">\(\textsf{Algorithm Steps}\)</h1>
-                </div>
-            
-                <br>
-            
-                <div id="metricsBox">
-                    <h1 id="metricsBoxHeader"> \(\textsf{Metrics}\)</h1>
-                </div>
-            
+        <div id="dataContainer">
+            <div class="dataBox" id="stepsBox">
+                <h3 class="dataBoxHeader" id="stepsBoxHeader">\(\textsf{Algorithm Steps}\)</h3>
             </div>
-                
-                
+        
+            <br>
+        
+            <div class="dataBox" id="metricsBox">
+                <h3 class="dataBoxHeader" id="metricsBoxHeader"> \(\textsf{Data}\)</h3>
+            </div>
+
+            <div id="downloadDataBox">
+            </div>
+        
         </div>
 
         <img id="screenShot" title="" alt="" src="">

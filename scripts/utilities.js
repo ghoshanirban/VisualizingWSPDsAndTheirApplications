@@ -8,7 +8,20 @@
 
 const EPSILON = 0.00001;
 
-/*Point generation functions. */
+/*Point functions. */
+
+// Locks the point generation features.
+function lockPoints() {
+
+    if (!editPointsSelection.checked){
+        generatePointsButton.setAttribute('disabled', '');
+        pointTextBox.setAttribute('readonly', '');
+    }
+    else {
+        generatePointsButton.removeAttribute('disabled');
+        pointTextBox.removeAttribute('readonly');
+    }
+}
 
 // Generates a random point with in an x and y bound.
 function generateRandomPoint(xBound, yBound){
@@ -41,8 +54,8 @@ function generateRandomPointSet() {
     boundsCheck(); // Check the bounds are valid before generation.
     let bounds = board.getBoundingBox();
     // Takes the absolute max of the x and y axis on the board minus some buffer.
-    let xBound = Math.max(Math.abs(bounds[0]), Math.abs(bounds[2])) - 0.5; 
-    let yBound = Math.max(Math.abs(bounds[1]), Math.abs(bounds[3])) - 0.5;
+    let xBound = Math.max(Math.abs(bounds[0]), Math.abs(bounds[2])) - 1; 
+    let yBound = Math.max(Math.abs(bounds[1]), Math.abs(bounds[3])) - 1;
 
     var newPointSet = [];
 
@@ -53,7 +66,45 @@ function generateRandomPointSet() {
 
     // Add new points to current point set.
     updatePointTextBox(newPointSet);
-} 
+
+    plot();
+}
+
+// Scales a point set to conform to a grid with min x,y -10 and max x,y 10.
+function scalePointSet(S, maxCoord) {
+
+    // Don't scale for 1 point.
+    if (S.length < 2) {
+        return S
+    }
+
+    let scaledPoints = [...S]; // Copy for edits.
+
+    // To get the highest individual coordinate.
+    var absMax = 0;
+
+    // Find the highest individual coordinate.
+    for (p of scaledPoints) {
+        let absX = Math.abs(p[0]);
+        let absY = Math.abs(p[1]);
+        if (absX > absMax)
+            absMax = absX;
+        if (absY > absMax) {
+            absMax = absY;
+        }
+    }
+
+    // Find the scale factor from maxCoord allowed.
+    let scaleFactor = absMax / maxCoord;
+
+    // Scale all points.
+    for (let i = 0; i < scaledPoints.length; i++) {
+        scaledPoints[i][0] /= scaleFactor;
+        scaledPoints[i][1] /= scaleFactor;
+    }
+
+    return scaledPoints;
+}
 
 /* Text box functions point set creation */
 
@@ -87,8 +138,6 @@ function parseTextPoints() {
             textPoints.push(element);
     }
 
-    var pointID = 0; // Used to map point IDs.
-
     // Add the parsed points to the pointset and assign IDs to each.
     for (let i = 0; i < textPoints.length; i+=2) {
         var xCord = Math.round(textPoints[i] * 100) / 100;
@@ -111,10 +160,16 @@ function parseTextPoints() {
         }
 
         // Adds the point if it is not a duplicate.
-        if (isNew) {
+        if (isNew) 
             pointSet.push(point);
-            pointSetMap.set(point, pointID++);
-        }
+    }
+
+    // Scales the point set to a -10 to 10 range.
+    pointSet = scalePointSet(pointSet, Math.abs(board.getBoundingBox()[0]) - 1);
+
+    var pointID = 0; // Used to map point IDs.
+    for (var point of pointSet){
+        pointSetMap.set(point, pointID++);
     }
 
     // Clean up text box, of bad points and whitespace.
@@ -412,6 +467,55 @@ function downloadScreenShot(filename, text, type) {
     document.body.removeChild(element);
 }
 
+// Disables all controls during animation.
+function disableAllControls() {
+    editPointsSelection.setAttribute('disabled', '');
+    //pointIDSelection.setAttribute('disabled', '');
+    generatePointsButton.setAttribute('disabled', '');
+    preGenPointSetsSelection.setAttribute('disabled', '');
+    pointTextBox.setAttribute('readonly', '');
+    plotPointsButton.setAttribute('disabled', '');
+    animationSelection.setAttribute('disabled', '');
+    animationSpeedSelection.setAttribute('disabled', '');
+    wspdButton.setAttribute('disabled', '');
+    separationFactorEntry.setAttribute('disabled', '');
+    tSpannerButton.setAttribute('disabled', '');
+    tEntry.setAttribute('disabled', '');
+    closestPairButton.setAttribute('disabled', '');
+    mstButton.setAttribute('disabled', '');
+    mstTEntry.setAttribute('disabled', '');
+    kClosestPairsButton.setAttribute('disabled', '');
+    kPairsEntry.setAttribute('disabled', '');
+    allNearestNeighborsButton.setAttribute('disabled', '');
+    boardDownloadButtonPNG.setAttribute('disabled', '');
+    boardDownloadButtonSVG.setAttribute('disabled', '');
+    resetButton.setAttribute('disabled', '');
+}
+
+// Enables all controls after animation.
+function enableAllControls() {
+    editPointsSelection.removeAttribute('disabled');
+    //pointIDSelection.removeAttribute('disabled');
+    generatePointsButton.removeAttribute('disabled');
+    preGenPointSetsSelection.removeAttribute('disabled');
+    pointTextBox.removeAttribute('readonly');
+    plotPointsButton.removeAttribute('disabled');
+    animationSelection.removeAttribute('disabled');
+    animationSpeedSelection.removeAttribute('disabled');
+    wspdButton.removeAttribute('disabled');
+    separationFactorEntry.removeAttribute('disabled');
+    tSpannerButton.removeAttribute('disabled');
+    tEntry.removeAttribute('disabled');
+    closestPairButton.removeAttribute('disabled');
+    mstButton.removeAttribute('disabled');
+    mstTEntry.removeAttribute('disabled');
+    kClosestPairsButton.removeAttribute('disabled');
+    kPairsEntry.removeAttribute('disabled');
+    allNearestNeighborsButton.removeAttribute('disabled');
+    boardDownloadButtonPNG.removeAttribute('disabled');
+    boardDownloadButtonSVG.removeAttribute('disabled');
+    resetButton.removeAttribute('disabled');
+}
 
 
 
