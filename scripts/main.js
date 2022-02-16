@@ -30,15 +30,20 @@ let resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', resetAll);
 
 //Animation controls.
-let animationSpeedSelection = document.getElementById('animationSpeed');
 let animationSelection = document.getElementById('animationSelection');
-animationSelection.addEventListener('change', function () {
-    if (!animationSelection.checked)
-        animationSpeedSelection.setAttribute('disabled', '');
-    else
-        animationSpeedSelection.removeAttribute('disabled');
- });
 let wspdAnimationSelection = document.getElementById('WSPDanimationSelection');
+let animationSpeedSelection = document.getElementById('animationSpeed');
+animationSelection.addEventListener('change', function () {
+    if (!animationSelection.checked) {
+        wspdAnimationSelection.setAttribute('disabled', '');
+        animationSpeedSelection.setAttribute('disabled', '');
+    }
+    else {
+        wspdAnimationSelection.removeAttribute('disabled');
+        animationSpeedSelection.removeAttribute('disabled');
+    }
+ });
+
 
 // Resets all containers and the entire board.
 function reset() {
