@@ -46,8 +46,8 @@ body {
   text-align: center;
 }
 
-#algorithmControls {
-  text-align: center;
+#WSPDControls {
+  text-align: left;
   border:1.5px solid rgb(162, 152, 201);
 }
 
@@ -85,10 +85,14 @@ body {
     margin: 0 2vw;
 }*/
 
+.title {
+  text-align: center;
+}
+
 .dataBox {
     border-radius: 25px;
     padding: 1%;
-    background-color:  rgb(167, 151, 189);
+    background-color: rgb(167, 151, 189);
     text-align: justify;
 }
 

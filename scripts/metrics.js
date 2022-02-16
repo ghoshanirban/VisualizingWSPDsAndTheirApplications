@@ -228,3 +228,10 @@ function floydWarshall(pointSet, graph){
     return tMax;
 }
 
+
+
+
+/*
+   // Print results to the HTML.
+    stepsField.innerHTML = computeGraphWeight(tApproxMST) + " " +
+        computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length));*/
