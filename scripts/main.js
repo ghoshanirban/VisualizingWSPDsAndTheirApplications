@@ -10,13 +10,13 @@ var pointSet = []; // List of points.
 var pointSetMap = new Map(); // Maps point index to the points (x,y) value.
 var splitTree = null; // Object defined in SplitTree.js
 var wspd = null; // Object defined in WSPD.js
-var tValue = null; // The t value used by the current algorithm.
 var graph = new Map(); // Adjacency list representation for the graph.
 var graphEdges = new Set(); // Edge set.
 var closestPair = []; // Pair of points in R^2.
 var tApproxMST = new Set(); // Edge set.
 var kClosestPairs = []; // List of size k of closest pairs.
 var algorithm = ''; // The algorithm currently being computed/animated.
+var ANNList = [];
 
 // Data fields.
 let stepsField = document.getElementById('stepsBox');
@@ -30,14 +30,6 @@ resetButton.addEventListener('click', resetAll);
 
 //Animation controls.
 let animationSpeedSelection = document.getElementById('animationSpeed');
-let animationSelection = document.getElementById('animationSelection');
-animationSelection.addEventListener('change', function () {
-    if (!animationSelection.checked)
-        animationSpeedSelection.setAttribute('disabled', '');
-    else
-        animationSpeedSelection.removeAttribute('disabled');
- });
-
 
 // Resets all containers and the entire board.
 function reset() {
@@ -65,51 +57,24 @@ editPointsSelection.addEventListener('change', lockPoints);
 let pointIDSelection = document.getElementById('pointIDs');
 pointIDSelection.addEventListener('change', changePointIDStatus);
 let numPointsEntry = document.getElementById('numPoints');
+let pointTextBox = document.getElementById('points');
 let generatePointsButton = document.getElementById('generatePoints');
 generatePointsButton.addEventListener('click', generateRandomPointSet);
-let pointTextBox = document.getElementById('points');
 let plotPointsButton = document.getElementById('plotPoints');
 plotPointsButton.addEventListener('click', plot);
 
-// Checks that there are at least 2 points on the board.
-function pointCheck() {
-    
-    if (pointSet.length > 1)
-        return false;
-    
-    alert('Please create at least 2 points first.');
-    return true;
-}
 
-// Calls to create a WSPD used by every application/algorithm.
-function generateWSPD(s) {
-
-    // Construct the WSPD.
-    splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
-    wspd = new WSPD(splitTree, s);
-}
-
-// Call to create a t-spanner used by t-spanner, closest pair, and t-approx MST.
-function generateTSpanner(t) {
-    
-    // Construct the t-spanner.
-    var tSpannerReturn = constructTSpanner(t);
-    graph = tSpannerReturn[0];
-    graphEdges = tSpannerReturn[1];
-}
+// Animation control.
+let animationSelection = document.getElementById('animationSelection');
 
 // WSPD controls.
-let wspdButton = document.getElementById('WSPD');
 let separationFactorEntry = document.getElementById('separationFactor');
+let wspdButton = document.getElementById('WSPD');
 wspdButton.addEventListener('click', computeWSPD);
 function computeWSPD() {
 
-    // Confirm S > 1.
-    if (pointCheck())
-        return;
-
     // Get s.
-    let s = parseFloat(separationFactorEntry.value)
+    s = separationFactorEntry.value
 
     // Check that s is valid (s >= 0).
     if (!isFinite(s) || s < 0) {
@@ -117,51 +82,59 @@ function computeWSPD() {
         return;
     }
 
-    // Reset the objects on the board and re-plot the points to prepare animation.
+    // Reset the objects on the board and re-plot the points to prepare for WSPD construction.
     reset();
     plot();
+
+    generateWSPD(s);
+
+    animate(1, animationSpeedSelection.value);
+
+
+}
+
+function generateWSPD(s) {
 
     // Set the algorithm name and display its steps.
     algorithm = 'WSPD'
     displaySteps(algorithm);
-    populateMetrics('processing');
-    generateWSPD(s);
+
+    // Construct the WSPD.
+    splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
+    wspd = new WSPD(splitTree, s);
     populateMetrics(algorithm);
 
-    animate(1, animationSpeedSelection.value);
 }
 
 // Algorithm controls.
-let tSpannerButton = document.getElementById('tSpanner');
 let tEntry = document.getElementById('t');
-tSpannerButton.addEventListener('click', computeTSpanner);
-function computeTSpanner() {
+let tSpannerButton = document.getElementById('tSpanner');
+tSpannerButton.addEventListener('click', generateTSpanner);
+function generateTSpanner() {
 
-    // Confirm S > 1.
-    if (pointCheck())
-        return;
-
-    let t = parseFloat(tEntry.value);
+    t = parseFloat(tEntry.value);
 
     // Check that t is valid (t > 1).
     if (!isFinite(t) || t <= 1) {
-        alert('Please select a valid value for t (t > 1).');
+        alert('Please select a value for t > 1.');
         return;
     }
 
-    // Reset the objects on the board and re-plot the points to prepare animation.
+    // Reset the objects on the board and re-plot the points to prepare for t-Spanner construction.
     reset();
     plot();
 
     // Generates the WSPD with separation factor based on t.
-    let s = tToSeparationFactor(t)
-    generateWSPD(s);
+    //generateWSPD(tToSeparationFactor(parseFloat(t)));
+    splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
+    wspd = new WSPD(splitTree, tToSeparationFactor(parseFloat(t)));
 
     algorithm = 'tSpanner';
     displaySteps(algorithm);
-    populateMetrics('processing');
-    generateTSpanner(t);
-    tValue = t;
+
+    var tSpannerReturn = constructTSpanner(parseFloat(t));
+    graph = tSpannerReturn[0];
+    graphEdges = tSpannerReturn[1];
     populateMetrics(algorithm);
 
     animate(1, animationSpeedSelection.value);
@@ -171,104 +144,51 @@ let closestPairButton = document.getElementById('closestPair');
 closestPairButton.addEventListener('click', findClosestPair);
 function findClosestPair() {
 
-    // Confirm S > 1.
-    if (pointCheck())
-        return;
+    // Check that a t-spanner exists.
+    if (graph.size == 0) {
+        graph = generateTSpanner();
+    }
 
-    let t = 2;
-    let s = tToSeparationFactor(t);
-
-    // Reset the objects on the board and re-plot the points to prepare animation.
-    reset();
-    plot();
-
-    populateMetrics('processing');
-    generateWSPD(s);
-    generateTSpanner(t);
-    tValue = t;
-
-    algorithm = 'closestPair';
-    displaySteps(algorithm)
     closestPair = computeClosestPair();
-    populateMetrics(algorithm);
-
     animate(1, animationSpeedSelection.value);
 }
 
 let mstButton = document.getElementById('MST');
-let mstTEntry = document.getElementById('tMST');
 mstButton.addEventListener('click', generateApproxMST);
 function generateApproxMST() {
 
-    // Confirm S > 1.
-    if (pointCheck())
-        return;
-
-    let t = parseFloat(mstTEntry.value);
-
-    // Check that t is valid (t > 1).
-    if (!isFinite(t) || t <= 1) {
-        alert('Please select a valid value for t (t > 1).');
-        return;
+    // Check that a t-spanner exists.
+    if (graph.size == 0) {
+        graph = constructTSpanner();
     }
 
-    // Reset the objects on the board and re-plot the points to prepare animation.
-    reset();
-    plot();
-
-    // Generates the WSPD with separation factor based on t.
-    let s = tToSeparationFactor(t)
-
-    populateMetrics('processing');
-    generateWSPD(s);
-    generateTSpanner(t);
-    tValue = t;
-
     // Run prims on the t-spanner.
-    algorithm = 'tApproxMST';
-    displaySteps(algorithm);
-    tApproxMST = tApproximateMinimumSpanningTree();
-    populateMetrics(algorithm);
-
+    tApproxMST = computeTApproxMST();
     animate(1, animationSpeedSelection.value);
+
+    // Print results to the HTML.
+    stepsField.innerHTML = computeGraphWeight(tApproxMST) + " " +
+        computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length));
 }
 
-let kClosestPairsButton = document.getElementById('kClosestPairs');
 let kPairsEntry = document.getElementById('kPairs');
-let sKPairsEntry = document.getElementById('sKPairs');
+let kClosestPairsButton = document.getElementById('kClosestPairs');
 kClosestPairsButton.addEventListener('click', generateKClosestPairs);
-function generateKClosestPairs() {
+function generateKClosestPairs(params) {
 
-    // Confirm S > 1.
-    if (pointCheck())
-        return;
+    // Check that a WSPD exists.
+    if (wspd == null) {
+        alert('Please construct a WSPD.');
+    }
 
     let k = parseInt(kPairsEntry.value);
-    let s = parseFloat(sKPairsEntry.value);
 
     // Check k is valid ( 1 <= k <= C(n,2)).
     if (k < 1 || k > combination(pointSet.length, 2)) {
-        alert('Please select a valid value for k (0 < k <= C(n,2)).');
+        alert('k must be greater than 0 and less than C(n,2).');
     }
 
-    // Check that s is valid (s >= 0).
-    if (!isFinite(s) || s < 0) {
-        alert('Please select a valid value for the separation factor of the WSPD (s > 0).');
-        return;
-    }
-
-    // Reset the objects on the board and re-plot the points to prepare animation.
-    reset();
-    plot();
-
-    populateMetrics('processing');
-    generateWSPD(s);
-
-    algorithm = 'kClosestPairs';
-    displaySteps(algorithm)
     kClosestPairs = computeKClosestPairs(k);
-    populateMetrics(algorithm);
-
     animate(1, animationSpeedSelection.value);
 }
 
@@ -276,10 +196,12 @@ let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');
 allNearestNeighborsButton.addEventListener('click', AllNearestNeighborConstruction);
 
 
-function AllNearestNeighborConstruction() {    
+function AllNearestNeighborConstruction() {
     if (wspd == null) {
         alert('Please construct a WSPD.');
     }
+
+    algorithm = 'ANN';
 
     s = parseFloat(separationFactorEntry.value);
 
@@ -292,18 +214,22 @@ function AllNearestNeighborConstruction() {
             return;
         }
 
-    //splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
-    //wspd = new WSPD(splitTree, s);
+
+    splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
+    wspd = new WSPD(splitTree, s);
 
     let treeArray;
     let singletonWSPD = getSingletonWSPD(wspd);
 
-    
+
     eventQueue = [];
     undoQueue = [];
     removeQueue = [];
-    
+
+    displaySteps(algorithm);
     NaiveAllNN(pointSet, pointSetMap, treeArray, singletonWSPD);
+    populateMetrics(algorithm);
+    
     animate(1, animationSpeedSelection.value);
 }
 

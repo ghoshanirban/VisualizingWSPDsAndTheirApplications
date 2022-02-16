@@ -8,10 +8,10 @@
 let baseMetricsBoxInnerHTML = metricsBox.innerHTML;
 
 // Data download button
-/*let dataDownloadHTML = '<div id="dataDownloadBox">' +
-                            '<label for="dataDownload"></label >' +
-                            '<button class="buttonE button1" id="dataDownload">Download Data</button>' +
-                        '</div >'*/
+let dataDownloadHTML = '<div id="dataDownloadBox">' +
+    '<label for="dataDownload"></label >' +
+    '<button class="buttonE button1" id="dataDownload">Download Data</button>' +
+    '</div >'
 
 // Resets the metrics box text for new metrics.
 function resetMetricsBox() {
@@ -24,101 +24,48 @@ function populateMetrics(selection) {
 
     var metricsData = '';
 
-    if (selection == 'processing')
-        metricsData += '<span class="metric">\\(\\text{Processing}\\)</span>';
-    
-    else if (selection == 'WSPD') {
+    if (selection == 'WSPD') {
 
-        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) +'\\)</span>';
+        metricsData += '<span class="metric">\\(|S|:' + getPointsetCardinality(pointSet) + '\\)</span>';
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span> <br>';
+        metricsData += '<span class="metric">\\(|m|:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
-        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
         metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
+        metricsData += '<span> &nbsp </span>'
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
     }
 
     else if (selection == 'tSpanner') {
-        
-        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
-        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
-        metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
-        metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
-        metricsData += '<span class="metric">\\(Points:\\)</span>';
-        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
-        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
-        metricsData += '<span class="metric">\\(Edges :\\)</span> <br>';
-        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(graphEdges) + '</textarea>';
-        
+
+        metricsData += '<span class="metric">\\(t:' + floydWarshall(pointSet, graph) + '\\)</span>';
     }
 
-    else if (selection == 'closestPair') {
 
-        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
+    else if (selection == 'ANN') {
+        metricsData += '<span class="metric">\\(|S|:' + getPointsetCardinality(pointSet) + '\\)</span>';
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
-        metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
-        metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
-        metricsData += '<span class="metric">\\(Closest pair:' + getClosestPair(closestPair) + '\\)</span>';
+        metricsData += '<span class="metric">\\(|m|:' + getANNPairsCardinality(ANNList) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
+        metricsData += '<span class="metric">\\(ANN Pairs:\\)</span> <br>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
-        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
-        metricsData += '<span class="metric">\\(Edges :\\)</span> <br>';
-        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(graphEdges) + '</textarea>';
-
+        metricsData += '<span> &nbsp </span>'
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getANNPairs(ANNList) + '</textarea>';
     }
 
-    else if (selection == 'kClosestPairs') {
-
-        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
-        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
-        metricsData += '<span class="metric">\\(k:' + getK(kPairs.value) + '\\)</span>';
-        metricsData += '<span class="metric">\\(Points:\\)</span>';
-        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
-        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
-        metricsData += '<span class="metric">\\(' + getK(kPairs.value) + '\\)-\\(closest \\text{ } pairs :\\)</span> <br>';
-        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getKClosestPairs(kClosestPairs) + '</textarea>';
-
-    }
-
-    else if (selection == 'tApproxMST') {
-
-        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
-        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
-        metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
-        metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
-        metricsData += '<span class="metric">\\(W_{t-ApproxMST}:' + computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length)) + '\\)</span>';
-        metricsData += '<span class="metric">\\(W_{MST}:' + computeGraphWeight(tApproxMST) + '\\)</span>';
-        metricsData += '<span class="metric">\\(Points:\\)</span>';
-        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
-        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
-        metricsData += '<span class="metric">\\(Edges :\\)</span> <br>';
-        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(graphEdges) + '</textarea>';
-        metricsData += '<span class="metric">\\(MST edges :\\)</span> <br>';
-        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(tApproxMST) + '</textarea>';
-
-    }
-
-    metricsBox.innerHTML += metricsData; /*+ dataDownloadHTML;
+    metricsBox.innerHTML += metricsData + dataDownloadHTML;
 
     // Data download control (points, pairs, edges ...).
     let dataDownloadButton = document.getElementById('dataDownload');
-    dataDownloadButton.addEventListener('click', downloadData);*/
+    dataDownloadButton.addEventListener('click', downloadData);
 
     MathJax.typeset();
 }
 
 
-// Returns |P|.
-function getPointsetCardinality(P) {
-    return P.length;
+// Returns |S|.
+function getPointsetCardinality(S) {
+    return S.length;
 }
 
 // Returns a string with points matched to their IDs.
@@ -132,7 +79,7 @@ function getPointIDs(S, m) {
     }
 
     return pointsString;
-} 
+}
 
 // Returns m.
 function getWSPDPairsCardinality(wspdPairs) {
@@ -140,18 +87,18 @@ function getWSPDPairsCardinality(wspdPairs) {
 }
 
 // Returns s.
-function  getWSPDSeparationFactor(W) {
+function getWSPDSeparationFactor(W) {
     return W.s;
 }
 
 // Returns the WSPD pairs as a string.
 function getWSPDPairs(W) {
 
-    var pairsString = '';//'{';
+    var pairsString = '{';
 
     for (pair of W.pairs) {
 
-        pairsString += '{{';
+        pairsString += '{';
 
         for (point of pair[0].S) {
             pairsString += pointSetMap.get(point) + ',';
@@ -171,53 +118,12 @@ function getWSPDPairs(W) {
     return pairsString;
 }
 
-// Returns t
-function getTValue(t) {
-    return t;
-}
-
 // Returns |E|.
 function getGraphEdgesCardinality(G) {
     return G.size;
 }
 
-// Returns the edges of G as a string.
-function getGraphEdges(G) {
 
-    var edgeString = '';
-
-    for(var edge of G) {
-
-        edgeString += '(' + pointSetMap.get(edge[0]) + ',' + pointSetMap.get(edge[1]) + ')\n';
-    }
-
-    return edgeString;
-}
-
-// Returns formatted closet pair.
-function getClosestPair(pair) {
-    var returnString = '(' + pointSetMap.get(pair[0]) + ',' + pointSetMap.get(pair[1]) + ')';
-    return returnString;
-}
-
-// Returns k for k-closest pairs.
-function getK(k) {
-    return k;
-}
-
-// Returns the k-closest pairs as a string.
-function getKClosestPairs(K) {
-
-    var kClosestPairsString = '';
-    
-    for (var pair of K) {
-
-        kClosestPairsString += '(' + pointSetMap.get(pair[0]) + ',' + pointSetMap.get(pair[1]) + ')\n';
-    }
-
-    return kClosestPairsString;
-
-}
 
 // Creates a complete graph from a point set.
 function generateCompleteGraph(S) {
@@ -290,7 +196,7 @@ function prim(G, n) {
     return T;
 }
 
-function floydWarshall(pointSet, graph){
+function floydWarshall(pointSet, graph) {
 
     var dist = [];
 
@@ -318,7 +224,7 @@ function floydWarshall(pointSet, graph){
             }
         }
     }
- 
+
     var tMax = 0;
     for (var i = 0; i < pointSet.length; i++) {
         for (var j = i + 1; j < pointSet.length; j++) {
@@ -334,10 +240,27 @@ function floydWarshall(pointSet, graph){
     return tMax;
 }
 
+function getANNPairsCardinality(ANNList) {
+    return ANNList.length / 2;
+}
 
 
+// Returns the WSPD pairs as a string.
+function getANNPairs(ANNList) {
 
-/*
-   // Print results to the HTML.
-    stepsField.innerHTML = computeGraphWeight(tApproxMST) + " " +
-        computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length));*/
+    var pairsString = '';
+
+    pairsString += '{';
+
+    for (let i = 0; i < ANNList.length - 2; i += 2) {
+        pairsString += '{' + ANNList[i] + ',';
+        pairsString += ANNList[i + 1] + '},\n';
+
+    }
+    pairsString += '{' + ANNList[ANNList.length - 2] + ',';
+    pairsString += ANNList[ANNList.length - 1] + '}';
+
+    pairsString += '}\n';
+
+    return pairsString;
+}
