@@ -264,7 +264,7 @@ function displaySteps(selection) {
     resetStepsBox(); // Set the header.
 
     stepsBox.innerHTML += steps.get(selection) // Set the steps.
-    console.log(selection, steps.get(selection));
+    //console.log(selection, steps.get(selection));
 
     MathJax.typeset(); // Latex typeset.
 }

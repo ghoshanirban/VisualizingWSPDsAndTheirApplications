@@ -46,7 +46,46 @@ function populateMetrics(selection) {
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
         metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
+        metricsData += '<span class="metric">\\(Edges :\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(graphEdges) + '</textarea>';
         
+    }
+
+    else if (selection == 'closestPair') {
+
+        metricsData += '<span class="metric">\\(|S|:' + getPointsetCardinality(pointSet) + '\\)</span>';
+        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
+        metricsData += '<span class="metric">\\(|m|:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
+        metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
+        metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
+        metricsData += '<span class="metric">\\(Closest pair:' + getClosestPair(closestPair) + '\\)</span>';
+        metricsData += '<span class="metric">\\(Points:\\)</span>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
+        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
+        metricsData += '<span class="metric">\\(Edges :\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(graphEdges) + '</textarea>';
+
+    }
+
+    else if (selection == 'tApproxMST') {
+
+        metricsData += '<span class="metric">\\(|S|:' + getPointsetCardinality(pointSet) + '\\)</span>';
+        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
+        metricsData += '<span class="metric">\\(|m|:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
+        metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
+        metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
+        metricsData += '<span class="metric">\\(W_{t-ApproxMST}:' + computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length)) + '\\)</span>';
+        metricsData += '<span class="metric">\\(W_{MST}:' + computeGraphWeight(tApproxMST) + '\\)</span>';
+        metricsData += '<span class="metric">\\(Points:\\)</span>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
+        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
+        metricsData += '<span class="metric">\\(Edges :\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(graphEdges) + '</textarea>';
+        metricsData += '<span class="metric">\\(MST edges :\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(tApproxMST) + '</textarea>';
+
     }
 
     metricsBox.innerHTML += metricsData; /*+ dataDownloadHTML;
@@ -90,7 +129,7 @@ function  getWSPDSeparationFactor(W) {
 // Returns the WSPD pairs as a string.
 function getWSPDPairs(W) {
 
-    var pairsString = '{';
+    var pairsString = '';//'{';
 
     for (pair of W.pairs) {
 
@@ -108,15 +147,10 @@ function getWSPDPairs(W) {
         }
 
         pairsString = pairsString.substring(0, pairsString.length - 1);
-        pairsString += '}}\n';
+        pairsString += '}\n';
     }
 
     return pairsString;
-}
-
-// Returns |E|.
-function getGraphEdgesCardinality(G) {
-    return G.size;
 }
 
 // Returns t
@@ -124,7 +158,29 @@ function getTValue(t) {
     return t;
 }
 
+// Returns |E|.
+function getGraphEdgesCardinality(G) {
+    return G.size;
+}
 
+// Returns the edges of G as a string.
+function getGraphEdges(G) {
+
+    var edgeString = '';
+
+    for(var edge of G) {
+
+        edgeString += '(' + pointSetMap.get(edge[0]) + ',' + pointSetMap.get(edge[1]) + ')\n';
+    }
+
+    return edgeString;
+}
+
+// Returns formatted closet pair.
+function getClosestPair(pair) {
+    var returnString = '(' + pointSetMap.get(pair[0]) + ',' + pointSetMap.get(pair[1]) + ')';
+    return returnString;
+}
 
 // Creates a complete graph from a point set.
 function generateCompleteGraph(S) {

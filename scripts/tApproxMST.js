@@ -67,7 +67,7 @@ function animatedPrim(G, n) {
         }
 
         else{
-            eventQueue.add('cycleEdge');
+            eventQueue.push('cycleEdge');
             index++; // Minimum edge is not yet valid check the next edge.
         }
 
