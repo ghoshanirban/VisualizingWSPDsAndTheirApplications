@@ -48,13 +48,13 @@ class AnimationObject {
 var drawInterval;
 
 // Animates the board by drawing or removing objects.
-function animate(direction, speed) {
+function animate(direction, speed, animateWSPD=true) {
 
     // Compute animation speed, based on user selection.    
     let animationSpeed = 500 / parseFloat(speed);
 
     // Disables animation if selected, all steps will occur instantaneously.
-    if (!animationSelection.checked) {
+    if (!animationSelection.checked || !animateWSPD) {
         
         board.suspendUpdate();
 
@@ -246,6 +246,9 @@ function boundsCheck() {
 // Clears the board and deletes all its child objects.
 function clear(){
     boardPoints = new Map();
+    eventQueue = [];
+    undoQueue = [];
+    removeQueue = [];
     JXG.JSXGraph.freeBoard(board);
     JXG.Options.text.display = 'internal';
     board = JXG.JSXGraph.initBoard('jxgbox', boardParams);

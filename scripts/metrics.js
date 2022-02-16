@@ -34,7 +34,7 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
+        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
     }
 
@@ -44,12 +44,12 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
         metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
         metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
-        metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
+        metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
+        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
-        metricsData += '<span class="metric">\\(Edges :\\)</span> <br>';
+        metricsData += '<span class="metric">\\(Edges :\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(graphEdges) + '</textarea>';
         
     }
@@ -61,12 +61,12 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
         metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
         metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
-        metricsData += '<span class="metric">\\(Closest pair:' + getClosestPair(closestPair) + '\\)</span>';
+        metricsData += '<span class="metric">\\(Closest pair:' + getClosestPair(closestPair) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
+        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> ';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
-        metricsData += '<span class="metric">\\(Edges :\\)</span> <br>';
+        metricsData += '<span class="metric">\\(Edges :\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(graphEdges) + '</textarea>';
 
     }
@@ -76,12 +76,12 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
         metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
-        metricsData += '<span class="metric">\\(k:' + getK(kPairs.value) + '\\)</span>';
+        metricsData += '<span class="metric">\\(k:' + getK(kPairs.value) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
+        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
-        metricsData += '<span class="metric">\\(' + getK(kPairs.value) + '\\)-\\(closest \\text{ } pairs :\\)</span> <br>';
+        metricsData += '<span class="metric">\\(' + getK(kPairs.value) + '\\)-\\(closest \\text{ } pairs :\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getKClosestPairs(kClosestPairs) + '</textarea>';
 
     }
@@ -91,7 +91,7 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
         metricsData += '<span class="metric">\\(|m|:' + getANNPairsCardinality(ANNList) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
-        metricsData += '<span class="metric">\\(ANN Pairs:\\)</span> <br>';
+        metricsData += '<span class="metric">\\(ANN Pairs:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
         metricsData += '<span> &nbsp </span>'
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getANNPairs(ANNList) + '</textarea>';
@@ -105,14 +105,14 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
         metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
         metricsData += '<span class="metric">\\(W_{t-ApproxMST}:' + computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length)) + '\\)</span>';
-        metricsData += '<span class="metric">\\(W_{MST}:' + computeGraphWeight(tApproxMST) + '\\)</span>';
+        metricsData += '<span class="metric">\\(W_{MST}:' + computeGraphWeight(tApproxMST) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
+        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> ';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
-        metricsData += '<span class="metric">\\(Edges :\\)</span> <br>';
+        metricsData += '<span class="metric">\\(Edges :\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(graphEdges) + '</textarea>';
-        metricsData += '<span class="metric">\\(MST edges :\\)</span> <br>';
+        metricsData += '<span class="metric">\\(MST edges :\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(tApproxMST) + '</textarea>';
 
     }

@@ -283,50 +283,49 @@ steps.set('kClosestPairsSelection',
  */
 
 steps.set('ANN',
-        '<p> \\(\\textbf{1) For each point \\(p\\) \\(\\in\\) \\(P\\)}\\) <p>' +
-        '<p> \\(\\text{2)  Consider all such pairs of the \\(WSPD\\),  } \\) <br>' +
-        '\\(\\text{for which at least one of their sets is a singleton containing \\(p\\) } \\) </p>' +
-        '<p> \\(\\text{3)}\\) Otherwise find WSPD pairs \\((A_i,B_i)\\) where \\(B_i = \\{p\\}\\)</p>' +
-        '<p> \\(\\text{4)}\\) If \\(A_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup B_i \\)</p>' +
-        '<p> \\(\\text{5)}\\) Otherwise \\(B_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup A_i \\)</p>' +
-        '<p>\\(\\text{6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\)}\\) <p>'
-);
+        '<p> <strong> 1) For each point \\(p\\) in \\(P\\) </strong> <p>' +
+        '<p> 2) Consider all such pairs of the WSPD, for which at least one of their sets ' +
+        'is a singleton containing \\(p\\) </p>' +
+        '<p> 3) Otherwise, find WSPD pairs \\((A_i,B_i)\\) where \\(B_i = p\\).</p>' +
+        '<p> 4) If \\(A_i = p\\), compute set, \\(Sp = Sp \\cup B_i \\).</p>' +
+        '<p> 5) Otherwise \\(B_i = p\\), compute set, \\(Sp = Sp \\cup A_i \\).</p>' +
+        '<p> 6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\). <p>');
 
 steps.set('ANNWSPD',
-        '<p> \\(\\text{1) For each point \\(p\\) \\(\\varepsilon\\) \\(P\\)}\\) <p>' +
-        '<p> \\(\\textbf{2)  Consider all such pairs of the \\(WSPD\\), for which} \\) <br>' +
-        '\\(\\textbf{at least one of their sets is a singleton containing \\(p\\)} \\) </p>' +
-        '<p> \\(\\text{4)}\\) If \\(A_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup B_i \\)</p>' +
-        '<p> \\(\\text{5)}\\) Otherwise \\(B_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup A_i \\)</p>' +
-        '<p>\\(\\text{6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\)}\\) <p>'
-);
+        '<p> 1) For each point \\(p\\) in \\(P\\) <p>' +
+        '<p> <strong> 2) Consider all such pairs of the WSPD, for which at least one of their sets ' +
+        'is a singleton containing \\(p\\) </strong> </p>' +
+        '<p> 3) Otherwise, find WSPD pairs \\((A_i,B_i)\\) where \\(B_i = p\\).</p>' +
+        '<p> 4) If \\(A_i = p\\), compute set, \\(Sp = Sp \\cup B_i \\).</p>' +
+        '<p> 5) Otherwise \\(B_i = p\\), compute set, \\(Sp = Sp \\cup A_i \\).</p>' +
+        '<p> 6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\). <p>');
 
 steps.set('ANNWSPDBi',
-        '<p> \\(\\text{1) For each point \\(p\\) \\(\\varepsilon\\) \\(P\\)}\\) <p>' +
-        '<p> \\(\\text{2)  Find WSPD pairs \\{\\(A_i,B_i\\)\\} where \\(A_i = \\{p\\}\\) } \\) </p>' +
-        '<p> \\(\\textbf{3)  Otherwise find WSPD pairs \\{\\(A_i,B_i\\)\\} where \\(B_i = \\{p\\}\\) } \\) </p>' +
-        '<p> \\(\\text{4)}\\) If \\(A_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup B_i \\)</p>' +
-        '<p> \\(\\text{5)}\\) Otherwise \\(B_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup A_i \\)</p>' +
-        '<p>\\(\\text{6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\)}\\) <p>'
-);
+        '<p> 1) For each point \\(p\\) in \\(P\\) <p>' +
+        '<p> 2) Consider all such pairs of the WSPD, for which at least one of their sets ' +
+        'is a singleton containing \\(p\\) </p>' +
+        '<p> <strong> 3) Otherwise, find WSPD pairs \\((A_i,B_i)\\) where \\(B_i = p\\). </strong> </p>' +
+        '<p> 4) If \\(A_i = p\\), compute set, \\(Sp = Sp \\cup B_i \\).</p>' +
+        '<p> 5) Otherwise \\(B_i = p\\), compute set, \\(Sp = Sp \\cup A_i \\).</p>' +
+        '<p> 6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\). <p>');
 
 steps.set('ANNWSPDSP',
-        '<p> \\(\\text{1) For each point \\(p\\) \\(\\varepsilon\\) \\(P\\)}\\) <p>' +
-        '<p> \\(\\text{2)  Consider all such pairs of the \\(WSPD\\),  } \\) <br>' +
-        '\\(\\text{for which at least one of their sets is a singleton containing \\(p\\) } \\) </p>' +
-        '<p> \\(\\textbf{4)  If \\(A_i = \\{p\\}\\) compute set, \\(Sp = Sp \\cup B_i \\) } \\) </p>' +
-        '<p> \\(\\text{5)}\\) Otherwise \\(B_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup A_i \\)</p>' +
-        '<p>\\(\\text{6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\)}\\) <p>'
-);
+        '<p> 1) For each point \\(p\\) in \\(P\\) <p>' +
+        '<p> 2) Consider all such pairs of the WSPD, for which at least one of their sets ' +
+        'is a singleton containing \\(p\\) </p>' +
+        '<p> 3) Otherwise, find WSPD pairs \\((A_i,B_i)\\) where \\(B_i = p\\).</p>' +
+        '<p> <strong> 4) If \\(A_i = p\\), compute set, \\(Sp = Sp \\cup B_i \\). </strong> </p>' +
+        '<p> 5) Otherwise \\(B_i = p\\), compute set, \\(Sp = Sp \\cup A_i \\).</p>' +
+        '<p> 6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\). <p>');
 
 steps.set('ANNWSPDQ',
-        '<p> \\(\\text{1) For each point \\(p\\) \\(\\varepsilon\\) \\(P\\)}\\) <p>' +
-        '<p> \\(\\text{2)  Consider all such pairs of the \\(WSPD\\),  } \\) <br>' +
-        '\\(\\text{for which at least one of their sets is a singleton containing \\(p\\) } \\) </p>' +
-        '<p> \\(\\text{4)}\\) If \\(A_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup B_i \\)</p>' +
-        '<p> \\(\\text{5)}\\) Otherwise \\(B_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup A_i \\)</p>' +
-        '<p>\\(\\textbf{6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\)}\\) <p>'
-);
+        '<p> 1) For each point \\(p\\) in \\(P\\) <p>' +
+        '<p> 2) Consider all such pairs of the WSPD, for which at least one of their sets ' +
+        'is a singleton containing \\(p\\) </p>' +
+        '<p> 3) Otherwise, find WSPD pairs \\((A_i,B_i)\\) where \\(B_i = p\\).</p>' +
+        '<p> 4) If \\(A_i = p\\), compute set, \\(Sp = Sp \\cup B_i \\).</p>' +
+        '<p> 5) Otherwise \\(B_i = p\\), compute set, \\(Sp = Sp \\cup A_i \\).</p>' +
+        '<p> <strong> 6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\). </strong> <p>');
 
 /**
  * t-Approx MST steps.

@@ -38,7 +38,7 @@ animationSelection.addEventListener('change', function () {
     else
         animationSpeedSelection.removeAttribute('disabled');
  });
-
+let wspdAnimationSelection = document.getElementById('WSPDanimationSelection');
 
 // Resets all containers and the entire board.
 function reset() {
@@ -88,6 +88,9 @@ function generateWSPD(s) {
     // Construct the WSPD.
     splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
     wspd = new WSPD(splitTree, s);
+
+    if (!wspdAnimationSelection.checked)
+        animate(1, animationSpeedSelection.value, false);
 }
 
 // Call to create a t-spanner used by t-spanner, closest pair, and t-approx MST.
@@ -236,39 +239,35 @@ function generateKClosestPairs() {
 }
 
 let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');
+let sANNEntry = document.getElementById('sANN');
 allNearestNeighborsButton.addEventListener('click', AllNearestNeighborConstruction);
 
 
 function AllNearestNeighborConstruction() {
-    if (wspd == null) {
-        alert('Please construct a WSPD.');
+
+    // Confirm S > 1.
+    if (pointCheck())
+        return;
+    
+    s = parseFloat(sANNEntry.value);
+
+    // Check that s is valid (s >= 0).
+    if (!isFinite(s) || s < 0) {
+        alert('Please select a valid value for the separation factor of the WSPD (s > 0).');
+        return;
     }
 
-    algorithm = 'ANN';
+    // Reset the objects on the board and re-plot the points to prepare animation.
+    reset();
+    plot();
 
-    s = parseFloat(separationFactorEntry.value);
-
-    // Check that s is valid (s > 2).
-    if (wspd != null)
-        if (!isFinite(s) || s <= 2) {
-            alert('Please select a value for s > 2 and construct WSPD');
-            reset();
-            plot();
-            return;
-        }
-
-
-    splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
-    wspd = new WSPD(splitTree, s);
+    populateMetrics('processing');
+    generateWSPD(s);
 
     let treeArray;
     let singletonWSPD = getSingletonWSPD(wspd);
 
-
-    eventQueue = [];
-    undoQueue = [];
-    removeQueue = [];
-
+    algorithm = 'ANN';
     displaySteps(algorithm);
     NaiveAllNN(pointSet, pointSetMap, treeArray, singletonWSPD);
     populateMetrics(algorithm);
