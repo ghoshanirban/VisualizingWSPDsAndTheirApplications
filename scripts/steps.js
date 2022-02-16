@@ -152,51 +152,60 @@ steps.set('findPairsRecur',
 );
 
 
-steps.set('ANN',
-    '<p> \\(\\textbf{1) For each point \\(p\\) \\(\\in\\) \\(P\\)}\\) <p>' +
-    '<p> \\(\\text{2)  Consider all such pairs of the \\(WSPD\\),  } \\) <br>' +
-    '\\(\\text{for which at least one of their sets is a singleton containing \\(p\\) } \\) </p>' +
-    '<p> \\(\\text{3)}\\) Otherwise find WSPD pairs \\((A_i,B_i)\\) where \\(B_i = \\{p\\}\\)</p>' +
-    '<p> \\(\\text{4)}\\) If \\(A_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup B_i \\)</p>' +
-    '<p> \\(\\text{5)}\\) Otherwise \\(B_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup A_i \\)</p>' +
-    '<p>\\(\\text{6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\)}\\) <p>'
-);
+/**
+ * t-Approx MST steps.
+ */
 
-steps.set('ANNWSPD',
-    '<p> \\(\\text{1) For each point \\(p\\) \\(\\varepsilon\\) \\(P\\)}\\) <p>' +
-    '<p> \\(\\textbf{2)  Consider all such pairs of the \\(WSPD\\), for which} \\) <br>' +
-    '\\(\\textbf{at least one of their sets is a singleton containing \\(p\\)} \\) </p>' +
-    '<p> \\(\\text{4)}\\) If \\(A_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup B_i \\)</p>' +
-    '<p> \\(\\text{5)}\\) Otherwise \\(B_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup A_i \\)</p>' +
-    '<p>\\(\\text{6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\)}\\) <p>'
-);
+steps.set('tApproxMST',
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> 2) Prims(G) </p>' +
+        '<p> 2.1) Select an arbitrary starting point. <p>' +
+        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
+        '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
+        '<p> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </p>');
 
-steps.set('ANNWSPDBi',
-    '<p> \\(\\text{1) For each point \\(p\\) \\(\\varepsilon\\) \\(P\\)}\\) <p>' +
-    '<p> \\(\\text{2)  Find WSPD pairs \\{\\(A_i,B_i\\)\\} where \\(A_i = \\{p\\}\\) } \\) </p>' +
-    '<p> \\(\\textbf{3)  Otherwise find WSPD pairs \\{\\(A_i,B_i\\)\\} where \\(B_i = \\{p\\}\\) } \\) </p>' +
-    '<p> \\(\\text{4)}\\) If \\(A_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup B_i \\)</p>' +
-    '<p> \\(\\text{5)}\\) Otherwise \\(B_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup A_i \\)</p>' +
-    '<p>\\(\\text{6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\)}\\) <p>'
-);
+steps.set('tApproxMSTStartPoint',
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> <strong> 2) Prims(G) </strong> </p>' +
+        '<p> <strong> 2.1) Select an arbitrary starting point. </strong> <p>' +
+        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
+        '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
+        '<p> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </p>');
 
-steps.set('ANNWSPDSP',
-    '<p> \\(\\text{1) For each point \\(p\\) \\(\\varepsilon\\) \\(P\\)}\\) <p>' +
-    '<p> \\(\\text{2)  Consider all such pairs of the \\(WSPD\\),  } \\) <br>' +
-    '\\(\\text{for which at least one of their sets is a singleton containing \\(p\\) } \\) </p>' +
-    '<p> \\(\\textbf{4)  If \\(A_i = \\{p\\}\\) compute set, \\(Sp = Sp \\cup B_i \\) } \\) </p>' +
-    '<p> \\(\\text{5)}\\) Otherwise \\(B_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup A_i \\)</p>' +
-    '<p>\\(\\text{6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\)}\\) <p>'
-);
+steps.set('tApproxMSTConsidered',
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> 2) <strong> Prims(G) </strong> </p>' +
+        '<p> 2.1) Select an arbitrary starting point. <p>' +
+        '<p> <strong> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '\\(G\\) with at least one vertex in \\(T\\). </strong> </p> ' +
+        '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
+        '<p> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </p>');
 
-steps.set('ANNWSPDQ',
-    '<p> \\(\\text{1) For each point \\(p\\) \\(\\varepsilon\\) \\(P\\)}\\) <p>' +
-    '<p> \\(\\text{2)  Consider all such pairs of the \\(WSPD\\),  } \\) <br>' +
-    '\\(\\text{for which at least one of their sets is a singleton containing \\(p\\) } \\) </p>' +
-    '<p> \\(\\text{4)}\\) If \\(A_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup B_i \\)</p>' +
-    '<p> \\(\\text{5)}\\) Otherwise \\(B_i = \\{p\\}\\), compute set, \\(Sp = Sp \\cup A_i \\)</p>' +
-    '<p>\\(\\textbf{6) Find the nearest point of \\(p\\) in \\(Sp\\) which is closet to \\(p\\)}\\) <p>'
-);
+steps.set('cycleEdge',
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> <strong> 2) Prims(G) </strong> </p>' +
+        '<p> 2.1) Select an arbitrary starting point. <p>' +
+        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
+        '<p> <strong> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </strong> </p>' +
+        '<p> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </p>');
+
+steps.set('tApproxMSTAdd',
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> <strong> 2) Prims(G) </strong> </p>' +
+        '<p> 2.1) Select an arbitrary starting point. <p>' +
+        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
+        '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
+        '<p> <strong> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </strong> </p>');
+
 
 // Called during animation to display the steps for the current algorithm
 // and bold the current step of the algorithm.

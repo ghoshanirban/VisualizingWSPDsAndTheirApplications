@@ -59,9 +59,9 @@
                     <label for="preGeneratedPointSets">\(\textsf{Pre-generated pointsets}\)</label>
                     <select name="preGenPointSets" id="preGeneratedPointSets">
                         <option disabled selected value="">Select a pointset</option>
-                        <option value="circle">Circle (25)</option>
-                        <option value="archimedeanSpiral">Archimedean spiral (50)</option>
-                        <option value="grid">Grid (25)</option>
+                        <option value="circle">Circle</option>
+                        <option value="archimedeanSpiral">Archimedean spiral</option>
+                        <option value="grid">Grid</option>
                     </select>
                     <br>
                     <br>
@@ -79,7 +79,8 @@
                     <input id="animationSelection" type="checkbox" value="true" checked>
                     <br>
                     <label for="animationSpeed">\(\textsf{Animation speed}\)</label>
-                    <input type="range" min="0.5" max="5" value="2.5" step="0.5" id="animationSpeed"></input>
+                    <input type="range" min="0.5" max="5" value="2.5" step="0.5" id="animationSpeed" oninput="outputUpdate(value)">
+                    <output for="fader" id="volume">2.5</output>
                 </div>
                 <script>
                     function outputUpdate(vol) {
@@ -103,7 +104,6 @@
                         <br>
                         <button id="kClosestPairs" class="buttonE button1">\(\textsf{$k$-Closest pairs}\)</button>
                         <input id="kPairs" type="text" size="5" placeholder=" k ">
-                        <input id="sKPairs" type="text" size="5" placeholder=" s ">
                         <br>
                         <button id="allNearestNeighbors" class="buttonE button1">\(\textsf{ANN}\)</button>
                         <br>

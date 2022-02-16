@@ -98,10 +98,7 @@ function generateWSPD(s) {
     // Set the algorithm name and display its steps.
     algorithm = 'WSPD'
     displaySteps(algorithm);
-
-    // Construct the WSPD.
-    splitTree = new SplitTree(pointSet, computeBoundingBox(pointSet));
-    wspd = new WSPD(splitTree, s);
+    generateWSPD(s);
     populateMetrics(algorithm);
 
 }
@@ -131,10 +128,8 @@ function generateTSpanner() {
 
     algorithm = 'tSpanner';
     displaySteps(algorithm);
-
-    var tSpannerReturn = constructTSpanner(parseFloat(t));
-    graph = tSpannerReturn[0];
-    graphEdges = tSpannerReturn[1];
+    generateTSpanner(t);
+    tValue = t;
     populateMetrics(algorithm);
 
     animate(1, animationSpeedSelection.value);
@@ -149,6 +144,19 @@ function findClosestPair() {
         graph = generateTSpanner();
     }
 
+    let t = 2;
+    let s = tToSeparationFactor(t);
+
+    // Reset the objects on the board and re-plot the points to prepare animation.
+    reset();
+    plot();
+
+    generateWSPD(s);
+    generateTSpanner(t);
+    tValue = t;
+
+    algorithm = 'closestPair';
+    displaySteps(algorithm)
     closestPair = computeClosestPair();
     animate(1, animationSpeedSelection.value);
 }
@@ -162,6 +170,17 @@ function generateApproxMST() {
         graph = constructTSpanner();
     }
 
+    // Reset the objects on the board and re-plot the points to prepare animation.
+    reset();
+    plot();
+
+    // Generates the WSPD with separation factor based on t.
+    let s = tToSeparationFactor(t)
+    generateWSPD(s);
+
+    generateTSpanner(t);
+    tValue = t;
+
     // Run prims on the t-spanner.
     tApproxMST = computeTApproxMST();
     animate(1, animationSpeedSelection.value);
@@ -172,7 +191,6 @@ function generateApproxMST() {
 }
 
 let kPairsEntry = document.getElementById('kPairs');
-let kClosestPairsButton = document.getElementById('kClosestPairs');
 kClosestPairsButton.addEventListener('click', generateKClosestPairs);
 function generateKClosestPairs(params) {
 
@@ -188,6 +206,15 @@ function generateKClosestPairs(params) {
         alert('k must be greater than 0 and less than C(n,2).');
     }
 
+    // Reset the objects on the board and re-plot the points to prepare animation.
+    reset();
+    plot();
+
+    let s = 2;
+    generateWSPD(s);
+
+    algorithm = 'kClosestPairs';
+    displaySteps(algorithm)
     kClosestPairs = computeKClosestPairs(k);
     animate(1, animationSpeedSelection.value);
 }

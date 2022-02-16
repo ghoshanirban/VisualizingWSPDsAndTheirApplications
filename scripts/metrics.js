@@ -23,7 +23,7 @@ function populateMetrics(selection) {
     resetMetricsBox();
 
     var metricsData = '';
-
+    
     if (selection == 'WSPD') {
 
         metricsData += '<span class="metric">\\(|S|:' + getPointsetCardinality(pointSet) + '\\)</span>';
@@ -53,11 +53,31 @@ function populateMetrics(selection) {
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getANNPairs(ANNList) + '</textarea>';
     }
 
-    metricsBox.innerHTML += metricsData + dataDownloadHTML;
+    else if (selection == 'tApproxMST') {
+
+        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
+        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
+        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
+        metricsData += '<span class="metric">\\(|t|:' + getTValue(tValue) + '\\)</span>';
+        metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
+        metricsData += '<span class="metric">\\(W_{t-ApproxMST}:' + computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length)) + '\\)</span>';
+        metricsData += '<span class="metric">\\(W_{MST}:' + computeGraphWeight(tApproxMST) + '\\)</span>';
+        metricsData += '<span class="metric">\\(Points:\\)</span>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
+        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
+        metricsData += '<span class="metric">\\(Edges :\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(graphEdges) + '</textarea>';
+        metricsData += '<span class="metric">\\(MST edges :\\)</span> <br>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(tApproxMST) + '</textarea>';
+
+    }
+
+    metricsBox.innerHTML += metricsData; /*+ dataDownloadHTML;
 
     // Data download control (points, pairs, edges ...).
     let dataDownloadButton = document.getElementById('dataDownload');
-    dataDownloadButton.addEventListener('click', downloadData);
+    dataDownloadButton.addEventListener('click', downloadData);*/
 
     MathJax.typeset();
 }
@@ -124,6 +144,21 @@ function getGraphEdgesCardinality(G) {
 }
 
 
+    var edgeString = '';
+
+    for(var edge of G) {
+
+        edgeString += '(' + pointSetMap.get(edge[0]) + ',' + pointSetMap.get(edge[1]) + ')\n';
+    }
+
+    return edgeString;
+}
+
+// Returns formatted closet pair.
+function getClosestPair(pair) {
+    var returnString = '(' + pointSetMap.get(pair[0]) + ',' + pointSetMap.get(pair[1]) + ')';
+    return returnString;
+}
 
 // Creates a complete graph from a point set.
 function generateCompleteGraph(S) {

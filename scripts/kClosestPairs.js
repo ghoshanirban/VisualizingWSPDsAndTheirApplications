@@ -63,11 +63,11 @@ function computeKClosestPairs(k) {
 
     // Animate the lth pairs bounding box and connection line.
     eventQueue.push(new AnimationObject('polygon', Al.R.vertices, 
-        kClosestLthBoundingBoxStyle, 'kClosestBoundingBox', true))
+        kClosestLthBoundingBoxStyle, 'kCLosestBoundingBox', true))
     eventQueue.push(new AnimationObject('polygon', Bl.R.vertices,
-        kClosestLthBoundingBoxStyle, 'kClosestBoundingBox', true))
+        kClosestLthBoundingBoxStyle, 'kCLosestBoundingBox', true))
     eventQueue.push(new AnimationObject('line', distanceBetweenBoundingBoxes(Al.R, Bl.R, false), 
-        kClosestLthConnectionLineHighlightStyle, 'kClosestBoundingBox', true));
+        kClosestLthConnectionLineHighlightStyle, 'kCLosestBoundingBox', true));
 
     eventQueue.push('ClearTemps');
 
