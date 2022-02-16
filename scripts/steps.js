@@ -202,6 +202,20 @@ steps.set('closestPairReturn',
         'the current shortest pair. </p>' +
         '<p> <strong> 3) Return the closest pair. </strong> </p>');
 
+/**
+ * t-Approx MST steps.
+ */
+
+steps.set('tApproxMST',
+    '<p style="text-align: center;"> \\(t-ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+    '<p> 1) Construct a t-spanner \\(G\\) via \\((Construct-t-Spanner(P,2))\\). </p>' +
+    '<p> 2) Prims(G) </p>' +
+    '<p> 2.1) Select an arbitrary starting point. <p>' +
+    '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+    '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
+    '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
+    '<p> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </p>');
+
 
 // Called during animation to display the steps for the current algorithm
 // and bold the current step of the algorithm.

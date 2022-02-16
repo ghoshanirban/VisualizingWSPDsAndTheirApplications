@@ -219,7 +219,7 @@ function generateApproxMST() {
     // Run prims on the t-spanner.
     algorithm = 'tApproxMST';
     displaySteps(algorithm);
-    tApproxMST = computeTApproxMST();
+    tApproxMST = tApproximateMinimumSpanningTree();
     populateMetrics(algorithm);
 
     animate(1, animationSpeedSelection.value);

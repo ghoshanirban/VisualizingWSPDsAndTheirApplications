@@ -5,7 +5,7 @@
  */
 
 // Computes a t-approximate MST of a point set, based on the t-spanner of the WSPD.
-function computeTApproxMST() {
+function tApproximateMinimumSpanningTree() {
     
     // Calls prims MST algorithm on the t-spanner.
     let mst = animatedPrim(graphEdges, pointSet.length);
