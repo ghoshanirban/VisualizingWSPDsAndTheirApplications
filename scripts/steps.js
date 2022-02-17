@@ -17,10 +17,6 @@ var steps = new Map();
 
 /**
  * WSPD Steps (Contains Split Tree).
- * Oth-
-erwise, if Lmax(R(v)) ≤ Lmax(R(w)), then call FindPairs(v, LeftChild(w), s) and
-FindPairs(v, RightChild(w), s). Else, call FindPairs(LeftChild(v), w, s) and Find-
-Pairs(RightChild(v), w, s).
 */
 steps.set('WSPD', 
         '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
@@ -149,7 +145,7 @@ steps.set('wellSeparatedHighlight',
         '<p> <strong> 3.1) If \\(S_v\\) and \\(S_w\\) are well-separated with respect to ' +
         '\\(s\\) return a pair {\\(u,v\\)}. </strong> </p>' +
         '<p> 3.2) Otherwise, if \\(L_{max}(R(v)) \\leq L_{max}(R(w))\\), then call \\(FindPairs(v, LeftChild(w), s)\\) ' +
-        'and \\(FindPairs(v, RightChild(w), s)\\).Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
+        'and \\(FindPairs(v, RightChild(w), s)\\). Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
         '\\(FindPairs(RightChild(v), w, s)\\). </p>');
 
 steps.set('findPairsRecur', 

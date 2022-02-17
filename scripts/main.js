@@ -126,6 +126,8 @@ function computeWSPD() {
         return;
     }
 
+
+
     // Reset the objects on the board and re-plot the points to prepare animation.
     reset();
     plot();
@@ -133,7 +135,6 @@ function computeWSPD() {
     // Set the algorithm name and display its steps.
     algorithm = 'WSPD'
     displaySteps(algorithm);
-    populateMetrics('processing');
     generateWSPD(s);
     populateMetrics(algorithm);
 
@@ -168,7 +169,6 @@ function computeTSpanner() {
 
     algorithm = 'tSpanner';
     displaySteps(algorithm);
-    populateMetrics('processing');
     generateTSpanner(t);
     tValue = t;
     populateMetrics(algorithm);
@@ -191,7 +191,6 @@ function findClosestPair() {
     reset();
     plot();
 
-    populateMetrics('processing');
     generateWSPD(s);
     generateTSpanner(t);
     tValue = t;
@@ -232,7 +231,6 @@ function generateKClosestPairs() {
     reset();
     plot();
 
-    populateMetrics('processing');
     generateWSPD(s);
 
     algorithm = 'kClosestPairs';
@@ -266,7 +264,6 @@ function AllNearestNeighborConstruction() {
     reset();
     plot();
 
-    populateMetrics('processing');
     generateWSPD(s);
 
     let treeArray;
@@ -304,7 +301,6 @@ function generateApproxMST() {
     // Generates the WSPD with separation factor based on t.
     let s = tToSeparationFactor(t)
 
-    populateMetrics('processing');
     generateWSPD(s);
     generateTSpanner(t);
     tValue = t;

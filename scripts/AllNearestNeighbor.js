@@ -28,7 +28,6 @@ function colorAllWSPDPair(checkPoint, wspdPoints) {
 function colorsPALL(checkPoint, wspdPoints) {
 
     pointSetStyleANNWSPDPair.color = '#0000FF';
-    //console.log(pointSetStyleANNWSPDPair.color);
 
     var style1 = {};
     Object.assign(style1, pointSetStyleANNWSPDPair);
@@ -45,25 +44,6 @@ function colorsPALL(checkPoint, wspdPoints) {
         eventQueue.push(animationCircle2);
     }
 }
-
-
-/*function pointDist(checkPoint, onFirst, wspdPairFirstPart, wspdPairSecondPart, pointSetMap) {
-    if (onFirst) {
-        // colorAllWSPDPair(checkPoint, wspdPairSecondPart);
-        let minDist = Infinity;
-        for (let i = 0; i < wspdPairSecondPart.length; i++) {
-            let pointofSecondPart = wspdPairSecondPart[i];
-            let dist = distance2D(checkPoint, pointofSecondPart);
-            // NearestNeighborAnimatePointWise(checkPoint, pointofSecondPart, 3);
-            if (minDist > dist) {
-                minDist = dist;
-                minPoint = pointofSecondPart;
-                // NearestNeighborAnimatePointWiseCurrentClosestPair(checkPoint,pointofSecondPart,3);
-            }
-        }
-    }
-    return minPoint;
-}*/
 
 function isExistWhere(wspdPart, checkPoint, pointSetMap) {
     let mapCheckPoint = pointSetMap.get(checkPoint);
@@ -118,11 +98,6 @@ function NearestNeighborAnimatePointWise(v, w) {
         [v, w],
         style2, 'getNearestNeighbor', true);
 
-
-    /* Set the AnimationObjects as non-temporary.
-    animationCircle1.isTemporary = true;
-    animationCircle2.isTemporary = true;
-    animationLine.isTemporary = true;*/
 
     // Adds the AnimationObjects to the animation event queue.
     eventQueue.push(animationCircle1);
@@ -184,7 +159,6 @@ function NaiveAllNN(pointSet, pointSetMap, treeArray, wspd) {
         ANNList.push(pointSetMap.get(checkPoint));
         ANNList.push(pointSetMap.get(minDistPoint));
     }
-    // finalANNAnimation(ANNList);
 }
 
 function finalANNPairConstruction(checkPoint, minDistPoint) {
@@ -202,38 +176,9 @@ function finalANNPairConstruction(checkPoint, minDistPoint) {
 
     let animationCircleP3 = new AnimationObject('arrow', [checkPoint, minDistPoint], style2, 'getNearestNeighbor', false);
 
-    /*animationCircleP1.isTemporary = false;
-    animationCircleP2.isTemporary = false;
-    animationCircleP3.isTemporary = false;*/
 
     eventQueue.push(animationCircleP1);
     eventQueue.push(animationCircleP2);
     eventQueue.push(animationCircleP3);
 
 }
-
-/*function finalANNAnimation(ANNList) {
-    for (let i = 0; i < ANNList.length; i += 2) {
-        let checkPoint = ANNList[i];
-        let minDistPoint = ANNList[i + 1];
-
-        wspdCircleStyle.color = getColor();
-        var style1 = {};
-        Object.assign(style1, wspdCircleStyle);
-
-        ANNSeparationLineStyle.color = '#0000FF'//'#FA5B3D';
-        var style2 = {};
-        Object.assign(style2, ANNSeparationLineStyle);
-
-        let animationCircleP1 = new AnimationObject('point', checkPoint[0],
-            style1, 'ANNConstructionSteps', true);
-        let animationCircleP2 = new AnimationObject('point', minDistPoint[0], style1, 'ANNConstructionSteps', true);
-
-        let animationCircleP3 = new AnimationObject('arrow', [checkPoint, minDistPoint], style2, 'ANNConstructionSteps', true);
-
-        eventQueue.push(animationCircleP1);
-        eventQueue.push(animationCircleP2);
-        eventQueue.push(animationCircleP3);
-
-    }
-}*/

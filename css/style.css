@@ -15,26 +15,8 @@ body {
   flex-flow: row nowrap;
 }
 
-/*#container p, h1, h2, h3, h4, h5, h6 {
-  margin-top: 0 
-  margin-left: 0%;
-}*/
-
-/*#container .flex {
-  display: flex !important;
-  flex-wrap: nowrap;
-  width: 100vw;
-  height: 100vh;
-}
-
-#container .flex .flex-item {
-  height: 97vh;
-  width: auto;
-  padding: 10px;
-  overflow: hidden;
-}*/
-
 #controlContainer {
+  overflow: auto;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
@@ -71,6 +53,7 @@ body {
 }
 
 #dataContainer {
+  overflow: auto;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
@@ -80,19 +63,8 @@ body {
 }
 
 #controlBar {
-    /*width: calc(((100vw - 100vh)/ 2) - 2vw);
-    height: 100vh;
-    float: left;*/
     text-align: center;
 }
-
-/*#jxgbox {
-    top: 1vh;
-    width: 95vh;
-    height: 95vh;
-    float: left;
-    margin: 0 2vw;
-}*/
 
 .title {
   text-align: center;
@@ -165,7 +137,6 @@ body {
   border-radius: 2px;
   background-color: #faf5f5;
   font-size: 15px;
-  resize: auto;
   margin: 2%;
 }
 
@@ -179,12 +150,9 @@ labelP {
 
 .buttonE {
   background-color: #04bd32;
-  /* Green */
-  /* color: white; */
   padding: 2px 12px;
   text-align: center;
   text-decoration: none;
-  /* display: inline-block; */
   font-size: 12px;
   margin: 1px 1px;
   transition-duration: 0.4s;
@@ -200,7 +168,6 @@ labelP {
   padding-top: 5px;
   width: 120px;
 }
-
 
 .button1:hover {
   background-color: #04bd32;
