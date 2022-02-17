@@ -463,5 +463,6 @@ let pointSetStyleANNFinal = {
     size: 3,
     withLabel: false,
     fixed: true,
-    color: '#000000'
+    color: '#000000',
+    visible: false,
 };
