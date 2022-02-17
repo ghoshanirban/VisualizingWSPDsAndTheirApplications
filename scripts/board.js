@@ -283,19 +283,17 @@ function plot() {
 
     parseTextPoints(); // Creates the point set from points in the text box.
 
-    // Adds a label if selected.
-    pointSetStyle.withLabel = pointIDSelection.checked;
-
     board.suspendUpdate();
 
     // Plot point set points on the board.
     for (let i = 0; i < pointSet.length; i++) {
 
-        pointSetStyle.name = pointSetMap.get(pointSet[i]).toString();
+        if (pointIDSelection.checked)
+            pointSetStyle.name = pointSetMap.get(pointSet[i]).toString();
 
         var boardPoint = board.create('point', pointSet[i], pointSetStyle);
 
-        boardPoints.set(boardPoint, parseInt(boardPoint.name));
+        boardPoints.set(boardPoint, pointSetMap.get(pointSet[i]).toString());
     }
 
     board.unsuspendUpdate();
