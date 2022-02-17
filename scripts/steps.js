@@ -227,10 +227,10 @@ steps.set('kClosestPairs',
         '<p> 1) Construct a WSPD with \\(s>0\\) where the set of pairs is sorted by the minimum distance '+
         'between the bounding-boxes of the first set of the pair \\(R(A_i)\\) and the second set of pair ' +
         '\\(R(B_i)\\) denoted as \\(|R(A_i)R(B_i)|\\). </p>' +
-        '<p> 2) Compute the smallest integer \\(l\\) such that \\(\\sum{i = 1}{l} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
+        '<p> 2) Compute the smallest integer \\(\\ell\\) such that \\(\\sum_{i = 1}^{\\ell} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
         '<p> 3) Let \\(r\\) denote \\(|R(A_l)R(B_l)|\\).</p>' +
-        '<p> 4) Compute \\(l\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
-        '<p> 5) Compute \\(L\\) which contains all pairs {\\(p,q\\)} for which there is an index \\(1 \\leq i \\leq l\\) ' +
+        '<p> 4) Compute \\(\\ell\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
+        '<p> 5) Compute \\(L\\) which contains all pairs {\\(p,q\\)} for which there is an index \\(1 \\leq i \\leq \\ell\'\\) ' +
         'such that \\(p \\in A_i, q \\in B_i\\) or  \\(q \\in A_i, p \\in B_i\\)' +
         '<p> 6) Return the first \\(k\\) pairs ordered by smallest distances in \\(L\\).</p>');
 
@@ -239,10 +239,10 @@ steps.set('kClosestWSPDPairSelection',
         '<p> 1) Construct a WSPD with \\(s>0\\) where the set of pairs is sorted by the minimum distance ' +
         'between the bounding-boxes of the first set of the pair \\(R(A_i)\\) and the second set of pair ' +
         '\\(R(B_i)\\) denoted as \\(|R(A_i)R(B_i)|\\). </p>' +
-        '<p> <strong> 2) Compute the smallest integer \\(l\\) such that \\(\\sum{i = 1}{l} |A_i| \\cdot |B_i| \\geq k\\). </strong> </p>' +
+        '<p> <strong> 2) Compute the smallest integer \\(\\ell\\) such that \\(\\sum_{i = 1}^{\\ell} |A_i| \\cdot |B_i| \\geq k\\). </strong> </p>' +
         '<p> 3) Let \\(r\\) denote \\(|R(A_l)R(B_l)|\\).</p>' +
-        '<p> 4) Compute \\(l\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
-        '<p> 5) Compute \\(L\\) which contains all pairs  {\\(p,q\\)} for which there is an index \\(1 \\leq i \\leq l\\) ' +
+        '<p> 4) Compute \\(\\ell\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
+        '<p> 5) Compute \\(L\\) which contains all pairs  {\\(p,q\\)} for which there is an index \\(1 \\leq i \\leq \\ell\'\\) ' +
         'such that \\(p \\in A_i, q \\in B_i\\) or  \\(q \\in A_i, p \\in B_i\\)' +
         '<p> 6) Return the first \\(k\\) pairs ordered by smallest distances in \\(L\\).</p>');
 
@@ -251,10 +251,10 @@ steps.set('kClosestBoundingBox',
         '<p> 1) Construct a WSPD with \\(s>0\\) where the set of pairs is sorted by the minimum distance ' +
         'between the bounding-boxes of the first set of the pair \\(R(A_i)\\) and the second set of pair ' +
         '\\(R(B_i)\\) denoted as \\(|R(A_i)R(B_i)|\\). </p>' +
-        '<p> 2) Compute the smallest integer \\(l\\) such that \\(\\sum{i = 1}{l} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
+        '<p> 2) Compute the smallest integer \\(\\ell\\) such that \\(\\sum_{i = 1}^{\\ell} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
         '<p> <strong> 3) Let \\(r\\) denote \\(|R(A_l)R(B_l)|\\). </strong> </p>' +
-        '<p> 4) Compute \\(l\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
-        '<p> 5) Compute \\(L\\) which contains all pairs  {\\(p,q\\)} for which there is an index \\(1 \\leq i \\leq l\\) ' +
+        '<p> 4) Compute \\(\\ell\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
+        '<p> 5) Compute \\(L\\) which contains all pairs  {\\(p,q\\)} for which there is an index \\(1 \\leq i \\leq \\ell\'\\) ' +
         'such that \\(p \\in A_i, q \\in B_i\\) or  \\(q \\in A_i, p \\in B_i\\)' +
         '<p> 6) Return the first \\(k\\) pairs ordered by smallest distances in \\(L\\).</p>');
 
@@ -263,10 +263,10 @@ steps.set('kClosestWSPDPairSelection2',
         '<p> 1) Construct a WSPD with \\(s>0\\) where the set of pairs is sorted by the minimum distance ' +
         'between the bounding-boxes of the first set of the pair \\(R(A_i)\\) and the second set of pair ' +
         '\\(R(B_i)\\) denoted as \\(|R(A_i)R(B_i)|\\). </p>' +
-        '<p> 2) Compute the smallest integer \\(l\\) such that \\(\\sum{i = 1}{l} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
+        '<p> 2) Compute the smallest integer \\(\\ell\\) such that \\(\\sum_{i = 1}^{\\ell} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
         '<p> 3) Let \\(r\\) denote \\(|R(A_l)R(B_l)|\\).</p>' +
-        '<p> <strong> 4) Compute \\(l\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </strong> </p>' +
-        '<p> 5) Compute \\(L\\) which contains all pairs  {\\(p,q\\)} for which there is an index \\(1 \\leq i \\leq l\\) ' +
+        '<p> <strong> 4) Compute \\(\\ell\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </strong> </p>' +
+        '<p> 5) Compute \\(L\\) which contains all pairs  {\\(p,q\\)} for which there is an index \\(1 \\leq i \\leq \\ell\'\\) ' +
         'such that \\(p \\in A_i, q \\in B_i\\) or  \\(q \\in A_i, p \\in B_i\\)' +
         '<p> 6) Return the first \\(k\\) pairs ordered by smallest distances in \\(L\\).</p>');
 
@@ -275,10 +275,10 @@ steps.set('possibleKClosestPairs',
         '<p> 1) Construct a WSPD with \\(s>0\\) where the set of pairs is sorted by the minimum distance ' +
         'between the bounding-boxes of the first set of the pair \\(R(A_i)\\) and the second set of pair ' +
         '\\(R(B_i)\\) denoted as \\(|R(A_i)R(B_i)|\\). </p>' +
-        '<p> 2) Compute the smallest integer \\(l\\) such that \\(\\sum{i = 1}{l} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
+        '<p> 2) Compute the smallest integer \\(\\ell\\) such that \\(\\sum_{i = 1}^{\\ell} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
         '<p> 3) Let \\(r\\) denote \\(|R(A_l)R(B_l)|\\).</p>' +
-        '<p> 4) Compute \\(l\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
-        '<p> <strong> 5) Compute \\(L\\) which contains all pairs  {\\(p,q\\)} for which there is an index \\(1 \\leq i \\leq l\\) ' +
+        '<p> 4) Compute \\(\\ell\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
+        '<p> <strong> 5) Compute \\(L\\) which contains all pairs  {\\(p,q\\)} for which there is an index \\(1 \\leq i \\leq \\ell\'\\) ' +
         'such that \\(p \\in A_i, q \\in B_i\\) or  \\(q \\in A_i, p \\in B_i\\) </strong> </p>' +
         '<p> 6) Return the first \\(k\\) pairs ordered by smallest distances in \\(L\\).</p>');
 
@@ -287,10 +287,10 @@ steps.set('kClosestPairsSelection',
         '<p> 1) Construct a WSPD with \\(s>0\\) where the set of pairs is sorted by the minimum distance ' +
         'between the bounding-boxes of the first set of the pair \\(R(A_i)\\) and the second set of pair ' +
         '\\(R(B_i)\\) denoted as \\(|R(A_i)R(B_i)|\\). </p>' +
-        '<p> 2) Compute the smallest integer \\(l\\) such that \\(\\sum{i = 1}{l} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
+        '<p> 2) Compute the smallest integer \\(\\ell\\) such that \\(\\sum_{i = 1}^{\\ell} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
         '<p> 3) Let \\(r\\) denote \\(|R(A_l)R(B_l)|\\).</p>' +
-        '<p> 4) Compute \\(l\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
-        '<p> 5) Compute \\(L\\) which contains all pairs  {\\(p,q\\)} for which there is an index \\(1 \\leq i \\leq l\\) ' +
+        '<p> 4) Compute \\(\\ell\'\\) the number of indices for which \\(|R(A_i)R(B_i)| \\leq (1+4/s)r\\). </p>' +
+        '<p> 5) Compute \\(L\\) which contains all pairs  {\\(p,q\\)} for which there is an index \\(1 \\leq i \\leq \\ell\'\\) ' +
         'such that \\(p \\in A_i, q \\in B_i\\) or  \\(q \\in A_i, p \\in B_i\\)' +
         '<p> <strong> 6) Return the first \\(k\\) pairs ordered by smallest distances in \\(L\\). </strong> </p>');
 

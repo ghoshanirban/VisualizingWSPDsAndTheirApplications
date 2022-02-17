@@ -204,12 +204,12 @@ function generateKClosestPairs() {
     if (pointCheck())
         return;
 
-    let k = parseInt(kPairsEntry.value);
+    let k = parseFloat(kPairsEntry.value);
     let s = parseFloat(sKPairsEntry.value);
 
     // Check k is valid ( 1 <= k <= C(n,2)).
-    if (!isFinite(k) || k < 1 || k > combination(pointSet.length, 2)) {
-        alert('Please enter a valid value for k (0 < k <= C(n,2)).');
+    if (!Number.isInteger(k) || k < 1 || k > combination(pointSet.length, 2)) {
+        alert('Please enter a valid value for k (0 < k <= C(n,2)) and must be an integer.');
         return;
     }
 

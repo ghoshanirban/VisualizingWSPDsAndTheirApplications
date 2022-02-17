@@ -77,7 +77,7 @@ function populateMetrics(selection) {
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea> <br><br>';
         metricsData += '<span class="textboxMetric">\\(\\textsf{WSPD pairs}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea> <br><br>';
-        metricsData += '<span class="textboxMetric">\\(' + getK(kPairs.value) + '\\)-\\(\\textsf{Closest pairs:} \\)</span>';
+        metricsData += '<span class="textboxMetric">\\(' + getK(kPairs.value) + '\\)-\\(\\textsf{Closest pairs} \\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getKClosestPairs(kClosestPairs) + '</textarea>';
 
     }
