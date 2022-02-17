@@ -38,7 +38,7 @@ steps.set('WSPD',
         '<p> 3.1) If \\(S_v\\) and \\(S_w\\) are well-separated with respect to ' +
             '\\(s\\) return a pair {\\(u,v\\)}. </p>' +
         '<p> 3.2) Otherwise, if \\(L_{max}(R(v)) \\leq L_{max}(R(w))\\), then call \\(FindPairs(v, LeftChild(w), s)\\) ' +
-        'and \\(FindPairs(v, RightChild(w), s)\\) Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
+        'and \\(FindPairs(v, RightChild(w), s)\\). Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
         '\\(FindPairs(RightChild(v), w, s)\\). </p>');
 
 // Split Tree.
@@ -124,7 +124,7 @@ steps.set('findPairsInternalNodes',
         '<p> 3.1) If \\(S_v\\) and \\(S_w\\) are well-separated with respect to ' +
         '\\(s\\) return a pair {\\(u,v\\)}. </p>' +
         '<p> 3.2) Otherwise, if \\(L_{max}(R(v)) \\leq L_{max}(R(w))\\), then call \\(FindPairs(v, LeftChild(w), s)\\) ' +
-        'and \\(FindPairs(v, RightChild(w), s)\\) Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
+        'and \\(FindPairs(v, RightChild(w), s)\\). Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
         '\\(FindPairs(RightChild(v), w, s)\\). </p>');
 
 steps.set('wellSeparatedCheck', 
@@ -136,7 +136,7 @@ steps.set('wellSeparatedCheck',
         '<p> <strong> 3.1) If \\(S_v\\) and \\(S_w\\) are well-separated with respect to ' +
         '\\(s\\) return a pair {\\(u,v\\)}. </strong> </p>' +
         '<p> 3.2) Otherwise, if \\(L_{max}(R(v)) \\leq L_{max}(R(w))\\), then call \\(FindPairs(v, LeftChild(w), s)\\) ' +
-        'and \\(FindPairs(v, RightChild(w), s)\\) Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
+        'and \\(FindPairs(v, RightChild(w), s)\\). Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
         '\\(FindPairs(RightChild(v), w, s)\\). </p>');
 
 
@@ -149,7 +149,7 @@ steps.set('wellSeparatedHighlight',
         '<p> <strong> 3.1) If \\(S_v\\) and \\(S_w\\) are well-separated with respect to ' +
         '\\(s\\) return a pair {\\(u,v\\)}. </strong> </p>' +
         '<p> 3.2) Otherwise, if \\(L_{max}(R(v)) \\leq L_{max}(R(w))\\), then call \\(FindPairs(v, LeftChild(w), s)\\) ' +
-        'and \\(FindPairs(v, RightChild(w), s)\\) Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
+        'and \\(FindPairs(v, RightChild(w), s)\\).Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
         '\\(FindPairs(RightChild(v), w, s)\\). </p>');
 
 steps.set('findPairsRecur', 
@@ -161,7 +161,7 @@ steps.set('findPairsRecur',
         '<p> 3.1) If \\(S_v\\) and \\(S_w\\) are well-separated with respect to ' +
         '\\(s\\) return a pair {\\(u,v\\)}. </p>' +
         '<p> 3.2) Otherwise, if \\(L_{max}(R(v)) \\leq L_{max}(R(w))\\), then call \\(FindPairs(v, LeftChild(w), s)\\) ' +
-        'and \\(FindPairs(v, RightChild(w), s)\\) Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
+        'and \\(FindPairs(v, RightChild(w), s)\\). Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
         '\\(FindPairs(RightChild(v), w, s)\\). </p>');
 
 /**
@@ -303,43 +303,43 @@ steps.set('kClosestPairsSelection',
  */
 
 steps.set('ANN',
-        '<p> 1) For each point \\(p\\) in \\(P\\) <p>' +
+        '<p> 1) For each point \\(p\\) in \\(P\\): <p>' +
         '<p> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
         'is a singleton containing \\(p\\). </p>' +
         '<p> 1.2) For every such pair {\\(A_i, B_i\\)}, if \\(A_i =\\){\\(p\\)}, then \\(S_p = S_p \\cup B_i\\), else if ' +
-        '\\(B_i =\\){\\(p\\)} then \\(S_p = S_p \\cup A_i\\)</p>' +
+        '\\(B_i =\\){\\(p\\)} then \\(S_p = S_p \\cup A_i\\).</p>' +
         '<p> 1.3) The nearest neighbor of \\(p\\) is the point in \\(S_p\\) closest to \\(p\\).</p>');
 
 steps.set('ANNLoop',
-        '<p> <strong> 1) For each point \\(p\\) in \\(P\\) </strong> <p>' +
+        '<p> <strong> 1) For each point \\(p\\) in \\(P\\): </strong> <p>' +
         '<p> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
         'is a singleton containing \\(p\\). </p>' +
         '<p> 1.2) For every such pair {\\(A_i, B_i\\)}, if \\(A_i =\\){\\(p\\)}, then \\(S_p = S_p \\cup B_i\\), else if ' +
-        '\\(B_i =\\){\\(p\\)} then \\(S_p = S_p \\cup A_i\\)</p>' +
+        '\\(B_i =\\){\\(p\\)} then \\(S_p = S_p \\cup A_i\\).</p>' +
         '<p> 1.3) The nearest neighbor of \\(p\\) is the point in \\(S_p\\) closest to \\(p\\).</p>');
 
 steps.set('considerWSPDPairs',
-        '<p> <strong> 1) For each point \\(p\\) in \\(P\\) </strong> <p>' +
+        '<p> <strong> 1) For each point \\(p\\) in \\(P\\): </strong> <p>' +
         '<p> <strong> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
         'is a singleton containing \\(p\\). </strong> </p>' +
         '<p> 1.2) For every such pair {\\(A_i, B_i\\)}, if \\(A_i =\\){\\(p\\)}, then \\(S_p = S_p \\cup B_i\\), else if ' +
-        '\\(B_i =\\){\\(p\\)} then \\(S_p = S_p \\cup A_i\\)</p>' +
+        '\\(B_i =\\){\\(p\\)} then \\(S_p = S_p \\cup A_i\\).</p>' +
         '<p> 1.3) The nearest neighbor of \\(p\\) is the point in \\(S_p\\) closest to \\(p\\).</p>');
 
 steps.set('selectSingletonWSPD',
-        '<p> <strong> 1) For each point \\(p\\) in \\(P\\) </strong> <p>' +
+        '<p> <strong> 1) For each point \\(p\\) in \\(P\\): </strong> <p>' +
         '<p> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
         'is a singleton containing \\(p\\). </p>' +
         '<p> <strong> 1.2) For every such pair {\\(A_i, B_i\\)}, if \\(A_i =\\){\\(p\\)}, then \\(S_p = S_p \\cup B_i\\), else if ' +
-        '\\(B_i =\\){\\(p\\)} then \\(S_p = S_p \\cup A_i\\) </strong> </p>' +
+        '\\(B_i =\\){\\(p\\)} then \\(S_p = S_p \\cup A_i\\). </strong> </p>' +
         '<p> 1.3) The nearest neighbor of \\(p\\) is the point in \\(S_p\\) closest to \\(p\\).</p>');
 
 steps.set('getNearestNeighbor',
-        '<p> <strong> 1) For each point \\(p\\) in \\(P\\) </strong> <p>' +
+        '<p> <strong> 1) For each point \\(p\\) in \\(P\\): </strong> <p>' +
         '<p> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
         'is a singleton containing \\(p\\). </p>' +
         '<p> 1.2) For every such pair {\\(A_i, B_i\\)}, if \\(A_i =\\){\\(p\\)}, then \\(S_p = S_p \\cup B_i\\), else if ' +
-        '\\(B_i =\\){\\(p\\)} then \\(S_p = S_p \\cup A_i\\)</p>' +
+        '\\(B_i =\\){\\(p\\)} then \\(S_p = S_p \\cup A_i\\).</p>' +
         '<p> <strong> 1.3) The nearest neighbor of \\(p\\) is the point in \\(S_p\\) closest to \\(p\\). </strong> </p>');
 
 /**
@@ -348,7 +348,7 @@ steps.set('getNearestNeighbor',
 
 steps.set('tApproxMST',
         '<p style="text-align: center;"> \\(t\\)\\(-\\)\\(ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
-        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)\\(-\\)t\\(-\\)\\(Spanner(P,t)\\)). </p>' +
         '<p> 2) Prims(G) </p>' +
         '<p> 2.1) Select an arbitrary starting point. <p>' +
         '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e\\) of ' +
@@ -358,7 +358,7 @@ steps.set('tApproxMST',
 
 steps.set('tApproxMSTStartPoint',
         '<p style="text-align: center;"> \\(t\\)\\(-\\)\\(ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
-        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)\\(-\\)t\\(-\\)\\(Spanner(P,t)\\)). </p>' +
         '<p> <strong> 2) Prims(G) </strong> </p>' +
         '<p> <strong> 2.1) Select an arbitrary starting point. </strong> <p>' +
         '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e\\) of ' +
@@ -368,7 +368,7 @@ steps.set('tApproxMSTStartPoint',
 
 steps.set('tApproxMSTConsidered',
         '<p style="text-align: center;"> \\(t\\)\\(-\\)\\(ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
-        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)\\(-\\)t\\(-\\)\\(Spanner(P,t)\\)). </p>' +
         '<p> 2) <strong> Prims(G) </strong> </p>' +
         '<p> 2.1) Select an arbitrary starting point. <p>' +
         '<p> <strong> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e\\) of ' +
@@ -378,7 +378,7 @@ steps.set('tApproxMSTConsidered',
 
 steps.set('cycleEdge',
         '<p style="text-align: center;"> \\(t\\)\\(-\\)\\(ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
-        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)\\(-\\)t\\(-\\)\\(Spanner(P,t)\\)). </p>' +
         '<p> <strong> 2) Prims(G) </strong> </p>' +
         '<p> 2.1) Select an arbitrary starting point. <p>' +
         '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e\\) of ' +
@@ -388,7 +388,7 @@ steps.set('cycleEdge',
 
 steps.set('tApproxMSTAdd',
         '<p style="text-align: center;"> \\(t\\)\\(-\\)\\(ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
-        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
+        '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)\\(-\\)t\\(-\\)\\(Spanner(P,t)\\)). </p>' +
         '<p> <strong> 2) Prims(G) </strong> </p>' +
         '<p> 2.1) Select an arbitrary starting point. <p>' +
         '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e\\) of ' +
@@ -403,7 +403,6 @@ function displaySteps(selection) {
     resetStepsBox(); // Set the header.
 
     stepsBox.innerHTML += steps.get(selection) // Set the steps.
-    console.log(selection, steps.get(selection));
 
     MathJax.typeset(); // Latex typeset.
 }

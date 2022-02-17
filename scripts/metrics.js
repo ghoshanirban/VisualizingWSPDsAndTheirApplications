@@ -29,88 +29,90 @@ function populateMetrics(selection) {
     
     else if (selection == 'WSPD') {
 
-        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) +'\\)</span>';
-        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span> <br>';
-        metricsData += '<span class="metric">\\(Points:\\)</span>';
+        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) +'\\) &nbsp;&nbsp;';
+        metricsData += '\\(s:' + getWSPDSeparationFactor(wspd).toFixed(2) + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span> <br>';
+        metricsData += '<span class="metric">\\(\\textsf{Points}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span>';
+        metricsData += '<span class="metric">\\(\\textsf{WSPD pairs}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
     }
 
     else if (selection == 'tSpanner') {
         
-        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
-        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
-        metricsData += '<span class="metric">\\(t:' + getTValue(tValue) + '\\)</span>';
-        metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span> <br>';
-        metricsData += '<span class="metric">\\(Points:\\)</span>';
+        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(s:' + getWSPDSeparationFactor(wspd).toFixed(2) + '\\) &nbsp;&nbsp;'
+        metricsData += '\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(t:' + getTValue(tValue).toFixed() + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(t_{actual}:' + floydWarshall(pointSet, graph).toFixed() + '\\)</span> <br>';
+        metricsData += '<span class="metric">\\(\\textsf{Points}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span>';
+        metricsData += '<span class="metric">\\(\\textsf{WSPD pairs}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
-        metricsData += '<span class="metric">\\(Edges :\\)</span>';
+        metricsData += '<span class="metric">\\(\\textsf{Edges}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(graphEdges) + '</textarea>';
         
     }
 
     else if (selection == 'closestPair') {
 
-        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
-        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
-        metricsData += '<span class="metric">\\(t:' + getTValue(tValue) + '\\)</span>';
-        metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
-        metricsData += '<span class="metric">\\(Closest \\text{ } pair:' + getClosestPair(closestPair) + '\\)</span> <br>';
-        metricsData += '<span class="metric">\\(Points:\\)</span>';
+        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(s:' + getWSPDSeparationFactor(wspd).toFixed(2) + '\\) &nbsp;&nbsp;'
+        metricsData += '\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(t:' + getTValue(tValue).toFixed(2) + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(t_{actual}:' + floydWarshall(pointSet, graph).toFixed(2) + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(\\textsf{Closest pair: }' + getClosestPair(closestPair) + '\\)</span> <br>';
+        metricsData += '<span class="metric">\\(\\textsf{Points}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> ';
+        metricsData += '<span class="metric">\\(\\textsf{WSPD pairs}\\)</span> ';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
-        metricsData += '<span class="metric">\\(Edges :\\)</span>';
+        metricsData += '<span class="metric">\\(\\textsf{Edges}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(graphEdges) + '</textarea>';
 
     }
 
     else if (selection == 'kClosestPairs') {
 
-        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
-        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
-        metricsData += '<span class="metric">\\(k:' + getK(kPairs.value) + '\\)</span> <br>';
-        metricsData += '<span class="metric">\\(Points:\\)</span>';
+        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(s:' + getWSPDSeparationFactor(wspd).toFixed(2) + '\\) &nbsp;&nbsp;'
+        metricsData += '\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)&nbsp;&nbsp;';
+        metricsData += '\\(k:' + getK(kPairs.value) + '\\)</span> <br>';
+        metricsData += '<span class="metric">\\(\\textsf{Points}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span>';
+        metricsData += '<span class="metric">\\(\\textsf{WSPD pairs}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
-        metricsData += '<span class="metric">\\(' + getK(kPairs.value) + '\\)-\\(closest \\text{ } pairs :\\)</span>';
+        metricsData += '<span class="metric">\\(' + getK(kPairs.value) + '\\)-\\(\\textsf{Closest pairs:} \\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getKClosestPairs(kClosestPairs) + '</textarea>';
 
     }
 
     else if (selection == 'ANN') {
-        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
-        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span> <br>';
-        metricsData += '<span class="metric">\\(Points:\\)</span>';
+        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(s:' + getWSPDSeparationFactor(wspd).toFixed(2) + '\\) &nbsp;&nbsp;'
+        metricsData += '\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span> <br>';
+        metricsData += '<span class="metric">\\(\\textsf{Points}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(ANN Pairs:\\)</span>';
+        metricsData += '<span class="metric">\\(\\textsf{WSPD pairs}\\)</span>';
+        metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
+        metricsData += '<span class="metric">\\(\\textsf{Nearest Neighbors}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getANNPairs(ANNList) + '</textarea>';
     }
 
     else if (selection == 'tApproxMST') {
 
-        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
-        metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
-        metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
-        metricsData += '<span class="metric">\\(t:' + getTValue(tValue) + '\\)</span>';
-        metricsData += '<span class="metric">\\(w(AppxMST):' + computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length)) + '\\)</span>';
-        metricsData += '<span class="metric">\\(w(MST):' + computeGraphWeight(tApproxMST) + '\\)</span> <br>';
-        metricsData += '<span class="metric">\\(Points:\\)</span>';
+        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(s:' + getWSPDSeparationFactor(wspd).toFixed(2) + '\\) &nbsp;&nbsp;'
+        metricsData += '\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(t:' + getTValue(tValue) + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(w(AppxMST):' + computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length)).toFixed(2) + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(w(MST):' + computeGraphWeight(tApproxMST).toFixed(2) + '\\)</span> <br>';
+        metricsData += '<span class="metric">\\(\\textsf{Points}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
-        metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> ';
+        metricsData += '<span class="metric">\\(\\textsf{WSPD pairs}\\)</span> ';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getWSPDPairs(wspd) + '</textarea>';
-        metricsData += '<span class="metric">\\(Edges :\\)</span>';
+        metricsData += '<span class="metric">\\(\\textsf{Edges}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(graphEdges) + '</textarea>';
-        metricsData += '<span class="metric">\\(MST edges :\\)</span>';
+        metricsData += '<span class="metric">\\(\\textsf{MST edges}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getGraphEdges(tApproxMST) + '</textarea>';
 
     }
