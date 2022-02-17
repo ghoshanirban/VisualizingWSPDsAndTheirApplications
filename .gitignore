@@ -1,2 +1,5 @@
 #MacOS dir file.
 .DS_Store
+
+#Workspace File.
+VisualizingWSPDsAndTheirApplications.code-workspace

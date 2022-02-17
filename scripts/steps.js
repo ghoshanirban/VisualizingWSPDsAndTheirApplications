@@ -347,54 +347,54 @@ steps.set('getNearestNeighbor',
  */
 
 steps.set('tApproxMST',
-        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)\\(ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
         '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
         '<p> 2) Prims(G) </p>' +
         '<p> 2.1) Select an arbitrary starting point. <p>' +
-        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e\\) of ' +
         '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
-        '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
-        '<p> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </p>');
+        '<p> 2.3) If the selected edge \\(e\\) would create a cycle do not add it to \\(T\\). </p>' +
+        '<p> 2.4) Otherwise add \\(e\\) to \\(T\\). </p>');
 
 steps.set('tApproxMSTStartPoint',
-        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)\\(ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
         '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
         '<p> <strong> 2) Prims(G) </strong> </p>' +
         '<p> <strong> 2.1) Select an arbitrary starting point. </strong> <p>' +
-        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e\\) of ' +
         '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
-        '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
-        '<p> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </p>');
+        '<p> 2.3) If the selected edge \\(e\\) would create a cycle do not add it to \\(T\\). </p>' +
+        '<p> 2.4) Otherwise add \\(e\\) to \\(T\\). </p>');
 
 steps.set('tApproxMSTConsidered',
-        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)\\(ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
         '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
         '<p> 2) <strong> Prims(G) </strong> </p>' +
         '<p> 2.1) Select an arbitrary starting point. <p>' +
-        '<p> <strong> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '<p> <strong> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e\\) of ' +
         '\\(G\\) with at least one vertex in \\(T\\). </strong> </p> ' +
-        '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
-        '<p> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </p>');
+        '<p> 2.3) If the selected edge \\(e\\) would create a cycle do not add it to \\(T\\). </p>' +
+        '<p> 2.4) Otherwise add \\(e\\) to \\(T\\). </p>');
 
 steps.set('cycleEdge',
-        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)\\(ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
         '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
         '<p> <strong> 2) Prims(G) </strong> </p>' +
         '<p> 2.1) Select an arbitrary starting point. <p>' +
-        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e\\) of ' +
         '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
-        '<p> <strong> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </strong> </p>' +
-        '<p> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </p>');
+        '<p> <strong> 2.3) If the selected edge \\(e\\) would create a cycle do not add it to \\(T\\). </strong> </p>' +
+        '<p> 2.4) Otherwise add \\(e\\) to \\(T\\). </p>');
 
 steps.set('tApproxMSTAdd',
-        '<p style="text-align: center;"> \\(t\\)\\(-\\)ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
+        '<p style="text-align: center;"> \\(t\\)\\(-\\)\\(ApproximateMinimumSpanningTree(P,t>1)\\) </p>' +
         '<p> 1) Construct a t-spanner \\(G\\) via (\\(Construct\\)(-\\)t\\(-\\)Spanner(P,t)\\)). </p>' +
         '<p> <strong> 2) Prims(G) </strong> </p>' +
         '<p> 2.1) Select an arbitrary starting point. <p>' +
-        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e_min\\) of ' +
+        '<p> 2.2) While the \\(|T_v| < |P|\\) select the shortest edge \\(e\\) of ' +
         '\\(G\\) with at least one vertex in \\(T\\). </p> ' +
-        '<p> 2.3) If the selected edge \\(e_min\\) would create a cycle do not add it to \\(T\\). </p>' +
-        '<p> <strong> 2.4) Otherwise add \\(e_min\\) to \\(T\\). </strong> </p>');
+        '<p> 2.3) If the selected edge \\(e\\) would create a cycle do not add it to \\(T\\). </p>' +
+        '<p> <strong> 2.4) Otherwise add \\(e\\) to \\(T\\). </strong> </p>');
 
 // Called during animation to display the steps for the current algorithm
 // and bold the current step of the algorithm.

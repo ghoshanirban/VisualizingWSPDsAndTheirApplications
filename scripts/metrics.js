@@ -102,9 +102,8 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
         metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
         metricsData += '<span class="metric">\\(t:' + getTValue(tValue) + '\\)</span>';
-        metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
-        metricsData += '<span class="metric">\\(W_{t-ApproxMST}:' + computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length)) + '\\)</span>';
-        metricsData += '<span class="metric">\\(W_{MST}:' + computeGraphWeight(tApproxMST) + '\\)</span> <br>';
+        metricsData += '<span class="metric">\\(w(AppxMST):' + computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length)) + '\\)</span>';
+        metricsData += '<span class="metric">\\(w(MST):' + computeGraphWeight(tApproxMST) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
         metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> ';
