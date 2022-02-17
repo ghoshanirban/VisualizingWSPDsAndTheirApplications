@@ -188,7 +188,7 @@ steps.set('tSpannerStep',
 
 steps.set('closestPair',
         '<p style="text-align: center;"> \\(ClosestPair(P)\\) </p>' +
-        '<p> 1) Construct a 2-spanner (\\(Construct\\)\\(-\\)t\\(-\\)\\(Spanner(P,2)\\)). </p>' +
+        '<p> 1) Construct a 2-WSPDspanner. </p>' +
         '<p> 2) For each edge in the spanner compute the distance weight of the edge. </p>' +
         '<p> 2.1) If the weight of the edge is less than the current shortest edge distance replace ' +
         'the current shortest pair. </p>' +
@@ -196,7 +196,7 @@ steps.set('closestPair',
 
 steps.set('possibleClosestPair',
         '<p style="text-align: center;"> \\(ClosestPair(P)\\) </p>' +
-        '<p> 1) Construct a 2-spanner (\\(Construct\\)\\(-\\)t\\(-\\)\\(Spanner(P,2)\\)). </p>' +
+        '<p> 1) Construct a 2-WSPDspanner. </p>' +
         '<p> <strong> 2) For each edge in the spanner compute the distance weight of the edge. </strong> </p>' +
         '<p> 2.1) If the weight of the edge is less than the current shortest edge distance replace ' +
         'the current shortest pair. </p>' +
@@ -204,7 +204,7 @@ steps.set('possibleClosestPair',
 
 steps.set('currentPossibleClosestPair',
         '<p style="text-align: center;"> \\(ClosestPair(P)\\) </p>' +
-        '<p> 1) Construct a 2-spanner (\\(Construct\\)\\(-\\)t\\(-\\)\\(Spanner(P,2)\\)). </p>' +
+        '<p> 1) Construct a 2-WSPDspanner. </p>' +
         '<p> <strong> 2) For each edge in the spanner compute the distance weight of the edge. </strong> </p>' +
         '<p> <strong> 2.1) If the weight of the edge is less than the current shortest edge distance replace ' +
         'the current shortest pair. </strong></p>' +
@@ -212,7 +212,7 @@ steps.set('currentPossibleClosestPair',
 
 steps.set('closestPairReturn',
         '<p style="text-align: center;"> \\(ClosestPair(P)\\) </p>' +
-        '<p> 1) Construct a 2-spanner (\\(Construct\\)\\(-\\)t\\(-\\)\\(Spanner(P,2)\\)). </p>' +
+        '<p> 1) Construct a 2-WSPDspanner. </p>' +
         '<p> 2) For each edge in the spanner compute the distance weight of the edge. </p>' +
         '<p> 2.1) If the weight of the edge is less than the current shortest edge distance replace ' +
         'the current shortest pair. </p>' +
