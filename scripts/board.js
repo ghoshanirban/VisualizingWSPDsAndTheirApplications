@@ -27,6 +27,9 @@ function getMouseCoords(e, i) {
 // Stores board points for ID visual.
 var boardPoints = new Map();
 
+// Set to true when animating.
+var isAnimating = false;
+
 // Event queue for animation.
 var eventQueue = [];
 var undoQueue = [];
@@ -319,7 +322,7 @@ function changePointIDStatus() {
 function pointClick(e) {
 
     // if the board is locked, return
-    if (!editPointsSelection.checked)
+    if (!editPointsSelection.checked || isAnimating)
         return;
 
     if (pointSet.length + 1 > 100){

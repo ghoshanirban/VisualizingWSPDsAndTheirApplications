@@ -480,6 +480,7 @@ function resetTextBoxes() {
 
 // Disables all controls during animation.
 function disableAllControls() {
+    isAnimating = true;
     editPointsSelection.setAttribute('disabled', '');
     //pointIDSelection.setAttribute('disabled', '');
     generatePointsButton.setAttribute('disabled', '');
@@ -508,6 +509,7 @@ function disableAllControls() {
 
 // Enables all controls after animation.
 function enableAllControls() {
+    isAnimating = false;
     editPointsSelection.removeAttribute('disabled');
     //pointIDSelection.removeAttribute('disabled');
     generatePointsButton.removeAttribute('disabled');

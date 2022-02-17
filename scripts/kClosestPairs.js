@@ -71,7 +71,7 @@ function computeKClosestPairs(k) {
 
     eventQueue.push('ClearTemps');
 
-    const distanceConstant = (1 + (4 / wspd.s) * r);
+    const distanceConstant = ((1 + (4 / wspd.s)) * r);
     var lPrime = 0;
     var pair = wspdSortedPairs[lPrime]; // Get the first pair.
 
