@@ -192,7 +192,7 @@ function finalANNPairConstruction(checkPoint, minDistPoint) {
     var style1 = {};
     Object.assign(style1, pointSetStyleANNFinal);
 
-    ANNSeparationLineStyle.color = '#0000FF'//'#FA5B3D';
+    ANNSeparationLineStyle.color = '#00FF00'//'#FA5B3D';
     var style2 = {};
     Object.assign(style2, ANNSeparationLineStyle);
 

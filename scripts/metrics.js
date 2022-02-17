@@ -61,7 +61,7 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span>';
         metricsData += '<span class="metric">\\(t:' + getTValue(tValue) + '\\)</span>';
         metricsData += '<span class="metric">\\(t_{actual}:' + floydWarshall(pointSet, graph) + '\\)</span>';
-        metricsData += '<span class="metric">\\(Closest pair:' + getClosestPair(closestPair) + '\\)</span> <br>';
+        metricsData += '<span class="metric">\\(Closest \\text{ } pair:' + getClosestPair(closestPair) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
         metricsData += '<span class="metric">\\(WSPD Pairs:\\)</span> ';
@@ -87,7 +87,7 @@ function populateMetrics(selection) {
     }
 
     else if (selection == 'ANN') {
-        metricsData += '<span class="metric">\\(|S|:' + getPointsetCardinality(pointSet) + '\\)</span>';
+        metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\)</span>';
         metricsData += '<span class="metric">\\(s:' + getWSPDSeparationFactor(wspd) + '\\) </span>'
         metricsData += '<span class="metric">\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(Points:\\)</span>';
@@ -206,7 +206,7 @@ function getGraphEdges(G) {
 
 // Returns formatted closet pair.
 function getClosestPair(pair) {
-    var returnString = '(' + pointSetMap.get(pair[0]) + ',' + pointSetMap.get(pair[1]) + ')';
+    var returnString = pointSetMap.get(pair[0]) + ',' + pointSetMap.get(pair[1]);
     return returnString;
 }
 
@@ -355,17 +355,11 @@ function getANNPairs(ANNList) {
 
     var pairsString = '';
 
-    pairsString += '{';
-
-    for (let i = 0; i < ANNList.length - 2; i += 2) {
-        pairsString += '{' + ANNList[i] + ',';
-        pairsString += ANNList[i + 1] + '},\n';
+    for (let i = 0; i < ANNList.length; i += 2) {
+        pairsString += 'NN(' + ANNList[i] + '): ';
+        pairsString += ANNList[i + 1] + '\n';
 
     }
-    pairsString += '{' + ANNList[ANNList.length - 2] + ',';
-    pairsString += ANNList[ANNList.length - 1] + '}';
-
-    pairsString += '}\n';
 
     return pairsString;
 }

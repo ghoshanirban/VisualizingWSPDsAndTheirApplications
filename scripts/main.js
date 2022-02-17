@@ -258,7 +258,7 @@ function AllNearestNeighborConstruction() {
 
     // Check that s is valid (s > 2).
     if (!isFinite(s) || s <= 2) {
-        alert('Please select a valid value for the separation factor of the WSPD (s > 0).');
+        alert('Please select a valid value for the separation factor of the WSPD (s > 2).');
         return;
     }
 
