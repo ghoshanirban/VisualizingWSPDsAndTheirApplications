@@ -61,7 +61,8 @@ function populateMetrics(selection) {
         metricsData += '\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\) &nbsp;&nbsp;';
         metricsData += '\\(t:' + getTValue(tValue).toFixed(2) + '\\) &nbsp;&nbsp;';
         metricsData += '\\(t_{actual}:' + floydWarshall(pointSet, graph).toFixed(2) + '\\) &nbsp;&nbsp;';
-        metricsData += '\\(\\textsf{Closest pair: }' + getClosestPair(closestPair) + '\\)</span> <br>';
+        metricsData += '\\(\\textsf{Closest pair: }' + getClosestPair(closestPair) + '\\) &nbsp;&nbsp;';
+        metricsData += '\\(\\textsf{Closest pair distance: }' + distance2D(closestPair[0], closestPair[1]).toFixed(2) + '\\)</span> <br>';
         metricsData += '<span class="metric">\\(\\textsf{Points}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea>';
         metricsData += '<span class="metric">\\(\\textsf{WSPD pairs}\\)</span> ';

@@ -20,12 +20,14 @@ body {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
-  flex-basis: calc(((100vw - 95svh)/ 2));
-  width: calc((100vw - 100vh)/ 2);
+  flex-basis: calc(((100vw - 95vh)/ 2));
+  width: calc(((100vw - 100vh)/ 2));
 }
 
-.center {
+#centerControlBar {
   text-align: center;
+  padding-left: 2.5vw;
+  padding-right: 2.5vw;
 }
 
 #controls {
@@ -59,7 +61,8 @@ body {
   justify-content: flex-start;
   margin-top: 2%;
   flex-basis: calc(((100vw - 95vh)/ 2));
-  width: calc((100vw - 100vh)/ 2);
+  width: calc(((100vw - 100vh)/ 2));
+  max-width: 30vw;
 }
 
 #controlBar {
@@ -76,6 +79,8 @@ body {
     margin: 1.5%;
     background-color: rgb(167, 151, 189);
     text-align: left;
+    overflow: auto;
+    max-height: 40vh;
 }
 
 .dataBoxHeader {

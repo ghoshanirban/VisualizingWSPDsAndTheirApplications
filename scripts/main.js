@@ -126,8 +126,6 @@ function computeWSPD() {
         return;
     }
 
-
-
     // Reset the objects on the board and re-plot the points to prepare animation.
     reset();
     plot();
