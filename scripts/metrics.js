@@ -43,8 +43,8 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\), &nbsp;&nbsp;';
         metricsData += '\\(s:' + getWSPDSeparationFactor(wspd).toFixed(2) + '\\), &nbsp;&nbsp;'
         metricsData += '\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\), &nbsp;&nbsp;';
-        metricsData += '\\(t:' + getTValue(tValue).toFixed() + '\\), &nbsp;&nbsp;';
-        metricsData += '\\(t_{actual}:' + floydWarshall(pointSet, graph).toFixed() + '\\)</span> <br>';
+        metricsData += '\\(t:' + getTValue(tValue).toFixed(2) + '\\), &nbsp;&nbsp;';
+        metricsData += '\\(t_{actual}:' + floydWarshall(pointSet, graph).toFixed(2) + '\\)</span> <br>';
         metricsData += '<span class="textboxMetric">\\(\\textsf{Points}\\)</span>';
         metricsData += '<textarea style="width: 40%;" rows="3" col="30" readonly>' + getPointIDs(pointSet, pointSetMap) + '</textarea> <br><br>';
         metricsData += '<span class="textboxMetric">\\(\\textsf{WSPD pairs}\\)</span>';
@@ -104,7 +104,7 @@ function populateMetrics(selection) {
         metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) + '\\), &nbsp;&nbsp;';
         metricsData += '\\(s:' + getWSPDSeparationFactor(wspd).toFixed(2) + '\\), &nbsp;&nbsp;'
         metricsData += '\\(m:' + getWSPDPairsCardinality(wspd.pairs) + '\\), &nbsp;&nbsp;';
-        metricsData += '\\(t:' + getTValue(tValue) + '\\), &nbsp;&nbsp;';
+        metricsData += '\\(t:' + getTValue(tValue).toFixed(2) + '\\), &nbsp;&nbsp;';
         metricsData += '\\(w(AppxMST):' + computeGraphWeight(prim(generateCompleteGraph(pointSet), pointSet.length)).toFixed(2) + '\\), &nbsp;&nbsp;';
         metricsData += '\\(w(MST):' + computeGraphWeight(tApproxMST).toFixed(2) + '\\)</span> <br>';
         metricsData += '<span class="textboxMetric">\\(\\textsf{Points}\\)</span>';
