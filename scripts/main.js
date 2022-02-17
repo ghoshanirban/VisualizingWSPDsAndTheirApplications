@@ -56,6 +56,7 @@ function reset() {
     closestPair = [];
     tApproxMST = new Set();
     kClosestPairs = [];
+    resetTextBoxes();
     clear();
 }
 
@@ -122,7 +123,7 @@ function computeWSPD() {
 
     // Check that s is valid (s >= 0).
     if (!isFinite(s) || s < 0) {
-        alert('Please select a valid value for the separation factor of the WSPD (s > 0).');
+        alert('Please enter a valid value for the separation factor of the WSPD (s > 0).');
         return;
     }
 
@@ -153,7 +154,7 @@ function computeTSpanner() {
 
     // Check that t is valid (t > 1).
     if (!isFinite(t) || t <= 1) {
-        alert('Please select a valid value for t (t > 1).');
+        alert('Please enter a valid value for t (t > 1).');
         return;
     }
 
@@ -215,13 +216,14 @@ function generateKClosestPairs() {
     let s = parseFloat(sKPairsEntry.value);
 
     // Check k is valid ( 1 <= k <= C(n,2)).
-    if (k < 1 || k > combination(pointSet.length, 2)) {
-        alert('Please select a valid value for k (0 < k <= C(n,2)).');
+    if (!isFinite(k) || k < 1 || k > combination(pointSet.length, 2)) {
+        alert('Please enter a valid value for k (0 < k <= C(n,2)).');
+        return;
     }
 
     // Check that s is valid (s >= 0).
     if (!isFinite(s) || s < 0) {
-        alert('Please select a valid value for the separation factor of the WSPD (s > 0).');
+        alert('Please enter a valid value for the separation factor of the WSPD (s > 0).');
         return;
     }
 
@@ -254,7 +256,7 @@ function AllNearestNeighborConstruction() {
 
     // Check that s is valid (s > 2).
     if (!isFinite(s) || s <= 2) {
-        alert('Please select a valid value for the separation factor of the WSPD (s > 2).');
+        alert('Please enter a valid value for the separation factor of the WSPD (s > 2).');
         return;
     }
 
@@ -288,7 +290,7 @@ function generateApproxMST() {
 
     // Check that t is valid (t > 1).
     if (!isFinite(t) || t <= 1) {
-        alert('Please select a valid value for t (t > 1).');
+        alert('Please enter a valid value for t (t > 1).');
         return;
     }
 

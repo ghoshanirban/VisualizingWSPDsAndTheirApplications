@@ -126,6 +126,17 @@ body {
 	text-align: center;
 }
 
+.textboxMetric {
+  display: block;
+	background-color: rgb(167, 151, 189);
+	color: #000000;
+	line-height: initial;
+	padding: 0.31em 0.63em;
+	margin: 3px 2px;
+	border-radius: calc(25px);
+	text-align: center;
+}
+
 #numPoints {
   margin: 2%;
 }

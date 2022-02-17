@@ -465,6 +465,16 @@ function downloadScreenShot(filename, text, type) {
 
 // Control utility functions.
 
+// Resets entry boxes on reset button click.
+function resetTextBoxes() {
+    separationFactorEntry.value = '';
+    tEntry.value = '';
+    kPairsEntry.value = '';
+    sKPairsEntry.value = '';
+    sANNEntry.value = '';
+    mstTEntry.value = '';
+}
+
 // Disables all controls during animation.
 function disableAllControls() {
     editPointsSelection.setAttribute('disabled', '');
