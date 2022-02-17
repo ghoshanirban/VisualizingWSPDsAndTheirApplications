@@ -56,13 +56,13 @@ function reset() {
     closestPair = [];
     tApproxMST = new Set();
     kClosestPairs = [];
-    resetTextBoxes();
     clear();
 }
 
 // Resets the entire state.
 function resetAll() {
     pointTextBox.value = '';
+    resetTextBoxes();
     reset();
 }
 
@@ -134,10 +134,7 @@ function computeWSPD() {
     // Set the algorithm name and display its steps.
     algorithm = 'WSPD'
     displaySteps(algorithm);
-    generateWSPD(s);
-    populateMetrics(algorithm);
-
-    animate(1, animationSpeedSelection.value);
+    processAlgorithm(algorithm, s, true);
 }
 
 // Algorithm controls.
@@ -158,23 +155,21 @@ function computeTSpanner() {
         return;
     }
 
+    tValue = t;
+
     // Reset the objects on the board and re-plot the points to prepare animation.
     reset();
     plot();
 
     // Generates the WSPD with separation factor based on t.
     let s = tToSeparationFactor(t)
-    generateWSPD(s);
+    processAlgorithm('WSPD', s);
 
     algorithm = 'tSpanner';
     displaySteps(algorithm);
-    generateTSpanner(t);
-    tValue = t;
-    populateMetrics(algorithm);
-
-    animate(1, animationSpeedSelection.value);
+    processAlgorithm(algorithm, t, true);
 }
-
+    
 let closestPairButton = document.getElementById('closestPair');
 closestPairButton.addEventListener('click', findClosestPair);
 function findClosestPair() {
@@ -190,16 +185,13 @@ function findClosestPair() {
     reset();
     plot();
 
-    generateWSPD(s);
-    generateTSpanner(t);
+    processAlgorithm('WSPD', s);
+    processAlgorithm('tSpanner', t);
     tValue = t;
 
     algorithm = 'closestPair';
     displaySteps(algorithm)
-    closestPair = computeClosestPair();
-    populateMetrics(algorithm);
-
-    animate(1, animationSpeedSelection.value);
+    closestPair = processAlgorithm(algorithm, null, true);
 }
 
 let kClosestPairsButton = document.getElementById('kClosestPairs');
@@ -231,14 +223,11 @@ function generateKClosestPairs() {
     reset();
     plot();
 
-    generateWSPD(s);
+    processAlgorithm('WSPD', s);
 
     algorithm = 'kClosestPairs';
     displaySteps(algorithm)
-    kClosestPairs = computeKClosestPairs(k);
-    populateMetrics(algorithm);
-
-    animate(1, animationSpeedSelection.value);
+    kClosestPairs = processAlgorithm(algorithm, k, true)
 }
 
 let allNearestNeighborsButton = document.getElementById('allNearestNeighbors');
@@ -265,16 +254,13 @@ function AllNearestNeighborConstruction() {
     plot();
 
     generateWSPD(s);
+    processAlgorithm('WSPD', s);
 
-    let treeArray;
     let singletonWSPD = getSingletonWSPD(wspd);
 
     algorithm = 'ANN';
     displaySteps(algorithm);
-    NaiveAllNN(pointSet, pointSetMap, treeArray, singletonWSPD);
-    populateMetrics(algorithm);
-
-    animate(1, animationSpeedSelection.value);
+    processAlgorithm(algorithm, singletonWSPD, true);
 }
 
 let mstButton = document.getElementById('MST');
@@ -301,17 +287,14 @@ function generateApproxMST() {
     // Generates the WSPD with separation factor based on t.
     let s = tToSeparationFactor(t)
 
-    generateWSPD(s);
-    generateTSpanner(t);
+    processAlgorithm('WSPD', s);
+    processAlgorithm('tSpanner', t);
     tValue = t;
 
     // Run prims on the t-spanner.
     algorithm = 'tApproxMST';
     displaySteps(algorithm);
-    tApproxMST = tApproximateMinimumSpanningTree();
-    populateMetrics(algorithm);
-
-    animate(1, animationSpeedSelection.value);
+    tApproxMST = processAlgorithm(algorithm, null, true)
 }
 
 // Download controls.
