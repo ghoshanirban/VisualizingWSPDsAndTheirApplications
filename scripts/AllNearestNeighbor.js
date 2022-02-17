@@ -107,7 +107,7 @@ function NearestNeighborAnimatePointWise(v, w) {
 
 function NaiveAllNN() {
 
-    let singletonWSPD = getSingletonWSPD(wspd);
+    let singletonWSPD = getSingletonWSPD();
 
     for (let p = 0; p < pointSet.length; p++) {
 
@@ -115,9 +115,9 @@ function NaiveAllNN() {
         let minDistPoint;
         let checkPoint = pointSet[p];
         colorCurrentPoint(checkPoint);
-        for (let i = 0; i < wspd.length; i++) {
+        for (let i = 0; i < singletonWSPD.length; i++) {
            
-            let wspdPairs = wspd[i];
+            let wspdPairs = singletonWSPD[i];
             let wspdPairFirstPart = wspdPairs[0].S;
             let wspdPairSecondPart = wspdPairs[1].S;
 

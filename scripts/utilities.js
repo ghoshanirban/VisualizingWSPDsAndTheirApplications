@@ -384,6 +384,18 @@ function separationFactorToT(s) {
     return (s+4)/(s-4);
 }
 
+// finding WSPD pair with at least one set is singleton
+function getSingletonWSPD() {
+    let wspdSingleton = [];
+    for (let i = 0; i < wspd.pairs.length; i++) {
+        let wspdPair = wspd.pairs[i];
+        if (wspdPair[0].S.length == 1 || wspdPair[1].S.length == 1) {
+            wspdSingleton.push(wspdPair);
+        }
+    }
+    return wspdSingleton;
+}
+
 // Download function.
 //Screen shot button to capture board image, saves the board as an SVG tree.
 function downloadBoardImage(type) {
@@ -534,19 +546,4 @@ function enableAllControls() {
     boardDownloadButtonPNG.removeAttribute('disabled');
     boardDownloadButtonSVG.removeAttribute('disabled');
     resetButton.removeAttribute('disabled');
-}
-
-// finding WSPD pair with at least one set is singleton
-function getSingletonWSPD(wspd)
-{
-    let wspdSingleton = [];
-    for( let i=0; i<wspd.pairs.length; i++ )
-    {
-        let wspdPair = wspd.pairs[i];
-        if( wspdPair[0].S.length == 1 || wspdPair[1].S.length == 1 )
-        {
-           wspdSingleton.push(wspdPair);  
-        }
-    }
-    return wspdSingleton;
 }
