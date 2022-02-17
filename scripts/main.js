@@ -253,7 +253,6 @@ function AllNearestNeighborConstruction() {
     reset();
     plot();
 
-    generateWSPD(s);
     processAlgorithm('WSPD', s);
 
     let singletonWSPD = getSingletonWSPD(wspd);
