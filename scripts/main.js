@@ -255,11 +255,9 @@ function AllNearestNeighborConstruction() {
 
     processAlgorithm('WSPD', s);
 
-    let singletonWSPD = getSingletonWSPD(wspd);
-
     algorithm = 'ANN';
     displaySteps(algorithm);
-    processAlgorithm(algorithm, singletonWSPD, true);
+    processAlgorithm(algorithm, null, true);
 }
 
 let mstButton = document.getElementById('MST');

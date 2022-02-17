@@ -28,7 +28,7 @@ function algorithmCall(algorithm, param, mainAlgorithm) {
         kClosestPairs = computeKClosestPairs(param);
 
     else if (algorithm == 'ANN')
-        NaiveAllNN(param);
+        NaiveAllNN();
 
     else if (algorithm == 'tApproxMST')
         tApproxMST = tApproximateMinimumSpanningTree();
