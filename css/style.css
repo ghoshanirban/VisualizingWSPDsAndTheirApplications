@@ -238,3 +238,11 @@ labelP {
 #downloadControls {
   text-align: center;
 }
+
+#boardDownloadPNG {
+  background-color: #7289DA;
+}
+
+#boardDownloadSVG {
+  background-color: #7289DA;
+}
