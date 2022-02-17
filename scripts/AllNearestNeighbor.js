@@ -105,7 +105,7 @@ function NearestNeighborAnimatePointWise(v, w) {
     eventQueue.push(animationLine);
 }
 
-function NaiveAllNN(pointSet, pointSetMap, treeArray, wspd) {
+function NaiveAllNN(wspd) {
 
     for (let p = 0; p < pointSet.length; p++) {
 

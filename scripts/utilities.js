@@ -164,6 +164,9 @@ function parseTextPoints() {
             pointSet.push(point);
     }
 
+    // Takes only the first 100 points.
+    pointSet = pointSet.slice(0,100);
+
     // Scales the point set to a -10 to 10 range.
     pointSet = scalePointSet(pointSet, Math.abs(board.getBoundingBox()[0]) - 1);
 

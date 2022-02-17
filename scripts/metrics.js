@@ -23,11 +23,8 @@ function populateMetrics(selection) {
     resetMetricsBox();
 
     var metricsData = '';
-
-    if (selection == 'processing')
-        metricsData += '<span class="metric">\\(\\text{Processing}\\)</span>';
     
-    else if (selection == 'WSPD') {
+    if (selection == 'WSPD') {
 
         metricsData += '<span class="metric">\\(|P|:' + getPointsetCardinality(pointSet) +'\\), &nbsp;&nbsp;';
         metricsData += '\\(s:' + getWSPDSeparationFactor(wspd).toFixed(2) + '\\), &nbsp;&nbsp;';
