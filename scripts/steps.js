@@ -72,7 +72,7 @@ steps.set('splitBoundingBox',
         '<p> <strong> 1) \\(SpitTree(P):\\) </strong> </p>' +
         '<p> 1.1) If \\(|P| = 1\\), create a node that stores only that point. <p>' +
         '<p> 1.2) Otherwise, compute the bounding-box, \\(R(P)\\), for \\(P\\). </p>' +
-        '<p> <strong> 1.3) Split \\(R(P)\\) into two rectangles along its longest side. <strong> </p>' +
+        '<p> <strong> 1.3) Split \\(R(P)\\) into two rectangles along its longest side. </strong> </p>' +
         '<p> 1.4) Partition \\(P\\) into subsets \\(P_1\\) and \\(P_2\\) ' +
         'with respect to the new rectangles. </p>' +
         '<p> 1.5) Create a node for \\(P\\) with two subtrees which are recursively ' +
