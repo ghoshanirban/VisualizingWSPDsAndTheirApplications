@@ -54,7 +54,7 @@ var drawInterval;
 function animate(direction, speed, animateWSPD=true) {
 
     // Compute animation speed, based on user selection.    
-    let animationSpeed = 500 / parseFloat(speed);
+    let animationSpeed = 750 / parseFloat(speed);
 
     // Disables animation if selected, all steps will occur instantaneously.
     if (!animationSelection.checked || !animateWSPD) {
