@@ -73,11 +73,6 @@ function generateRandomPointSet() {
 // Scales a point set to conform to a grid with min x,y -10 and max x,y 10.
 function scalePointSet(S, maxCoord) {
 
-    // Don't scale for 1 point.
-    if (S.length < 3) {
-        return S
-    }
-
     let scaledPoints = [...S]; // Copy for edits.
 
     // To get the highest individual coordinate.
@@ -168,7 +163,7 @@ function parseTextPoints() {
     pointSet = pointSet.slice(0, 100);
 
     // Scales the point set to a -10 to 10 range.
-    pointSet = scalePointSet(pointSet, Math.abs(board.getBoundingBox()[0]) - 1);
+    //pointSet = scalePointSet(pointSet, Math.abs(board.getBoundingBox()[0]) - 1);
 
     var pointID = 0; // Used to map point IDs.
     for (var point of pointSet) {
@@ -500,7 +495,7 @@ function disableAllControls() {
     pointTextBox.setAttribute('readonly', '');
     plotPointsButton.setAttribute('disabled', '');
     animationSelection.setAttribute('disabled', '');
-    animationSpeedSelection.setAttribute('disabled', '');
+    //animationSpeedSelection.setAttribute('disabled', '');
     wspdAnimationSelection.setAttribute('disabled', '');
     wspdButton.setAttribute('disabled', '');
     separationFactorEntry.setAttribute('disabled', '');
@@ -530,7 +525,7 @@ function enableAllControls() {
     plotPointsButton.removeAttribute('disabled');
     animationSelection.removeAttribute('disabled');
     wspdAnimationSelection.removeAttribute('disabled');
-    animationSpeedSelection.removeAttribute('disabled');
+    //animationSpeedSelection.removeAttribute('disabled');
     wspdButton.removeAttribute('disabled');
     separationFactorEntry.removeAttribute('disabled');
     tSpannerButton.removeAttribute('disabled');

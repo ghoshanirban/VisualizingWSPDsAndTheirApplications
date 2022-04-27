@@ -33,8 +33,6 @@ resetButton.addEventListener('click', resetAll);
 
 //Animation controls.
 let animationSelection = document.getElementById('animationSelection');
-let wspdAnimationSelection = document.getElementById('WSPDanimationSelection');
-let animationSpeedSelection = document.getElementById('animationSpeed');
 animationSelection.addEventListener('change', function () {
     if (!animationSelection.checked) {
         wspdAnimationSelection.setAttribute('disabled', '');
@@ -49,6 +47,20 @@ animationSelection.addEventListener('change', function () {
         document.getElementById('animationSpeedLabel').style.color = 'rgb(0, 0, 0)';
     }
 });
+let wspdAnimationSelection = document.getElementById('WSPDanimationSelection');
+let animationSpeedSelection = document.getElementById('animationSpeed');
+animationSpeedSelection.addEventListener('change', function () {
+
+    // Do nothing if animation is not occurring.
+    if (!isAnimating)
+        return;
+
+    // Set the new interval based on changed slider position.
+    clearInterval(drawInterval);
+    drawInterval = setInterval(draw, 750 / parseFloat(animationSpeedSelection.value));
+});
+
+
 
 
 // Resets all containers and the entire board.
@@ -82,7 +94,16 @@ let generatePointsButton = document.getElementById('generatePoints');
 generatePointsButton.addEventListener('click', generateRandomPointSet);
 let pointTextBox = document.getElementById('points');
 let plotPointsButton = document.getElementById('plotPoints');
-plotPointsButton.addEventListener('click', plot);
+plotPointsButton.addEventListener('click', plotScale);
+// Plots the points in the textbox and scales them.
+function plotScale() {
+    reset();
+    parseTextPoints(); // Creates the point set from points in the text box.
+    pointSet = scalePointSet(pointSet, Math.abs(board.getBoundingBox()[0]) - 1);
+    pointTextBox.value = ''; // Clean the textbox.
+    updatePointTextBox(pointSet); // Update the box with the new scaled points.
+    plot();
+}
 
 // Checks that there are at least 2 points on the board.
 function pointCheck() {
@@ -129,7 +150,7 @@ function computeWSPD() {
 
     // Check that s is valid (s >= 0).
     if (!isFinite(s) || s < 0) {
-        alert('Please enter a valid value for the separation factor of the WSPD (s > 0).');
+        alert('Please enter a valid value for the separation factor (s) of the WSPD (s > 0).');
         return;
     }
 
@@ -215,8 +236,8 @@ function generateKClosestPairs() {
 
     // Check that both k is valid ( 1 <= k <= C(n,2)) and that s is valid (s >= 0).
     if ((!Number.isInteger(k) || k < 1 || k > combination(pointSet.length, 2)) || (!isFinite(s) || s < 0)) {
-        alert('Please enter a valid value for k (0 < k <= C(n,2)) and must be an integer.\n' +
-            'Please enter a valid value for the separation factor of the WSPD (s > 0).')
+        alert('Please enter a valid integer value for k (0 < k <= C(n,2)).\n' +
+            'Please enter a valid value for the separation factor (s) of the WSPD (s > 0).')
         return;
     }
 
@@ -246,7 +267,7 @@ function AllNearestNeighborConstruction() {
 
     // Check that s is valid (s > 2).
     if (!isFinite(s) || s <= 2) {
-        alert('Please enter a valid value for the separation factor of the WSPD (s > 2).');
+        alert('Please enter a valid value for the separation factor (s) of the WSPD (s > 2).');
         return;
     }
 
