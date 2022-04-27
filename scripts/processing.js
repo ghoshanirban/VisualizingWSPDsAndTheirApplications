@@ -2,19 +2,20 @@
  * File to control processing and algorithm function calls.
  */
 
-function processAlgorithm(algorithm, param, mainAlgorithm=false) {
+function processAlgorithm(algorithm, param, mainAlgorithm = false) {
 
     metricsBox.innerHTML = baseMetricsBoxInnerHTML + '<span class="metric">\\(\\text{Processing...}\\)</span>';
+    metricsBox.innerHTML += '<div class="loader">Loading...</div>';
 
     MathJax.typeset();
 
-    setTimeout(function() {
+    setTimeout(function () {
         algorithmCall(algorithm, param, mainAlgorithm);
-    }, 1000); 
+    }, 1000);
 }
 
 function algorithmCall(algorithm, param, mainAlgorithm) {
-    
+
     if (algorithm == 'WSPD')
         generateWSPD(param);
 

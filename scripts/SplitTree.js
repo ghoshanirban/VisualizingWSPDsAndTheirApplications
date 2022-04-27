@@ -77,6 +77,8 @@ class SplitTree {
             Object.assign(style2, partitionPointStyle);
 
             // Partition the point set S into 2 subsets based on the sub-rectangle the point lies in.
+
+            eventQueue.push('pointPartitionStart'); // Draws all partitioned points in one animation step.
             for(var p of S) {
 
                 if(R1.containsPoint(p)){
@@ -89,6 +91,8 @@ class SplitTree {
                     eventQueue.push(new AnimationObject('point', p, style2, 'partitionHighlight', true)); // Highlights the points partitioned into R2.
                 }
             }
+
+            eventQueue.push('pointPartitionEnd'); // Draws all partitioned points in one animation step.
 
             eventQueue.push('splitTreeRecur'); // For recursive step display.
 

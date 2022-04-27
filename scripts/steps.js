@@ -9,7 +9,7 @@ var baseStepBoxInnerHTML = stepsBox.innerHTML;
 
 // Resets the step box text for new steps.
 function resetStepsBox() {
-    stepsBox.innerHTML = baseStepBoxInnerHTML;
+        stepsBox.innerHTML = baseStepBoxInnerHTML;
 }
 
 // A dictionary that holds all the step html data.
@@ -18,21 +18,21 @@ var steps = new Map();
 /**
  * WSPD Steps (Contains Split Tree).
 */
-steps.set('WSPD', 
+steps.set('WSPD',
         '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
-        '<p> 1) \\(SpitTree(P):\\) </p>' +
+        '<p> 1) \\(SplitTree(P):\\) </p>' +
         '<p> 1.1) If \\(|P| = 1\\), create a node that stores only that point. <p>' +
         '<p> 1.2) Otherwise, compute the bounding-box, \\(R(P)\\), for \\(P\\). </p>' +
         '<p> 1.3) Split \\(R(P)\\) into two rectangles along its longest side. </p>' +
         '<p> 1.4) Partition \\(P\\) into subsets \\(P_1\\) and \\(P_2\\) ' +
-            'with respect to the new rectangles. </p>' +
-        '<p> 1.5) Create a node for \\(P\\) with two subtrees which are recursively '  +
-            'defined on \\(P_1\\) and \\(P_2\\). </p>' +
-        '<p> 2) For each internal node \\(u\\) of \\(T\\) call \\(FindPairs(v,w,s)\\) '+
-            'on its children \\(u\\) and \\(v\\).</p>' +
-        '<p> 3) \\(FindPairs(v,w,s)\\) </p>' +     
+        'with respect to the new rectangles. </p>' +
+        '<p> 1.5) Create a node for \\(P\\) with two subtrees which are recursively ' +
+        'defined on \\(P_1\\) and \\(P_2\\). </p>' +
+        '<p> 2) For each internal node \\(u\\) of \\(T\\) call \\(FindPairs(v,w,s)\\) ' +
+        'on its children \\(u\\) and \\(v\\).</p>' +
+        '<p> 3) \\(FindPairs(v,w,s)\\) </p>' +
         '<p> 3.1) If \\(S_v\\) and \\(S_w\\) are well-separated with respect to ' +
-            '\\(s\\) return a pair {\\(u,v\\)}. </p>' +
+        '\\(s\\) return a pair {\\(u,v\\)}. </p>' +
         '<p> 3.2) Otherwise, if \\(L_{max}(R(v)) \\leq L_{max}(R(w))\\), then call \\(FindPairs(v, LeftChild(w), s)\\) ' +
         'and \\(FindPairs(v, RightChild(w), s)\\). Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
         '\\(FindPairs(RightChild(v), w, s)\\). </p>');
@@ -41,7 +41,7 @@ steps.set('WSPD',
 
 steps.set('leafPoint',
         '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
-        '<p> <strong> 1) \\(SpitTree(P):\\) </strong> </p>' +
+        '<p> <strong> 1) \\(SplitTree(P):\\) </strong> </p>' +
         '<p> <strong> 1.1) If \\(|P| = 1\\), create a node that stores only that point. </strong> <p>' +
         '<p> 1.2) Otherwise, compute the bounding-box, \\(R(P)\\), for \\(P\\). </p>' +
         '<p> 1.3) Split \\(R(P)\\) into two rectangles along its longest side. </p>' +
@@ -55,7 +55,7 @@ steps.set('leafPoint',
 
 steps.set('boundingBox',
         '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
-        '<p> <strong> 1) \\(SpitTree(P):\\) </strong> </p>' +
+        '<p> <strong> 1) \\(SplitTree(P):\\) </strong> </p>' +
         '<p> 1.1) If \\(|P| = 1\\), create a node that stores only that point. <p>' +
         '<p> <strong> 1.2) Otherwise, compute the bounding-box, \\(R(P)\\), for \\(P\\). </strong> </p>' +
         '<p> 1.3) Split \\(R(P)\\) into two rectangles along its longest side. </p>' +
@@ -66,10 +66,10 @@ steps.set('boundingBox',
         '<p> 2) For each internal node \\(u\\) of \\(T\\) call \\(FindPairs(v,w,s)\\) ' +
         'on its children \\(u\\) and \\(v\\). </p>' +
         '<p> 3) \\(FindPairs(v,w,s)\\) </p>');
-    
+
 steps.set('splitBoundingBox',
         '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
-        '<p> <strong> 1) \\(SpitTree(P):\\) </strong> </p>' +
+        '<p> <strong> 1) \\(SplitTree(P):\\) </strong> </p>' +
         '<p> 1.1) If \\(|P| = 1\\), create a node that stores only that point. <p>' +
         '<p> 1.2) Otherwise, compute the bounding-box, \\(R(P)\\), for \\(P\\). </p>' +
         '<p> <strong> 1.3) Split \\(R(P)\\) into two rectangles along its longest side. </strong> </p>' +
@@ -83,7 +83,7 @@ steps.set('splitBoundingBox',
 
 steps.set('partitionHighlight',
         '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
-        '<p> <strong> 1) \\(SpitTree(P):\\) </strong> </p>' +
+        '<p> <strong> 1) \\(SplitTree(P):\\) </strong> </p>' +
         '<p> 1.1) If \\(|P| = 1\\), create a node that stores only that point. <p>' +
         '<p> 1.2) Otherwise, compute the bounding-box, \\(R(P)\\), for \\(P\\). </p>' +
         '<p> 1.3) Split \\(R(P)\\) into two rectangles along its longest side. </p>' +
@@ -94,10 +94,10 @@ steps.set('partitionHighlight',
         '<p> 2) For each internal node \\(u\\) of \\(T\\) call \\(FindPairs(v,w,s)\\) ' +
         'on its children \\(u\\) and \\(v\\).</p>' +
         '<p> 3) \\(FindPairs(v,w,s)\\) </p>');
-    
+
 steps.set('splitTreeRecur',
         '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
-        '<p> <strong> 1) \\(SpitTree(P):\\) </strong> </p>' +
+        '<p> <strong> 1) \\(SplitTree(P):\\) </strong> </p>' +
         '<p> 1.1) If \\(|P| = 1\\), create a node that stores only that point. <p>' +
         '<p> 1.2) Otherwise, compute the bounding-box, \\(R(P)\\), for \\(P\\). </p>' +
         '<p> 1.3) Split \\(R(P)\\) into two rectangles along its longest side. </p>' +
@@ -111,9 +111,9 @@ steps.set('splitTreeRecur',
 
 // WSPD.
 
-steps.set('findPairsInternalNodes', 
+steps.set('findPairsInternalNodes',
         '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
-        '<p> 1) \\(SpitTree(P):\\) </p>' +
+        '<p> 1) \\(SplitTree(P):\\) </p>' +
         '<p> <strong> 2) For each internal node \\(u\\) of \\(T\\) call \\(FindPairs(v,w,s)\\) ' +
         'on its children \\(u\\) and \\(v\\). </strong> </p>' +
         '<p> 3) \\(FindPairs(v,w,s)\\) </p>' +
@@ -123,9 +123,9 @@ steps.set('findPairsInternalNodes',
         'and \\(FindPairs(v, RightChild(w), s)\\). Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
         '\\(FindPairs(RightChild(v), w, s)\\). </p>');
 
-steps.set('wellSeparatedCheck', 
+steps.set('wellSeparatedCheck',
         '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
-        '<p> 1) \\(SpitTree(P):\\) </p>' +
+        '<p> 1) \\(SplitTree(P):\\) </p>' +
         '<p> 2) For each internal node \\(u\\) of \\(T\\) call \\(FindPairs(v,w,s)\\) ' +
         'on its children \\(u\\) and \\(v\\).</p>' +
         '<p> <strong> 3) \\(FindPairs(v,w,s)\\) </strong> </p>' +
@@ -138,7 +138,7 @@ steps.set('wellSeparatedCheck',
 
 steps.set('wellSeparatedHighlight',
         '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
-        '<p> 1) \\(SpitTree(P):\\) </p>' +
+        '<p> 1) \\(SplitTree(P):\\) </p>' +
         '<p> 2) For each internal node \\(u\\) of \\(T\\) call \\(FindPairs(v,w,s)\\) ' +
         'on its children \\(u\\) and \\(v\\).</p>' +
         '<p> <strong> 3) \\(FindPairs(v,w,s)\\) </strong> </p>' +
@@ -148,9 +148,9 @@ steps.set('wellSeparatedHighlight',
         'and \\(FindPairs(v, RightChild(w), s)\\). Else, call \\(FindPairs(LeftChild(v), w, s)\\) and ' +
         '\\(FindPairs(RightChild(v), w, s)\\). </p>');
 
-steps.set('findPairsRecur', 
+steps.set('findPairsRecur',
         '<p style="text-align: center;"> \\(ConstructWSPD(P,s>0)\\) </p>' +
-        '<p> 1) \\(SpitTree(P):\\) </p>' +
+        '<p> 1) \\(SplitTree(P):\\) </p>' +
         '<p> 2) For each internal node \\(u\\) of \\(T\\) call \\(FindPairs(v,w,s)\\) ' +
         'on its children \\(u\\) and \\(v\\).</p>' +
         '<p> 3) \\(FindPairs(v,w,s)\\) </p>' +
@@ -176,7 +176,7 @@ steps.set('tSpannerWSPD',
         '<p> 2) For each pair \\({A_i, B_i}\\) select an arbitrary point \\(a_i\\) in \\(A_i\\) ' +
         'and \\(b_i\\) in \\(B_i\\), then add the edge {\\(a_i,b_i\\)}. </p>');
 
-steps.set('tSpannerStep', 
+steps.set('tSpannerStep',
         '<p style="text-align: center;"> \\(Construct\\)-\\(t\\)-\\(Spanner(P,t>1)\\) </p>' +
         '<p> 1) Let \\(s = 4(t+1)/(t-1)\\). Construct a WSPD of \\(p\\) with \\(s\\).</p>' +
         '<p> <strong> 2) For each pair \\({A_i, B_i}\\) select an arbitrary point \\(a_i\\) in \\(A_i\\) ' +
@@ -222,9 +222,9 @@ steps.set('closestPairReturn',
  * k-Closest Pairs steps.
  */
 
-steps.set('kClosestPairs', 
+steps.set('kClosestPairs',
         '<p style="text-align: center;"> \\(k\\)\\(-\\)\\(ClosestPairs(P)\\) </p>' +
-        '<p> 1) Construct a WSPD with \\(s>0\\) where the set of pairs is sorted by the minimum distance '+
+        '<p> 1) Construct a WSPD with \\(s>0\\) where the set of pairs is sorted by the minimum distance ' +
         'between the bounding-boxes of the first set of the pair \\(R(A_i)\\) and the second set of pair ' +
         '\\(R(B_i)\\) denoted as \\(|R(A_i)R(B_i)|\\). </p>' +
         '<p> 2) Compute the smallest integer \\(\\ell\\) such that \\(\\sum_{i = 1}^{\\ell} |A_i| \\cdot |B_i| \\geq k\\).</p>' +
@@ -299,6 +299,7 @@ steps.set('kClosestPairsSelection',
  */
 
 steps.set('ANN',
+        '<p style="text-align: center;"> \\(AllNearestNeighbors\\) </p>' +
         '<p> 1) For each point \\(p\\) in \\(P\\): <p>' +
         '<p> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
         'is a singleton containing \\(p\\). </p>' +
@@ -307,6 +308,7 @@ steps.set('ANN',
         '<p> 1.3) The nearest neighbor of \\(p\\) is the point in \\(S_p\\) closest to \\(p\\).</p>');
 
 steps.set('ANNLoop',
+        '<p style="text-align: center;"> \\(AllNearestNeighbors\\) </p>' +
         '<p> <strong> 1) For each point \\(p\\) in \\(P\\): </strong> <p>' +
         '<p> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
         'is a singleton containing \\(p\\). </p>' +
@@ -315,6 +317,7 @@ steps.set('ANNLoop',
         '<p> 1.3) The nearest neighbor of \\(p\\) is the point in \\(S_p\\) closest to \\(p\\).</p>');
 
 steps.set('considerWSPDPairs',
+        '<p style="text-align: center;"> \\(AllNearestNeighbors\\) </p>' +
         '<p> <strong> 1) For each point \\(p\\) in \\(P\\): </strong> <p>' +
         '<p> <strong> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
         'is a singleton containing \\(p\\). </strong> </p>' +
@@ -323,6 +326,7 @@ steps.set('considerWSPDPairs',
         '<p> 1.3) The nearest neighbor of \\(p\\) is the point in \\(S_p\\) closest to \\(p\\).</p>');
 
 steps.set('selectSingletonWSPD',
+        '<p style="text-align: center;"> \\(AllNearestNeighbors\\) </p>' +
         '<p> <strong> 1) For each point \\(p\\) in \\(P\\): </strong> <p>' +
         '<p> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
         'is a singleton containing \\(p\\). </p>' +
@@ -331,6 +335,7 @@ steps.set('selectSingletonWSPD',
         '<p> 1.3) The nearest neighbor of \\(p\\) is the point in \\(S_p\\) closest to \\(p\\).</p>');
 
 steps.set('getNearestNeighbor',
+        '<p style="text-align: center;"> \\(AllNearestNeighbors\\) </p>' +
         '<p> <strong> 1) For each point \\(p\\) in \\(P\\): </strong> <p>' +
         '<p> 1.1) Consider all such pairs of the WSPD, for which at least one of their sets ' +
         'is a singleton containing \\(p\\). </p>' +
@@ -396,10 +401,10 @@ steps.set('tApproxMSTAdd',
 // and bold the current step of the algorithm.
 function displaySteps(selection) {
 
-    resetStepsBox(); // Set the header.
+        resetStepsBox(); // Set the header.
 
-    stepsBox.innerHTML += steps.get(selection) // Set the steps.
+        stepsBox.innerHTML += steps.get(selection) // Set the steps.
 
-    MathJax.typeset(); // Latex typeset.
+        MathJax.typeset(); // Latex typeset.
 }
 

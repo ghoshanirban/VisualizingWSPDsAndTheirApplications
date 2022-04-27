@@ -51,14 +51,14 @@ class AnimationObject {
 var drawInterval;
 
 // Animates the board by drawing or removing objects.
-function animate(direction, speed, animateWSPD=true) {
+function animate(direction, speed, animateWSPD = true) {
 
     // Compute animation speed, based on user selection.    
     let animationSpeed = 750 / parseFloat(speed);
 
     // Disables animation if selected, all steps will occur instantaneously.
     if (!animationSelection.checked || !animateWSPD) {
-        
+
         board.suspendUpdate();
 
         while (eventQueue.length > 0) {
@@ -66,15 +66,15 @@ function animate(direction, speed, animateWSPD=true) {
 
             if (animationObject.isTemporary)
                 continue;
-            
-            else if(typeof animationObject == 'string') {
+
+            else if (typeof animationObject == 'string') {
                 specialAnimationOPCheck(animationObject);
                 continue;
             }
 
             let boardObject = board.create(animationObject.type,
-                             animationObject.data, animationObject.style);     
-            
+                animationObject.data, animationObject.style);
+
             undoQueue.push([animationObject, boardObject]);
         }
 
@@ -104,7 +104,7 @@ function draw() {
 
     let animationObject = eventQueue.shift();
 
-    if(specialAnimationOPCheck(animationObject)){
+    if (specialAnimationOPCheck(animationObject)) {
         board.unsuspendUpdate();
         return;
     }
@@ -114,7 +114,7 @@ function draw() {
     }
 
     else {
-        
+
         displaySteps(animationObject.text);
         let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
 
@@ -137,7 +137,26 @@ function remove(boardObject) {
 // Checks for special animation operation actions.
 function specialAnimationOPCheck(animationObject) {
 
-    if (animationObject == 'RemoveNonWellSeparated') {
+    if (animationObject == 'pointPartitionStart') {
+
+        animationObject = eventQueue.shift();
+
+        while (animationObject != 'pointPartitionEnd') {
+
+            displaySteps(animationObject.text);
+            let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
+
+            undoQueue.push([animationObject, boardObject]);
+
+            if (animationObject.isTemporary) {
+                removeQueue.push([animationObject, boardObject]);
+            }
+
+            animationObject = eventQueue.shift();
+        }
+    }
+
+    else if (animationObject == 'RemoveNonWellSeparated') {
 
         var notWellSeparated = [];
         var newRemoveQueue = [];
@@ -263,7 +282,7 @@ function boundsCheck() {
 }
 
 // Clears the board and deletes all its child objects.
-function clear(){
+function clear() {
     boardPoints = new Map();
     eventQueue = [];
     undoQueue = [];
@@ -325,7 +344,7 @@ function pointClick(e) {
     if (!editPointsSelection.checked || isAnimating)
         return;
 
-    if (pointSet.length + 1 > 100){
+    if (pointSet.length + 1 > 100) {
         alert('100 points maximum.');
         return;
     }

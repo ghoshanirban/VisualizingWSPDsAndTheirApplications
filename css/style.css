@@ -48,7 +48,7 @@ body {
   display: flex;
 }
 
-#jxgbox{
+#jxgbox {
   width: 95vh;
   height: 95vh;
   margin: 2%;
@@ -66,7 +66,7 @@ body {
 }
 
 #controlBar {
-    text-align: center;
+  text-align: center;
 }
 
 .title {
@@ -74,17 +74,17 @@ body {
 }
 
 .dataBox {
-    border-radius: 25px;
-    padding: 3%;
-    margin: 1.5%;
-    background-color: rgb(167, 151, 189);
-    text-align: left;
-    overflow: auto;
-    max-height: 40vh;
+  border-radius: 25px;
+  padding: 3%;
+  margin: 1.5%;
+  background-color: rgb(167, 151, 189);
+  text-align: left;
+  overflow: auto;
+  max-height: 40vh;
 }
 
 .dataBoxHeader {
-    text-align: center;
+  text-align: center;
 }
 
 #metricsBox {
@@ -92,7 +92,7 @@ body {
 }
 
 #dataDownloadBox {
-    text-align: center;
+  text-align: center;
 }
 
 #dataDownload {
@@ -100,8 +100,8 @@ body {
   color: #000000;
 }
 
-#screenShot{
-    display: none;
+#screenShot {
+  display: none;
 }
 
 .separator {
@@ -110,31 +110,31 @@ body {
   border-color: #000;
 }
 
-.spacer{
-    width: 2vw;
-    background-color: #FFF;
+.spacer {
+  width: 2vw;
+  background-color: #FFF;
 }
 
 .metric {
-	display: block;
-	background-color: grey;
-	color: #000000;
-	line-height: initial;
-	padding: 0.31em 0.63em;
-	margin: 3px 2px;
-	border-radius: calc(25px);
-	text-align: center;
+  display: block;
+  background-color: grey;
+  color: #000000;
+  line-height: initial;
+  padding: 0.31em 0.63em;
+  margin: 3px 2px;
+  border-radius: calc(25px);
+  text-align: center;
 }
 
 .textboxMetric {
   display: block;
-	background-color: rgb(167, 151, 189);
-	color: #000000;
-	line-height: initial;
-	padding: 0.31em 0.63em;
-	margin: 3px 2px;
-	border-radius: calc(25px);
-	text-align: center;
+  background-color: rgb(167, 151, 189);
+  color: #000000;
+  line-height: initial;
+  padding: 0.31em 0.63em;
+  margin: 3px 2px;
+  border-radius: calc(25px);
+  text-align: center;
 }
 
 #numPoints {
@@ -178,7 +178,7 @@ labelP {
 }
 
 .button1 {
-  background-color:  rgb(167, 151, 189);
+  background-color: rgb(167, 151, 189);
   color: black;
   border: 1px solid #e8ddf7;
   padding-top: 5px;
@@ -190,7 +190,8 @@ labelP {
   color: white;
 }
 
-:focus, .focus-visible:focus:not(:focus-visible) {
+:focus,
+.focus-visible:focus:not(:focus-visible) {
   color: rgb(10, 14, 236);
   /* background-color: rgb(245, 207, 207); */
 }
@@ -256,4 +257,77 @@ labelP {
 
 #boardDownloadSVG {
   background-color: #7289DA;
+}
+
+
+
+
+.loader {
+  font-size: 10px;
+  margin: 50px auto;
+  text-indent: -9999em;
+  width: 7em;
+  height: 7em;
+  border-radius: 50%;
+  background: #ffffff;
+  background: -moz-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+  background: -webkit-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+  background: -o-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+  background: -ms-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+  background: linear-gradient(to right, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+  position: relative;
+  -webkit-animation: load3 1.4s infinite linear;
+  animation: load3 1.4s infinite linear;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.loader:before {
+  width: 50%;
+  height: 50%;
+  background: #ffffff;
+  border-radius: 100% 0 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+}
+
+.loader:after {
+  background: rgb(167, 151, 189);
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  content: '';
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+@-webkit-keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

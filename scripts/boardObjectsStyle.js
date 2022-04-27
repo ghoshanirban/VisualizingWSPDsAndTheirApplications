@@ -28,7 +28,7 @@ function getColor() {
 
 // Sets a color for partition point visual.
 function setPartitionColor(styleID) {
-    
+
     // Red '#FF0000' reserved for polygon. Green '#00FF00' is reserved for leaf nodes.
     var color = '#FF0000';
     while (color == '#FF0000' || color == '#00FF00') {
@@ -44,7 +44,7 @@ let boundingboxStandard = [-11, 11, 11, -11];
 // Board specifications
 let boardParams = {
     boundingbox: boundingboxStandard,
-    showaxis: false,
+    axis: true,
     showcopyright: false,
     shownavigation: false,
 };
@@ -76,7 +76,7 @@ let leafPointStyle = {
 
 // Style for bounding boxes.
 let boundingBoxStyle = {
-    borders : {
+    borders: {
         color: '#000000',
     },
     fillOpacity: 0,
@@ -311,7 +311,7 @@ let kClosestLthWSPDSingletonPointHighlightStyle = {
 
 // Style for the bounding boxes of the lth WSPD pair in kClosestPairs.
 let kClosestLthBoundingBoxStyle = {
-    borders: { 
+    borders: {
         strokeWidth: 7,
         color: '#FF0000',
     },

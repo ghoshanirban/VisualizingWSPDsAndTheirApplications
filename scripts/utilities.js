@@ -13,7 +13,7 @@ const EPSILON = 0.00001;
 // Locks the point generation features.
 function lockPoints() {
 
-    if (!editPointsSelection.checked){
+    if (!editPointsSelection.checked) {
         generatePointsButton.setAttribute('disabled', '');
         pointTextBox.setAttribute('readonly', '');
     }
@@ -24,7 +24,7 @@ function lockPoints() {
 }
 
 // Generates a random point with in an x and y bound.
-function generateRandomPoint(xBound, yBound){
+function generateRandomPoint(xBound, yBound) {
 
     var xSign = Math.floor(Math.random() * 2);
     var ySign = Math.floor(Math.random() * 2);
@@ -32,7 +32,7 @@ function generateRandomPoint(xBound, yBound){
     xSign = (xSign == 0) ? 1 : -1;
     ySign = (ySign == 0) ? 1 : -1;
 
-    return[xSign * Math.random() * xBound, ySign * Math.random() * yBound];
+    return [xSign * Math.random() * xBound, ySign * Math.random() * yBound];
 }
 
 // Creates a point set of size n and stores it in the pointSet global.
@@ -41,12 +41,12 @@ function generateRandomPointSet() {
     // Check if point set editing is on.
     if (!editPointsSelection.checked)
         return;
-    
+
     // Get number of points to create.
     let n = parseInt(numPointsEntry.value);
 
     // Restricted to 100 points.
-    if (pointSet.length + n > 100){
+    if (pointSet.length + n > 100) {
         n = 100 - pointSet.length;
         alert('100 points maximum, points will be truncated.');
     }
@@ -54,13 +54,13 @@ function generateRandomPointSet() {
     boundsCheck(); // Check the bounds are valid before generation.
     let bounds = board.getBoundingBox();
     // Takes the absolute max of the x and y axis on the board minus some buffer.
-    let xBound = Math.max(Math.abs(bounds[0]), Math.abs(bounds[2])) - 1; 
+    let xBound = Math.max(Math.abs(bounds[0]), Math.abs(bounds[2])) - 1;
     let yBound = Math.max(Math.abs(bounds[1]), Math.abs(bounds[3])) - 1;
 
     var newPointSet = [];
 
     for (let i = 0; i < n; i++) {
-        
+
         newPointSet.push(generateRandomPoint(xBound, yBound));
     }
 
@@ -74,7 +74,7 @@ function generateRandomPointSet() {
 function scalePointSet(S, maxCoord) {
 
     // Don't scale for 1 point.
-    if (S.length < 2) {
+    if (S.length < 3) {
         return S
     }
 
@@ -112,12 +112,12 @@ function scalePointSet(S, maxCoord) {
 function updatePointTextBox(newPoints) {
 
     var newPointsText = '';
-    
-    for(var point of newPoints){
-        newPointsText += point[0].toFixed(2).toString() + ' ' + 
-        point[1].toFixed(2).toString() + '\n';
+
+    for (var point of newPoints) {
+        newPointsText += point[0].toFixed(2).toString() + ' ' +
+            point[1].toFixed(2).toString() + '\n';
     }
-    
+
     pointTextBox.value = pointTextBox.value + newPointsText;
 }
 
@@ -128,18 +128,18 @@ function parseTextPoints() {
 
     let textBoxInput = pointTextBox.value;
     var text = textBoxInput.split(/\s|\t|\n/);
-    
+
     // Remove whitespace.
     var textPoints = [];
-    for(let i = 0; i < text.length; i++) {
+    for (let i = 0; i < text.length; i++) {
         var element = parseFloat(text[i]);
 
-        if(isFinite(element)) 
+        if (isFinite(element))
             textPoints.push(element);
     }
 
     // Add the parsed points to the pointset and assign IDs to each.
-    for (let i = 0; i < textPoints.length; i+=2) {
+    for (let i = 0; i < textPoints.length; i += 2) {
         var xCord = Math.round(textPoints[i] * 100) / 100;
         var yCord = Math.round(textPoints[i + 1] * 100) / 100;
 
@@ -150,9 +150,9 @@ function parseTextPoints() {
 
         // Checks all points to see if current considered point is a duplicate.
         for (var p of pointSet) {
-            
-            if (p[0] == point[0] && p[1] == point[1]){
-                alert('Point (' + point + 
+
+            if (p[0] == point[0] && p[1] == point[1]) {
+                alert('Point (' + point +
                     ') already exists, the duplicate has been deleted.');
                 isNew = false;
                 break;
@@ -160,18 +160,18 @@ function parseTextPoints() {
         }
 
         // Adds the point if it is not a duplicate.
-        if (isNew) 
+        if (isNew)
             pointSet.push(point);
     }
 
     // Takes only the first 100 points.
-    pointSet = pointSet.slice(0,100);
+    pointSet = pointSet.slice(0, 100);
 
     // Scales the point set to a -10 to 10 range.
     pointSet = scalePointSet(pointSet, Math.abs(board.getBoundingBox()[0]) - 1);
 
     var pointID = 0; // Used to map point IDs.
-    for (var point of pointSet){
+    for (var point of pointSet) {
         pointSetMap.set(point, pointID++);
     }
 
@@ -189,24 +189,24 @@ function distance2D(p1, p2) {
 
 // Computes the midpoint on a line.
 function midpoint(p1, p2) {
-    return [(p1[0] + p2[0]) /2, (p1[1] + p2[1]) /2];
+    return [(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];
 }
 
 // Compute the bounding box of a point set.
 function computeBoundingBox(S) {
-    
+
     let minX = Infinity;
     let maxX = -Infinity;
     let minY = Infinity;
     let maxY = -Infinity;
 
     for (let i = 0; i < S.length; i++) {
-        
+
         minX = Math.min(minX, S[i][0]);
         maxX = Math.max(maxX, S[i][0]);
         minY = Math.min(minY, S[i][1]);
         maxY = Math.max(maxY, S[i][1]);
-        
+
     }
 
     return new Rectangle([[minX, maxY], [maxX, maxY], [maxX, minY], [minX, minY]]);
@@ -222,16 +222,16 @@ function splitBoundingBox(R) {
     let splitPoint1 = midpoint(R.vertices[anchorPoint], R.vertices[anchorPoint + 1]);
     let splitPoint2 = midpoint(R.vertices[anchorPoint + 2], R.vertices[(anchorPoint + 3) % 4]);
 
-    if(anchorPoint == 0) {
+    if (anchorPoint == 0) {
         return [new Rectangle([R.vertices[0], splitPoint1, splitPoint2, R.vertices[3]]),
-                new Rectangle([splitPoint1, R.vertices[1], R.vertices[2], splitPoint2]),
-                [splitPoint1, splitPoint2]];
+        new Rectangle([splitPoint1, R.vertices[1], R.vertices[2], splitPoint2]),
+        [splitPoint1, splitPoint2]];
     }
     else {
         // Return the two rectangles and the line that splits them.
         return [new Rectangle([R.vertices[0], R.vertices[1], splitPoint1, splitPoint2]),
-                new Rectangle([splitPoint2, splitPoint1, R.vertices[2], R.vertices[3]]),
-                [splitPoint1, splitPoint2]];
+        new Rectangle([splitPoint2, splitPoint1, R.vertices[2], R.vertices[3]]),
+        [splitPoint1, splitPoint2]];
     }
 }
 
@@ -252,16 +252,16 @@ function calculateCircleConnectionLine(C1Center, C1Point, C2Center, C2Point) {
 
     // Compute line from center of circle 1 to center of circle 2.
     var centerLine = board.create('line', [C1Center, C2Center], {
-        color: '#FFFFFF', 
-        straightFirst:false, 
-        straightLast:false
+        color: '#FFFFFF',
+        straightFirst: false,
+        straightLast: false
     });
 
     // Compute all 4 intersection points of the centerline and the 2 circles.
-    var i1 = board.create('intersection', [circle1, centerLine, 0], {color: '#FFFFFF'});
-    var j1 = board.create('intersection', [circle2, centerLine, 0], {color: '#FFFFFF'});
-    var i2 = board.create('intersection', [circle1, centerLine, 1], {color: '#FFFFFF'});
-    var j2 = board.create('intersection', [circle2, centerLine, 1], {color: '#FFFFFF'});
+    var i1 = board.create('intersection', [circle1, centerLine, 0], { color: '#FFFFFF' });
+    var j1 = board.create('intersection', [circle2, centerLine, 0], { color: '#FFFFFF' });
+    var i2 = board.create('intersection', [circle1, centerLine, 1], { color: '#FFFFFF' });
+    var j2 = board.create('intersection', [circle2, centerLine, 1], { color: '#FFFFFF' });
 
     // Calculate and compute the closest two intersection points to draw the proper connection line.
     var i = distance2D([i1.X(), i1.Y()], [j1.X(), j1.Y()]) < distance2D([i2.X(), i2.Y()], [j1.X(), j1.Y()]) ? i1 : i2;
@@ -286,7 +286,7 @@ function calculateCircleConnectionLine(C1Center, C1Point, C2Center, C2Point) {
 }
 
 // Finds the shortest distance between bounding boxes.
-function distanceBetweenBoundingBoxes(R1, R2, distance=true) {
+function distanceBetweenBoundingBoxes(R1, R2, distance = true) {
 
     var shortestDistanceLine;
     var leftBB; // Bounding box that is oriented to the left of the other.
@@ -315,30 +315,30 @@ function distanceBetweenBoundingBoxes(R1, R2, distance=true) {
     }*/
 
     // The left box is entirely below the right.
-    if (leftBB.vertices[1][1] <= rightBB.vertices[3][1]){
-        var possibleConnectionLine = [leftBB.vertices[1],[leftBB.vertices[1][0], leftBB.vertices[0][1] + 
-                                    (rightBB.vertices[3][1] - leftBB.vertices[1][1])]]; // Directly below.
-        shortestDistanceLine = rightBB.containsPoint(possibleConnectionLine[1]) ? 
-                                possibleConnectionLine : [leftBB.vertices[1], rightBB.vertices[3]]; // Slightly offset.
+    if (leftBB.vertices[1][1] <= rightBB.vertices[3][1]) {
+        var possibleConnectionLine = [leftBB.vertices[1], [leftBB.vertices[1][0], leftBB.vertices[0][1] +
+            (rightBB.vertices[3][1] - leftBB.vertices[1][1])]]; // Directly below.
+        shortestDistanceLine = rightBB.containsPoint(possibleConnectionLine[1]) ?
+            possibleConnectionLine : [leftBB.vertices[1], rightBB.vertices[3]]; // Slightly offset.
     }
     // The left box is entirely above the right.
     else if (leftBB.vertices[2][1] >= rightBB.vertices[0][1]) {
         var possibleConnectionLine = [rightBB.vertices[0], [rightBB.vertices[0][0], rightBB.vertices[0][1] +
-                                     (leftBB.vertices[2][1] - rightBB.vertices[0][1])]]; // Directly below.
+            (leftBB.vertices[2][1] - rightBB.vertices[0][1])]]; // Directly below.
         shortestDistanceLine = leftBB.containsPoint(possibleConnectionLine[1]) ?
-                                 possibleConnectionLine : [leftBB.vertices[2], rightBB.vertices[0]]; // Slightly offset.
+            possibleConnectionLine : [leftBB.vertices[2], rightBB.vertices[0]]; // Slightly offset.
     }
     // Left bounding box upper right is between the right's left side.
     else if (leftBB.vertices[1][1] <= rightBB.vertices[0][1] && leftBB.vertices[1][1] >= rightBB.vertices[3][1]) {
 
         var connectionPoint = [leftBB.vertices[1][0] + (rightBB.vertices[0][0] - leftBB.vertices[0][0]),
-                                 leftBB.vertices[1][1]];
+        leftBB.vertices[1][1]];
         shortestDistanceLine = [leftBB.vertices[1], connectionPoint];
     }
     // Left bounding box lower right is between the right's left side.
     else if (leftBB.vertices[2][1] <= rightBB.vertices[0][1] && leftBB.vertices[2][1] >= rightBB.vertices[3][1]) {
         var connectionPoint = [leftBB.vertices[2][0] + (rightBB.vertices[0][0] - leftBB.vertices[0][0]),
-                                leftBB.vertices[2][1]];
+        leftBB.vertices[2][1]];
         shortestDistanceLine = [leftBB.vertices[2], connectionPoint];
     }
     // Right bounding box is in-between the y max and min of the left.
@@ -348,9 +348,9 @@ function distanceBetweenBoundingBoxes(R1, R2, distance=true) {
     }
 
     // Return the distance.
-    if (distance) 
+    if (distance)
         return (distance2D(shortestDistanceLine[0], shortestDistanceLine[1]));
-    
+
     return shortestDistanceLine; // Return the shortest line.
 }
 
@@ -371,17 +371,17 @@ function factorial(n) {
 // Combination formula.
 function combination(n, k) {
 
-    return (factorial(n) / (factorial(k) * factorial(n-k)));
+    return (factorial(n) / (factorial(k) * factorial(n - k)));
 }
 
 // Equation for separation factor given a value for t.
 function tToSeparationFactor(t) {
-    return 4 * ((t+1) / (t-1));
+    return 4 * ((t + 1) / (t - 1));
 }
 
 //Equation for t given a value for separation factor.
 function separationFactorToT(s) {
-    return (s+4)/(s-4);
+    return (s + 4) / (s - 4);
 }
 
 // finding WSPD pair with at least one set is singleton

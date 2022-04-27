@@ -26,6 +26,8 @@ let metricsBox = document.getElementById('metricsBox');
 // Controls
 
 // Board controls.
+let clearButton = document.getElementById('clear');
+clearButton.addEventListener('click', clear);
 let resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', resetAll);
 
@@ -37,12 +39,16 @@ animationSelection.addEventListener('change', function () {
     if (!animationSelection.checked) {
         wspdAnimationSelection.setAttribute('disabled', '');
         animationSpeedSelection.setAttribute('disabled', '');
+        document.getElementById('WSPDanimationSelectionLabel').style.color = 'rgb(197, 197, 197)';
+        document.getElementById('animationSpeedLabel').style.color = 'rgb(197, 197, 197)';
     }
     else {
         wspdAnimationSelection.removeAttribute('disabled');
         animationSpeedSelection.removeAttribute('disabled');
+        document.getElementById('WSPDanimationSelectionLabel').style.color = 'rgb(0, 0, 0)';
+        document.getElementById('animationSpeedLabel').style.color = 'rgb(0, 0, 0)';
     }
- });
+});
 
 
 // Resets all containers and the entire board.
@@ -80,10 +86,10 @@ plotPointsButton.addEventListener('click', plot);
 
 // Checks that there are at least 2 points on the board.
 function pointCheck() {
-    
+
     if (pointSet.length > 1)
         return false;
-    
+
     alert('Please create at least 2 points first.');
     return true;
 }
@@ -101,7 +107,7 @@ function generateWSPD(s) {
 
 // Call to create a t-spanner used by t-spanner, closest pair, and t-approx MST.
 function generateTSpanner(t) {
-    
+
     // Construct the t-spanner.
     var tSpannerReturn = constructTSpanner(t);
     graph = tSpannerReturn[0];
@@ -169,7 +175,7 @@ function computeTSpanner() {
     displaySteps(algorithm);
     processAlgorithm(algorithm, t, true);
 }
-    
+
 let closestPairButton = document.getElementById('closestPair');
 closestPairButton.addEventListener('click', findClosestPair);
 function findClosestPair() {
@@ -207,15 +213,10 @@ function generateKClosestPairs() {
     let k = parseFloat(kPairsEntry.value);
     let s = parseFloat(sKPairsEntry.value);
 
-    // Check k is valid ( 1 <= k <= C(n,2)).
-    if (!Number.isInteger(k) || k < 1 || k > combination(pointSet.length, 2)) {
-        alert('Please enter a valid value for k (0 < k <= C(n,2)) and must be an integer.');
-        return;
-    }
-
-    // Check that s is valid (s >= 0).
-    if (!isFinite(s) || s < 0) {
-        alert('Please enter a valid value for the separation factor of the WSPD (s > 0).');
+    // Check that both k is valid ( 1 <= k <= C(n,2)) and that s is valid (s >= 0).
+    if ((!Number.isInteger(k) || k < 1 || k > combination(pointSet.length, 2)) || (!isFinite(s) || s < 0)) {
+        alert('Please enter a valid value for k (0 < k <= C(n,2)) and must be an integer.\n' +
+            'Please enter a valid value for the separation factor of the WSPD (s > 0).')
         return;
     }
 
@@ -240,7 +241,7 @@ function AllNearestNeighborConstruction() {
     // Confirm S > 1.
     if (pointCheck())
         return;
-    
+
     s = parseFloat(sANNEntry.value);
 
     // Check that s is valid (s > 2).
