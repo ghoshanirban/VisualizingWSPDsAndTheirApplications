@@ -57,6 +57,11 @@ function animate(direction, speed, algorithm) {
     // Compute animation speed, based on user selection.    
     let animationSpeed = 750 / parseFloat(speed);
 
+    if (pointSet.length > 25) {
+        alert('Animation is disabled for point sets larger than 25.');
+        animationSelection.checked = false;
+    }
+
     // Disables animation if selected, all steps will occur instantaneously.
     if (!animationSelection.checked) {
 
