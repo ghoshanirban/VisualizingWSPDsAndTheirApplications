@@ -38,6 +38,20 @@ function setPartitionColor(styleID) {
     partitionPointStyle.color = color;
 }
 
+// Enables/Disables the grid lines on the board.
+function setGridLines() {
+
+    board.suspendUpdate();
+
+    if (gridLinesSelection.checked)
+        board.axis = true;
+    else
+        board.axis = false;
+
+    board.unsuspendUpdate();
+
+}
+
 // Starting and normal bounding box.
 let boundingboxStandard = [-11, 11, 11, -11];
 

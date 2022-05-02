@@ -127,5 +127,5 @@ function getPreGeneratedPointSet() {
     
     updatePointTextBox(newPointSet);
 
-    plot();
+    plotScale();
 }

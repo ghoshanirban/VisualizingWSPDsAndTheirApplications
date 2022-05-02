@@ -99,7 +99,7 @@ function NearestNeighborAnimate(v, w, s) {
     let animationCircle2 = new AnimationObject('circle', [C2.center, w.R.vertices[0]],
         style1, 'wellSeparatedCheck', true);
     let animationLine = new AnimationObject('line',
-        calculateCircleConnectionLine(C1.center, v.R.vertices[0], C2.center, w.R.vertices[0]),
+        calculateCircleConnectionLine(C1, C2),
         style2, 'wellSeparatedCheck', true);
 
     // Set the AnimationObjects as non-temporary.

@@ -35,6 +35,7 @@ resetButton.addEventListener('click', resetAll);
 let animationSelection = document.getElementById('animationSelection');
 animationSelection.addEventListener('change', function () {
     if (!animationSelection.checked) {
+        wspdAnimationSelection.checked = true;
         wspdAnimationSelection.setAttribute('disabled', '');
         animationSpeedSelection.setAttribute('disabled', '');
         document.getElementById('WSPDanimationSelectionLabel').style.color = 'rgb(197, 197, 197)';
@@ -74,6 +75,12 @@ function reset() {
     closestPair = [];
     tApproxMST = new Set();
     kClosestPairs = [];
+    isAnimating = false;
+    eventQueue = [];
+    undoQueue = [];
+    removeQueue = [];
+    wspdStaticRemoveQueue = [];
+    clearInterval(drawInterval);
     clear();
 }
 
@@ -84,17 +91,19 @@ function resetAll() {
     reset();
 }
 
-// Pointset, controls.
+// Pointset and gird controls.
 let editPointsSelection = document.getElementById('editPoints');
 editPointsSelection.addEventListener('change', lockPoints);
 let pointIDSelection = document.getElementById('pointIDs');
 pointIDSelection.addEventListener('change', changePointIDStatus);
+let gridLinesSelection = document.getElementById('gridLines');
+gridLinesSelection.addEventListener('change', setGridLines);
 let numPointsEntry = document.getElementById('numPoints');
 let generatePointsButton = document.getElementById('generatePoints');
 generatePointsButton.addEventListener('click', generateRandomPointSet);
 let pointTextBox = document.getElementById('points');
 let plotPointsButton = document.getElementById('plotPoints');
-plotPointsButton.addEventListener('click', plotScale);
+plotPointsButton.addEventListener('click', t);
 // Plots the points in the textbox and scales them.
 function plotScale() {
     reset();
@@ -123,7 +132,7 @@ function generateWSPD(s) {
     wspd = new WSPD(splitTree, s);
 
     if (!wspdAnimationSelection.checked)
-        animate(1, animationSpeedSelection.value, false);
+        animate(1, animationSpeedSelection.value, 'WSPD');
 }
 
 // Call to create a t-spanner used by t-spanner, closest pair, and t-approx MST.

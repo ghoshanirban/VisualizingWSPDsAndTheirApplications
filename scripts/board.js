@@ -34,6 +34,7 @@ var isAnimating = false;
 var eventQueue = [];
 var undoQueue = [];
 var removeQueue = [];
+var wspdStaticRemoveQueue = []; // Uses to remove the non animated WSPD when needed.
 
 // General object for animation objects, contains data for JSXGraph board objects and their status.
 class AnimationObject {
@@ -51,15 +52,19 @@ class AnimationObject {
 var drawInterval;
 
 // Animates the board by drawing or removing objects.
-function animate(direction, speed, animateWSPD = true) {
+function animate(direction, speed, algorithm) {
 
     // Compute animation speed, based on user selection.    
     let animationSpeed = 750 / parseFloat(speed);
 
     // Disables animation if selected, all steps will occur instantaneously.
-    if (!animationSelection.checked || !animateWSPD) {
+    if (!animationSelection.checked) {
 
-        board.suspendUpdate();
+        drawFinalOutput(algorithm);
+
+        eventQueue = [];
+
+        /*board.suspendUpdate();
 
         while (eventQueue.length > 0) {
             let animationObject = eventQueue.shift();
@@ -78,7 +83,16 @@ function animate(direction, speed, animateWSPD = true) {
             undoQueue.push([animationObject, boardObject]);
         }
 
-        board.unsuspendUpdate();
+        board.unsuspendUpdate();*/
+
+        return;
+    }
+
+    if (!wspdAnimationSelection.checked && algorithm == 'WSPD') {
+
+        drawFinalOutput(algorithm);
+
+        eventQueue = [];
 
         return;
     }
@@ -89,51 +103,6 @@ function animate(direction, speed, animateWSPD = true) {
     }
 }
 
-// Draws an object onto the board.
-function draw() {
-
-    // Exit the draw, set board zoom, and set static state.
-    if (eventQueue.length == 0) {
-        clearInterval(drawInterval);
-        displaySteps(algorithm);
-        enableAllControls();
-        return;
-    }
-
-    board.suspendUpdate();
-
-    let animationObject = eventQueue.shift();
-
-    if (specialAnimationOPCheck(animationObject)) {
-        board.unsuspendUpdate();
-        return;
-    }
-
-    else if (typeof animationObject == 'string') {
-        displaySteps(animationObject);
-    }
-
-    else {
-
-        displaySteps(animationObject.text);
-        let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
-
-        undoQueue.push([animationObject, boardObject]);
-
-        if (animationObject.isTemporary) {
-            removeQueue.push([animationObject, boardObject]);
-        }
-    }
-
-    board.unsuspendUpdate();
-}
-
-// Removes an object from the board.
-function remove(boardObject) {
-
-    board.removeObject(boardObject);
-}
-
 // Checks for special animation operation actions.
 function specialAnimationOPCheck(animationObject) {
 
@@ -141,9 +110,10 @@ function specialAnimationOPCheck(animationObject) {
 
         animationObject = eventQueue.shift();
 
+        displaySteps(animationObject.text);
+
         while (animationObject != 'pointPartitionEnd') {
 
-            displaySteps(animationObject.text);
             let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
 
             undoQueue.push([animationObject, boardObject]);
@@ -179,6 +149,11 @@ function specialAnimationOPCheck(animationObject) {
     }
 
     else if (animationObject == 'ClearWSPD') {
+
+        if (!wspdAnimationSelection.checked) {
+            removeStaticWSPD();
+            return true;
+        }
 
         var wspdRemoveQueue = [];
 
@@ -268,6 +243,158 @@ function specialAnimationOPCheck(animationObject) {
         return false;
 
     return true;
+}
+
+// Draws an object onto the board.
+function draw() {
+
+    // Exit the draw, set board zoom, and set static state.
+    if (eventQueue.length == 0) {
+        clearInterval(drawInterval);
+        displaySteps(algorithm);
+        enableAllControls();
+        return;
+    }
+
+    board.suspendUpdate();
+
+    let animationObject = eventQueue.shift();
+
+    if (specialAnimationOPCheck(animationObject)) {
+        board.unsuspendUpdate();
+        return;
+    }
+
+    else if (typeof animationObject == 'string') {
+        displaySteps(animationObject);
+    }
+
+    else {
+
+        displaySteps(animationObject.text);
+        let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
+
+        undoQueue.push([animationObject, boardObject]);
+
+        if (animationObject.isTemporary) {
+            removeQueue.push([animationObject, boardObject]);
+        }
+    }
+
+    board.unsuspendUpdate();
+}
+
+// Removes an object from the board.
+function remove(boardObject) {
+
+    board.removeObject(boardObject);
+}
+
+// Immediately draws a final product to the board.
+function drawFinalOutput(algorithm) {
+
+    board.suspendUpdate()
+
+    if (algorithm == 'WSPD') {
+
+        for (var pair of wspd.pairs) {
+
+            C1 = new Circle(pair[0].R.getCenter(), distance2D(pair[0].R.getCenter(), pair[0].R.vertices[0]));
+            C2 = new Circle(pair[1].R.getCenter(), distance2D(pair[1].R.getCenter(), pair[1].R.vertices[0]));
+
+            // Set the color of the animation objects.
+            wspdCircleStyle.color = getColor();
+            var style1 = {};
+            Object.assign(style1, wspdCircleStyle);
+
+            wspdConnectionLineStyle.color = wspdCircleStyle.color;
+            var style2 = {};
+            Object.assign(style2, wspdConnectionLineStyle);
+
+            removeQueue.push(board.create('circle', [C1.center, pair[0].R.vertices[0]], style1));
+            removeQueue.push(board.create('circle', [C2.center, pair[1].R.vertices[0]], style1));
+            removeQueue.push(board.create('line', calculateCircleConnectionLine(C1, C2), style2));
+        }
+    }
+
+    else if (algorithm == 'tSpanner') {
+
+        for (var edge of graphEdges) {
+            board.create('line', edge, tSpannerLineStyle);
+        }
+    }
+
+    else if (algorithm == 'closestPair') {
+
+        for (var edge of graphEdges) {
+            board.create('line', edge, tSpannerLineStyle);
+        }
+
+        board.create('point', closestPair[0], closestPairStyle);
+        board.create('point', closestPair[1], closestPairStyle);
+        board.create('line', [closestPair[0], closestPair[1]], closestPairLineStyle);
+    }
+
+    else if (algorithm == 'kClosestPairs') {
+
+        drawFinalOutput('WSPD');
+
+        for (pair of kClosestPairs) {
+
+            board.create('point', pair[0], kClosestPairStyle);
+            board.create('point', pair[1], kClosestPairStyle);
+            board.create('line', pair, kClosestPairLineStyle);
+        }
+    }
+
+    else if (algorithm == 'ANN') {
+
+        drawFinalOutput('WSPD');
+
+        for (var i = 0; i < ANNList.length; i += 2) {
+
+            let point = pointSet[ANNList[i]];
+            let nearestNeighbor = pointSet[ANNList[i + 1]];
+
+            board.create('point', point, pointSetStyleANNFinal);
+            board.create('point', nearestNeighbor, pointSetStyleANNFinal);
+            board.create('arrow', [point, nearestNeighbor], ANNSeparationLineStyle);
+        }
+    }
+
+    else if (algorithm == 'tApproxMST') {
+
+        var finishedPoints = new Set();
+
+        for (edge of tApproxMST) {
+
+            let p1 = edge[0];
+            let p2 = edge[1];
+
+            if (!finishedPoints.has(p1)) {
+                finishedPoints.add(p1);
+                board.create('point', p1, tApproxMSTSelectedPointStyle);
+            }
+
+            if (!finishedPoints.has(p2)) {
+                finishedPoints.add(p2);
+                board.create('point', p2, tApproxMSTSelectedPointStyle);
+            }
+
+            board.create('line', [p1, p2], tApproxMSTSelectedLineStyle);
+
+        }
+    }
+
+    board.unsuspendUpdate()
+}
+
+// Removes the WSPD for the non-WSPD animations.
+function removeStaticWSPD() {
+
+    for (var item of removeQueue) {
+        remove(item);
+    }
 }
 
 // Checks board boundingbox is valid.

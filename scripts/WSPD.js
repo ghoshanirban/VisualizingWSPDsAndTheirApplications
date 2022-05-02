@@ -31,21 +31,21 @@ class WSPD {
         eventQueue.push('findPairsInternalNodes'); // Used to show internal node step.
 
         // Loop through all internal nodes and check if they are well-separated.
-        for(var u of internalNodes) {
+        for (var u of internalNodes) {
             let v = u.left;
             let w = u.right;
 
-            this.findPairs(v,w);
+            this.findPairs(v, w);
         }
     }
 
     // Computes if v and w are well separated, if not their child nodes are checked recursively.
-    findPairs(v,w) {
+    findPairs(v, w) {
 
         // Nodes are well separated add as a valid pair.
-        if(isWellSeparated(v, w, this.s)) {
+        if (isWellSeparated(v, w, this.s)) {
             var d = distanceBetweenBoundingBoxes(v.R, w.R); // Used in k-closest pairs.
-            this.pairs.push([v,w,d]);
+            this.pairs.push([v, w, d]);
         }
 
         // Compute node with larger longest side, and recur on that subtree.
@@ -70,22 +70,14 @@ class WSPD {
 
 // Checks if two given point sets are well-separated with respect to s. 
 // shape = 0 uses a circle as the containing shape shape = 1 uses a rectangle.
-function isWellSeparated(v, w, s, shape=0) {
-    
+function isWellSeparated(v, w, s, shape = 0) {
+
     // Use circles.
-    if(shape == 0) {
+    if (shape == 0) {
 
         // Given a point set create a circle containing the points via the bounding box.
         var C1 = new Circle(v.R.getCenter(), distance2D(v.R.getCenter(), v.R.vertices[0]));
         var C2 = new Circle(w.R.getCenter(), distance2D(w.R.getCenter(), w.R.vertices[0]));
-
-
-        // Find the circle with the maximum radius.
-        let maxRadius = Math.max(C1.radius, C2.radius);
-
-        // Create new bounding circles with the maximum radius.
-        C1 = new Circle(C1.center, maxRadius);
-        C2 = new Circle(C2.center, maxRadius);
 
         // Set the color of the animation objects.
         wspdCircleStyle.color = getColor();
@@ -97,37 +89,30 @@ function isWellSeparated(v, w, s, shape=0) {
         Object.assign(style2, wspdConnectionLineStyle);
 
         // Animations for the well-separated check. Could be non-temporary so they are not added yet.
-        let animationCircle1 = new AnimationObject('circle', [C1.center, v.R.vertices[0]], 
+        let animationCircle1 = new AnimationObject('circle', [C1.center, v.R.vertices[0]],
             style1, 'wellSeparatedCheck', true);
-        let animationCircle2 = new AnimationObject('circle', [C2.center, w.R.vertices[0]], 
+        let animationCircle2 = new AnimationObject('circle', [C2.center, w.R.vertices[0]],
             style1, 'wellSeparatedCheck', true);
-        let animationLine = new AnimationObject('line', 
-            calculateCircleConnectionLine(C1.center, v.R.vertices[0], C2.center, w.R.vertices[0]), 
+        let animationLine = new AnimationObject('line', calculateCircleConnectionLine(C1, C2),
             style2, 'wellSeparatedCheck', true);
+
+        // Find the circle with the maximum radius.
+        let maxRadius = Math.max(C1.radius, C2.radius);
+
+        // Create new bounding circles with the maximum radius.
+        C1 = new Circle(C1.center, maxRadius);
+        C2 = new Circle(C2.center, maxRadius);
 
         // Compute the distance between the bounding circles.
         let distanceC1ToC2 = distance2D(C1.center, C2.center) - C1.radius - C2.radius;
 
         // If the pair is well-separated keep the AnimationObjects on the board and return true.
-        if (distanceC1ToC2 >= s*maxRadius) {
-
-            eventQueue.push('RemovePreviousWSPDHighlight');
+        if (distanceC1ToC2 >= s * maxRadius) {
 
             // Set the AnimationObjects as non-temporary.
             animationCircle1.isTemporary = false;
             animationCircle2.isTemporary = false;
             animationLine.isTemporary = false;
-
-            // Highlight the new WSPD. 
-            eventQueue.push(new AnimationObject('circle', [C1.center, v.R.vertices[0]],
-                wspdCircleHighlightStyle, 'wellSeparatedHighlight', false));
-            eventQueue.push(new AnimationObject('circle', [C2.center, w.R.vertices[0]],
-                wspdCircleHighlightStyle, 'wellSeparatedHighlight', false));
-            eventQueue.push(new AnimationObject('line',
-                calculateCircleConnectionLine(C1.center, v.R.vertices[0], C2.center, w.R.vertices[0]),
-                wspdLineHighlightStyle, 'wellSeparatedHighlight', false));
-
-            //eventQueue.push('ClearTemps');
 
             // Adds the AnimationObjects to the animation event queue.
             eventQueue.push(animationCircle1);

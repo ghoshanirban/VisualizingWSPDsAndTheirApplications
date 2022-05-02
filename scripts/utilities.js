@@ -232,7 +232,7 @@ function splitBoundingBox(R) {
 
 // Computes the shortest line between circles. Uses the JSXBoard objects for geometric computations.
 // Note all objects are invisible on the board.
-function calculateCircleConnectionLine(C1Center, C1Point, C2Center, C2Point) {
+/*function calculateCircleConnectionLine(C1Center, C1Point, C2Center, C2Point) {
 
     board.suspendUpdate();
 
@@ -278,7 +278,39 @@ function calculateCircleConnectionLine(C1Center, C1Point, C2Center, C2Point) {
     board.unsuspendUpdate();
 
     return connectionLine;
+}*/
+
+// Computes the shortest line between circles.
+function calculateCircleConnectionLine(C1, C2) {
+
+    if (C1.radius == 0 && C2.radius == 0)
+        return [C1.center, C2.center];
+
+    let distanceBetweenCircleCenters = distance2D(C1.center, C2.center);
+
+    let v = [C2.center[0] - C1.center[0], C2.center[1] - C1.center[1]];
+    let w = [C1.center[0] - C2.center[0], C1.center[1] - C2.center[1]];
+
+    let vUnit = [v[0] / distanceBetweenCircleCenters, v[1] / distanceBetweenCircleCenters];
+    let wUnit = [w[0] / distanceBetweenCircleCenters, w[1] / distanceBetweenCircleCenters];
+
+    let i1 = [C1.center[0] + (C1.radius * wUnit[0]), C1.center[1] + (C1.radius * wUnit[1])];
+    let i2 = [C1.center[0] - (C1.radius * wUnit[0]), C1.center[1] - (C1.radius * wUnit[1])];
+
+    let j1 = [C2.center[0] + (C2.radius * wUnit[0]), C2.center[1] + (C2.radius * wUnit[1])];
+    let j2 = [C2.center[0] - (C2.radius * wUnit[0]), C2.center[1] - (C2.radius * wUnit[1])];
+
+
+    // Calculate and compute the closest two intersection points to draw the proper connection line.
+    i = distance2D([i1[0], i1[1]], [j1[0], j1[1]]) < distance2D([i2[0], i2[1]], [j1[0], j1[1]]) ? i1 : i2;
+    j = distance2D([i[0], i[1]], [j1[0], j1[1]]) < distance2D([i[0], i[1]], [j2[0], j2[1]]) ? j1 : j2;
+
+    return [i, j];
 }
+
+
+
+
 
 // Finds the shortest distance between bounding boxes.
 function distanceBetweenBoundingBoxes(R1, R2, distance = true) {

@@ -36,6 +36,6 @@ function algorithmCall(algorithm, param, mainAlgorithm) {
 
     if (mainAlgorithm) {
         populateMetrics(algorithm);
-        animate(1, animationSpeedSelection.value);
+        animate(1, animationSpeedSelection.value, algorithm);
     }
 }
