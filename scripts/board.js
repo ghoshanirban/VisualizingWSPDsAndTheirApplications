@@ -96,6 +96,8 @@ function animate(direction, speed, algorithm) {
     else if (pointSet.length > 25) {
         alert('Animation is disabled for point sets larger than 25.');
         animationSelection.checked = false;
+        drawFinalOutput(algorithm);
+        eventQueue = [];
     }
 
     else if (direction) {
