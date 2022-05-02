@@ -57,11 +57,6 @@ function animate(direction, speed, algorithm) {
     // Compute animation speed, based on user selection.    
     let animationSpeed = 750 / parseFloat(speed);
 
-    if (pointSet.length > 25) {
-        alert('Animation is disabled for point sets larger than 25.');
-        animationSelection.checked = false;
-    }
-
     // Disables animation if selected, all steps will occur instantaneously.
     if (!animationSelection.checked) {
 
@@ -89,20 +84,21 @@ function animate(direction, speed, algorithm) {
         }
 
         board.unsuspendUpdate();*/
-
-        return;
     }
 
-    if (!wspdAnimationSelection.checked && algorithm == 'WSPD') {
+    else if (!wspdAnimationSelection.checked && algorithm == 'WSPD') {
 
         drawFinalOutput(algorithm);
 
         eventQueue = [];
-
-        return;
     }
 
-    if (direction) {
+    else if (pointSet.length > 25) {
+        alert('Animation is disabled for point sets larger than 25.');
+        animationSelection.checked = false;
+    }
+
+    else if (direction) {
         disableAllControls();
         drawInterval = setInterval(draw, animationSpeed);
     }
