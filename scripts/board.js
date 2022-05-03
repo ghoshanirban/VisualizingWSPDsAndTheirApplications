@@ -367,6 +367,8 @@ function drawFinalOutput(algorithm) {
 
     else if (algorithm == 'tApproxMST') {
 
+        drawFinalOutput('tSpanner');
+
         var finishedPoints = new Set();
 
         for (edge of tApproxMST) {

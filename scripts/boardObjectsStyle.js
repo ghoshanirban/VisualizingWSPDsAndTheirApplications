@@ -41,14 +41,16 @@ function setPartitionColor(styleID) {
 // Enables/Disables the grid lines on the board.
 function setGridLines() {
 
-    board.suspendUpdate();
+    if (!confirm('Swapping grid lines will reset the board is this ok?')) {
+        gridLinesSelection.checked = !gridLinesSelection.checked;
+    }
 
     if (gridLinesSelection.checked)
-        board.axis = true;
+        boardParams.axis = true;
     else
-        board.axis = false;
+        boardParams.axis = false;
 
-    board.unsuspendUpdate();
+    clear();
 
 }
 

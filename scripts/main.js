@@ -103,7 +103,7 @@ let generatePointsButton = document.getElementById('generatePoints');
 generatePointsButton.addEventListener('click', generateRandomPointSet);
 let pointTextBox = document.getElementById('points');
 let plotPointsButton = document.getElementById('plotPoints');
-plotPointsButton.addEventListener('click', t);
+plotPointsButton.addEventListener('click', plotScale);
 // Plots the points in the textbox and scales them.
 function plotScale() {
     reset();
