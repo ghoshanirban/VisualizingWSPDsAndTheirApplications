@@ -6,6 +6,7 @@
 
 // Board object parent for all other geometric objects.
 var board = JXG.JSXGraph.initBoard('jxgbox', boardParams);
+board.create('grid', []); // Add the grid.
 
 // Bounding box data for use in other functions.
 var boundingBox = board.getBoundingBox();
@@ -424,6 +425,7 @@ function clear() {
     board = JXG.JSXGraph.initBoard('jxgbox', boardParams);
     boardControl = document.getElementById('jxgbox_navigator');
     board.on('down', pointClick);
+    board.create('grid', []);
 }
 
 // Places all generated or entered points on the board, no animation instant plotting.
