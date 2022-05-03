@@ -38,7 +38,7 @@ function setPartitionColor(styleID) {
     partitionPointStyle.color = color;
 }
 
-// Enables/Disables the grid lines on the board.
+/*/ Enables/Disables the grid lines on the board.
 function setGridLines() {
 
     if (!confirm('Swapping grid lines will reset the board is this ok?')) {
@@ -52,7 +52,7 @@ function setGridLines() {
 
     clear();
 
-}
+}*/
 
 // Starting and normal bounding box.
 let boundingboxStandard = [-11, 11, 11, -11];
@@ -60,7 +60,7 @@ let boundingboxStandard = [-11, 11, 11, -11];
 // Board specifications
 let boardParams = {
     boundingbox: boundingboxStandard,
-    axis: true,
+    showaxis: false,
     showcopyright: false,
     shownavigation: false,
 };
