@@ -56,7 +56,7 @@ var drawInterval;
 function animate(direction, speed, algorithm) {
 
     // Compute animation speed, based on user selection.    
-    let animationSpeed = 750 / parseFloat(speed) * 750;
+    let animationSpeed = 1000 / parseFloat(speed);
 
     // Disables animation if selected, all steps will occur instantaneously.
     if (!animationSelection.checked) {
