@@ -5,6 +5,11 @@
  * David Wisnosky
  */
 
+setTimeout(() => {
+    // Page load popup.
+    alert('Welcome to Visualizing WSPDs and their applications for the best user experience, we recommend using the applet in full screen.');
+}, 200);
+
 // Globals
 var pointSet = []; // List of points.
 var pointSetMap = new Map(); // Maps point index to the points (x,y) value.

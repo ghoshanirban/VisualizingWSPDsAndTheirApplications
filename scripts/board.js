@@ -56,7 +56,7 @@ var drawInterval;
 function animate(direction, speed, algorithm) {
 
     // Compute animation speed, based on user selection.    
-    let animationSpeed = 750 / parseFloat(speed);
+    let animationSpeed = 750 / parseFloat(speed) * 750;
 
     // Disables animation if selected, all steps will occur instantaneously.
     if (!animationSelection.checked) {
@@ -252,40 +252,43 @@ function specialAnimationOPCheck(animationObject) {
 // Draws an object onto the board.
 function draw() {
 
+    if (eventQueue.length > 0) {
+
+        board.suspendUpdate();
+
+        let animationObject = eventQueue.shift();
+
+        if (specialAnimationOPCheck(animationObject)) {
+            board.unsuspendUpdate();
+            return;
+        }
+
+        else if (typeof animationObject == 'string') {
+            displaySteps(animationObject);
+        }
+
+        else {
+
+            displaySteps(animationObject.text);
+            let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
+
+            undoQueue.push([animationObject, boardObject]);
+
+            if (animationObject.isTemporary) {
+                removeQueue.push([animationObject, boardObject]);
+            }
+        }
+
+        board.unsuspendUpdate();
+    }
+
     // Exit the draw, set board zoom, and set static state.
-    if (eventQueue.length == 0) {
+    else {
         clearInterval(drawInterval);
         displaySteps(algorithm);
         enableAllControls();
         return;
     }
-
-    board.suspendUpdate();
-
-    let animationObject = eventQueue.shift();
-
-    if (specialAnimationOPCheck(animationObject)) {
-        board.unsuspendUpdate();
-        return;
-    }
-
-    else if (typeof animationObject == 'string') {
-        displaySteps(animationObject);
-    }
-
-    else {
-
-        displaySteps(animationObject.text);
-        let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
-
-        undoQueue.push([animationObject, boardObject]);
-
-        if (animationObject.isTemporary) {
-            removeQueue.push([animationObject, boardObject]);
-        }
-    }
-
-    board.unsuspendUpdate();
 }
 
 // Removes an object from the board.
@@ -315,9 +318,9 @@ function drawFinalOutput(algorithm) {
             var style2 = {};
             Object.assign(style2, wspdConnectionLineStyle);
 
-            removeQueue.push(board.create('circle', [C1.center, pair[0].R.vertices[0]], style1));
-            removeQueue.push(board.create('circle', [C2.center, pair[1].R.vertices[0]], style1));
-            removeQueue.push(board.create('line', calculateCircleConnectionLine(C1, C2), style2));
+            wspdStaticRemoveQueue.push(board.create('circle', [C1.center, pair[0].R.vertices[0]], style1));
+            wspdStaticRemoveQueue.push(board.create('circle', [C2.center, pair[1].R.vertices[0]], style1));
+            wspdStaticRemoveQueue.push(board.create('line', calculateCircleConnectionLine(C1, C2), style2));
         }
     }
 
@@ -398,7 +401,7 @@ function drawFinalOutput(algorithm) {
 // Removes the WSPD for the non-WSPD animations.
 function removeStaticWSPD() {
 
-    for (var item of removeQueue) {
+    for (var item of wspdStaticRemoveQueue) {
         remove(item);
     }
 }
@@ -420,6 +423,7 @@ function clear() {
     eventQueue = [];
     undoQueue = [];
     removeQueue = [];
+    wspdStaticRemoveQueue = [];
     JXG.JSXGraph.freeBoard(board);
     JXG.Options.text.display = 'internal';
     board = JXG.JSXGraph.initBoard('jxgbox', boardParams);

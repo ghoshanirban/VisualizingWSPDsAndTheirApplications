@@ -4,5 +4,7 @@
 #Workspace File.
 VisualizingWSPDsAndTheirApplications.code-workspace
 
-#Other README
-.#README.md
+#Used libraries.
+scripts/mathjax/*
+scripts/jsxgrapgcore.js
+
