@@ -7,7 +7,7 @@
 
 setTimeout(() => {
     // Page load popup.
-    alert('Welcome to Visualizing WSPDs and their applications for the best user experience, we recommend using the applet in full screen.');
+    alert('Welcome to \'Visualizing WSPDs and their applications\'! \n For the best user experience, we recommend using the applet in full screen.');
 }, 200);
 
 // Globals
@@ -38,7 +38,8 @@ resetButton.addEventListener('click', resetAll);
 
 //Animation controls.
 let animationSelection = document.getElementById('animationSelection');
-animationSelection.addEventListener('change', function () {
+animationSelection.addEventListener('change', animationControlStatus);
+function animationControlStatus() {
     if (!animationSelection.checked) {
         wspdAnimationSelection.checked = true;
         wspdAnimationSelection.setAttribute('disabled', '');
@@ -52,7 +53,7 @@ animationSelection.addEventListener('change', function () {
         document.getElementById('WSPDanimationSelectionLabel').style.color = 'rgb(0, 0, 0)';
         document.getElementById('animationSpeedLabel').style.color = 'rgb(0, 0, 0)';
     }
-});
+};
 let wspdAnimationSelection = document.getElementById('WSPDanimationSelection');
 let animationSpeedSelection = document.getElementById('animationSpeed');
 animationSpeedSelection.addEventListener('change', function () {
