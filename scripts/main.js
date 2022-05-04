@@ -55,6 +55,7 @@ function animationControlStatus() {
     }
 };
 let wspdAnimationSelection = document.getElementById('WSPDanimationSelection');
+let traceStepsSelection = document.getElementById('stepsSelection');
 let animationSpeedSelection = document.getElementById('animationSpeed');
 animationSpeedSelection.addEventListener('change', function () {
 
@@ -173,6 +174,9 @@ function computeWSPD() {
     reset();
     plot();
 
+    if (!traceAlgorithmCheck())
+        return;
+
     // Set the algorithm name and display its steps.
     algorithm = 'WSPD'
     displaySteps(algorithm);
@@ -203,6 +207,9 @@ function computeTSpanner() {
     reset();
     plot();
 
+    if (!traceAlgorithmCheck())
+        return;
+
     // Generates the WSPD with separation factor based on t.
     let s = tToSeparationFactor(t)
     processAlgorithm('WSPD', s);
@@ -226,6 +233,9 @@ function findClosestPair() {
     // Reset the objects on the board and re-plot the points to prepare animation.
     reset();
     plot();
+
+    if (!traceAlgorithmCheck())
+        return;
 
     processAlgorithm('WSPD', s);
     processAlgorithm('tSpanner', t);
@@ -260,6 +270,9 @@ function generateKClosestPairs() {
     reset();
     plot();
 
+    if (!traceAlgorithmCheck())
+        return;
+
     processAlgorithm('WSPD', s);
 
     algorithm = 'kClosestPairs';
@@ -289,6 +302,9 @@ function AllNearestNeighborConstruction() {
     // Reset the objects on the board and re-plot the points to prepare animation.
     reset();
     plot();
+
+    if (!traceAlgorithmCheck())
+        return;
 
     processAlgorithm('WSPD', s);
 
@@ -320,6 +336,9 @@ function generateApproxMST() {
 
     // Generates the WSPD with separation factor based on t.
     let s = tToSeparationFactor(t)
+
+    if (!traceAlgorithmCheck())
+        return;
 
     processAlgorithm('WSPD', s);
     processAlgorithm('tSpanner', t);

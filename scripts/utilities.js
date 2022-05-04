@@ -527,8 +527,9 @@ function disableAllControls() {
     pointTextBox.setAttribute('readonly', '');
     plotPointsButton.setAttribute('disabled', '');
     animationSelection.setAttribute('disabled', '');
-    //animationSpeedSelection.setAttribute('disabled', '');
     wspdAnimationSelection.setAttribute('disabled', '');
+    traceStepsSelection.setAttribute('disabled', '');
+    //animationSpeedSelection.setAttribute('disabled', '');
     wspdButton.setAttribute('disabled', '');
     separationFactorEntry.setAttribute('disabled', '');
     tSpannerButton.setAttribute('disabled', '');
@@ -557,8 +558,9 @@ function enableAllControls() {
     plotPointsButton.removeAttribute('disabled');
     animationSelection.removeAttribute('disabled');
     wspdAnimationSelection.removeAttribute('disabled');
-    //animationSpeedSelection.removeAttribute('disabled');
     wspdButton.removeAttribute('disabled');
+    traceStepsSelection.removeAttribute('disabled');
+    animationSpeedSelection.removeAttribute('disabled');
     separationFactorEntry.removeAttribute('disabled');
     tSpannerButton.removeAttribute('disabled');
     tEntry.removeAttribute('disabled');
@@ -573,4 +575,26 @@ function enableAllControls() {
     boardDownloadButtonPNG.removeAttribute('disabled');
     boardDownloadButtonSVG.removeAttribute('disabled');
     resetButton.removeAttribute('disabled');
+}
+
+
+function traceAlgorithmCheck() {
+    
+    if (traceStepsSelection.checked) {
+        if (!confirm('Note that algorithm animation will be slowed down so the steps can be traced. Is this ok?')) {
+            reset();
+            resetStepsBox();
+            resetMetricsBox();
+            MathJax.typeset();
+            return false;
+        }
+
+        else {
+            animationSpeedSelection.value = 1.0;
+            animationSpeedSelection.setAttribute('disabled', '');
+        }
+
+    }
+
+    return true;
 }

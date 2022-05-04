@@ -56,7 +56,7 @@ var drawInterval;
 function animate(direction, speed, algorithm) {
 
     // Compute animation speed, based on user selection.    
-    let animationSpeed = 1000 / parseFloat(speed);
+    let animationSpeed = 750 / parseFloat(speed);
 
     // Disables animation if selected, all steps will occur instantaneously.
     if (!animationSelection.checked) {
@@ -94,8 +94,9 @@ function animate(direction, speed, algorithm) {
         eventQueue = [];
     }
 
-    else if (pointSet.length > 15) {
-        alert('Animation is disabled for point sets larger than 25.');
+    else if (pointSet.length > 100) {
+        alert('Animation is disabled for point sets larger than 100.');
+        return;
         animationSelection.checked = false;
         drawFinalOutput(algorithm);
         eventQueue = [];
@@ -114,7 +115,8 @@ function specialAnimationOPCheck(animationObject) {
 
         animationObject = eventQueue.shift();
 
-        displaySteps(animationObject.text);
+        if (traceStepsSelection.checked)
+            displaySteps(animationObject.text);
 
         while (animationObject != 'pointPartitionEnd') {
 
@@ -263,13 +265,13 @@ function draw() {
             return;
         }
 
-        else if (typeof animationObject == 'string') {
+        else if (traceStepsSelection.checked && typeof animationObject == 'string') {
             displaySteps(animationObject);
         }
 
         else {
 
-            displaySteps(animationObject.text);
+            //Steps(animationObject.text);
             let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
 
             undoQueue.push([animationObject, boardObject]);
