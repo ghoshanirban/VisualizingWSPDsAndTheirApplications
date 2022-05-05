@@ -9,6 +9,8 @@ function processAlgorithm(algorithm, param, mainAlgorithm = false) {
 
     MathJax.typeset();
 
+    displaySteps(algorithm);
+
     setTimeout(function () {
         algorithmCall(algorithm, param, mainAlgorithm);
     }, 1000);
