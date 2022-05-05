@@ -15,10 +15,12 @@ function lockPoints() {
 
     if (!editPointsSelection.checked) {
         generatePointsButton.setAttribute('disabled', '');
+        plotPointsButton.setAttribute('disabled', '');
         pointTextBox.setAttribute('readonly', '');
     }
     else {
         generatePointsButton.removeAttribute('disabled');
+        plotPointsButton.removeAttribute('disabled');
         pointTextBox.removeAttribute('readonly');
     }
 }

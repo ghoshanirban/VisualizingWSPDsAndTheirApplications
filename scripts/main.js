@@ -111,8 +111,6 @@ let plotPointsButton = document.getElementById('plotPoints');
 plotPointsButton.addEventListener('click', plotScale);
 // Plots the points in the textbox and scales them.
 function plotScale() {
-    if (!editPointsSelection.checked) 
-        return;
     reset();
     parseTextPoints(); // Creates the point set from points in the text box.
     pointSet = scalePointSet(pointSet, Math.abs(board.getBoundingBox()[0]) - 1);
