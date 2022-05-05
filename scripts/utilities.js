@@ -544,7 +544,7 @@ function disableAllControls() {
     mstTEntry.setAttribute('disabled', '');
     boardDownloadButtonPNG.setAttribute('disabled', '');
     boardDownloadButtonSVG.setAttribute('disabled', '');
-    resetButton.setAttribute('disabled', '');
+    //resetButton.setAttribute('disabled', '');
 }
 
 // Enables all controls after animation.
@@ -574,12 +574,12 @@ function enableAllControls() {
     mstTEntry.removeAttribute('disabled');
     boardDownloadButtonPNG.removeAttribute('disabled');
     boardDownloadButtonSVG.removeAttribute('disabled');
-    resetButton.removeAttribute('disabled');
+    //resetButton.removeAttribute('disabled');
 }
 
 
 function traceAlgorithmCheck() {
-    
+
     if (traceStepsSelection.checked) {
         if (!confirm('Note that algorithm animation will be slowed down so the steps can be traced. Is this ok?')) {
             reset();
@@ -590,7 +590,7 @@ function traceAlgorithmCheck() {
         }
 
         else {
-            animationSpeedSelection.value = 1.0;
+            animationSpeedSelection.value = 3.0;
             animationSpeedSelection.setAttribute('disabled', '');
         }
 

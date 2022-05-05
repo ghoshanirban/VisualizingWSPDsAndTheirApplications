@@ -254,41 +254,48 @@ function specialAnimationOPCheck(animationObject) {
 // Draws an object onto the board.
 function draw() {
 
-    if (eventQueue.length > 0) {
+    try {
 
-        board.suspendUpdate();
+        if (eventQueue.length > 0) {
 
-        let animationObject = eventQueue.shift();
+            board.suspendUpdate();
 
-        if (specialAnimationOPCheck(animationObject)) {
+            let animationObject = eventQueue.shift();
+
+            if (specialAnimationOPCheck(animationObject)) {
+                board.unsuspendUpdate();
+                return;
+            }
+
+            else if (traceStepsSelection.checked && typeof animationObject == 'string') {
+                displaySteps(animationObject);
+            }
+
+            else {
+
+                if (traceStepsSelection.checked)
+                    displaySteps(animationObject.text);
+
+                let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
+
+                undoQueue.push([animationObject, boardObject]);
+
+                if (animationObject.isTemporary) {
+                    removeQueue.push([animationObject, boardObject]);
+                }
+            }
+
             board.unsuspendUpdate();
+        }
+
+        // Exit the draw, set board zoom, and set static state.
+        else {
+            clearInterval(drawInterval);
+            displaySteps(algorithm);
+            enableAllControls();
             return;
         }
-
-        else if (traceStepsSelection.checked && typeof animationObject == 'string') {
-            displaySteps(animationObject);
-        }
-
-        else {
-
-            //Steps(animationObject.text);
-            let boardObject = board.create(animationObject.type, animationObject.data, animationObject.style);
-
-            undoQueue.push([animationObject, boardObject]);
-
-            if (animationObject.isTemporary) {
-                removeQueue.push([animationObject, boardObject]);
-            }
-        }
-
-        board.unsuspendUpdate();
-    }
-
-    // Exit the draw, set board zoom, and set static state.
-    else {
-        clearInterval(drawInterval);
-        displaySteps(algorithm);
-        enableAllControls();
+    } catch (error) {
         return;
     }
 }
@@ -421,6 +428,8 @@ function boundsCheck() {
 
 // Clears the board and deletes all its child objects.
 function clear() {
+    clearInterval(drawInterval);
+    enableAllControls();
     boardPoints = new Map();
     eventQueue = [];
     undoQueue = [];

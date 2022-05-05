@@ -7,7 +7,7 @@
 
 setTimeout(() => {
     // Page load popup.
-    alert('Welcome to \'Visualizing WSPDs and their applications\'! \n For the best user experience, we recommend using the applet in full screen.');
+    alert('Welcome to \'Visualizing WSPDs and their applications\'! \nFor the best user experience, we recommend using the applet in full screen.');
 }, 200);
 
 // Globals
@@ -83,18 +83,16 @@ function reset() {
     tApproxMST = new Set();
     kClosestPairs = [];
     isAnimating = false;
-    eventQueue = [];
-    undoQueue = [];
-    removeQueue = [];
-    wspdStaticRemoveQueue = [];
-    clearInterval(drawInterval);
     clear();
 }
 
 // Resets the entire state.
 function resetAll() {
     pointTextBox.value = '';
+    resetStepsBox();
+    resetMetricsBox();
     resetTextBoxes();
+    MathJax.typeset()
     reset();
 }
 

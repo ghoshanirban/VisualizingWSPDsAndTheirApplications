@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Visualizing WSPDs and their applications</title>
+  <!-- JSXGraph script base functionality -->
+  <script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+  <!-- MathJax -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+  <link rel="stylesheet" type="text/css" href="../css/about-style.css">
+  <link rel="stylesheet" type="text/css" href="../css/jsxgraph.css">
+
+  <style>
+    .borderexample {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+
+    .rcorners2 {
+      border-radius: 25px;
+      border: 2px solid Tomato;
+      padding: 20px;
+      text-align: justify;
+      text-justify: inter-word;
+    }
+
+    .justify {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 style="color:Blue">\[\textsf{Visualizing WSPDs and their applications}\]</h1>
+  <p class="justify"> Introduced by Callahan and Kosaraju back in 1995, the concept of well-separated pair decomposition
+    (\(\textsf{WSPD}\))
+    has occupied a special significance in computational geometry when it comes to solving distance problems in
+    \(d\)-space.
+    We present an in-browser tool that can be used to visualize \(\textsf{WSPD}\)s and several of their applications in
+    \(2\)-space.
+    Apart from research, it can also be used by instructors for introducing \(\textsf{WSPD}\)s in a classroom setting.
+    <BR>
+    <BR>
+
+    \(\textbf{Definition.}\) Let \(P\) and \(Q\) be two finite pointsets in \(d\)-space and \(s\) be a positive real
+    number.
+    We say that \(P\) and \(Q\) are \(\textbf{well-separated}\) with respect to \(s\),
+    if there exist two congruent disjoint balls \(B_P\) and \(B_Q\), such that \(B_P\) contains the
+    bounding-box of \(P\), \(B_Q\) contains the bounding-box of \(Q\), and the distance between \(B_P\) and \(B_Q\)
+    is at least \(s\) times the common radius of \(B_P\) and \(B_Q\). The quantity \(s\) is referred to as the
+    \(\textbf{separation ratio}\)
+    of the decomposition. Using this idea of well-separability, one can define a well-separated decomposition
+    (\(\textsf{WSPD}\))
+    of a pointset in the following way.
+
+    <BR>
+    <BR>
+
+    Let \(P\) be a set of \(n\) points in \(d\)-space and \(s\) be a positive real number.
+    A \(\textbf{well-separated decomposition}\) for \(P\) with respect to \(s\) is a collection of pairs of
+    non-empty subsets of \(P\), \(\{A_1,B_1\},\{A_2,B_2\},\ldots,\{A_m,B_m\}\) for some integer \(m\)
+    (referred to as the size of the \(\textsf{WSPD}\)) such that
+  <ul>
+    <li> for each \(i\) with \(1 \leq i \leq m\), \(A_i\) and \(B_i\) are well-separated with respect to \(s\), and
+    </li>
+    <li> for any two distinct points \(p,q \in P\), there is exactly one index \(i\) with \(1 \leq i \leq m\),
+      such that \(p \in A_i, q \in B_i\), or \(p \in B_i, q \in A_i\).</li>
+  </ul>
+  </p>
+
+  <h2 style="color:Maroon" id="algorithms">\[\textsf{Algorithms implemented}\]</h2>
+
+  <p class="borderexample">We have implemented the following algorithms. For their pseudocodes, refer to the book on
+    geometric spanners by Smid
+    and Narasimhan (2007) and our paper that appeared in the proceedings of SoCG 2022 Multimedia.</p>
+
+  <ul>
+    <li>\(\textsf{ConstructWSPD}\). This algorithm can construct a \(\textsf{WSPD}\) on a given pointset when the
+      separation ratio \(s\) is passed to it.
+      Construction is done using a split tree which is constructed prior to the generation of the
+      \(\textsf{WSPD}\) pairs.
+    </li>
+    <li>\(t\textsf{-Spanner}\). Given a pointset \(P\) and \(t\geq 1\), a \(t\)-spanner on \(P\) is a Euclidean
+      geometric graph
+      \(G\) on \(P\) such that for every pair of points \(p,q \in P\),
+      the length of the shortest-path between \(p,q\) in \(G\) is at most
+      \(t\) times the Euclidean distance between them.
+      This algorithm can construct a \(t\)-spanner on a pointset using a \(\textsf{WSPD}\) when a value \(>1\) is
+      supplied for the parameter \(t\). </li>
+    <li>\(\textsf{Closest Pair}\). The problem asks to find two distinct points of \(P\) whose distance is minimum among
+      the \(C(n,2)\) point pairs.
+      A \(2\)-spanner is needed to compute the closest pair. So, the spanner is constructed first and then the desired
+      closest pair is computed.
+    </li>
+    <li>\(k-\textsf{Closest Pairs}\). It is a generalization of the closest-pair problem. Given a positive integer \(k\)
+      such that \(k \leq C(n,2)\), the goal is to find the \(k\) closest pairs among the \(C(n,2)\) pairs. This
+      algorithm accepts
+      two parameters: \(k\) and \(s>0\). The parameter \(s\) is used to construct a \(\textsf{WSPD}\) which is the
+      starting point of this algorithm.</li>
+    <li>
+      \(\textsf{All Nearest Neighbors (ANN).}\) In this problem, for every point \(p \in P\), we need to find
+      its nearest neighbor \(q \in P\setminus \{p\} \). The algorithm starts off by constructing a \(\textsf{WSPD}\)
+      with separation ratio
+      \(s>2\).
+    </li>
+    <li>
+      \(t-\textsf{Approximate MST.}\) Let \(t>1\), be a real number. A tree connecting the points of \(P\) is called
+      a \(t\)-approximate minimum spanning tree of \(P\),
+      if its weight is at most \(t\) times the weight of the Euclidean minimum spanning tree of \(P\).
+      The algorithm accepts a value for \(t\).
+    </li>
+  </ul>
+
+
+  <h2 style="color:Maroon" id="directions">\[\textsf{Using this tool}\]</h2>
+
+  <p>There are primarily two steps for using this tool, (i) entering the points, (ii) selecting an algorithm. </p>
+
+  <h3 style="color:Green" id="pointDirections">\(\textsf{(i) Entering and deleting points}\)</h3>
+
+  <p class="borderexample">
+    The tool supports three ways to enter points onto the canvas. The user can use a combination of these three to
+    create a point set for experiments. Among these, the easiest is to just click on the canvas. In this case, the
+    points
+    will be plotted automatically.
+    The second way is to manually enter the points inside the text-box and hit <b>\(\textsf{Plot points}\)</b>. The
+    third way is to use
+    randomly generated point sets. If the desired cardinality of a point set is entered in the textbox above the
+    <b>\(\textsf{Generate}\)</b> button,
+    the tool can quickly generate a point set and plot the points on the canvas when the <b>\(\textsf{Generate}\)</b>
+    button is hit. We have
+    supplied a few built-in pointsets for experiments which can be easily selected using the drop-down menu.
+  </p>
+
+  <p class="borderexample">Deletion of a point can be easily done just by right-clicking on the point. </p>
+
+  <p class="borderexample">Every point is automatically given an integer ID for easy reference on the board. However,
+    the user can turn off this
+    feature by unchecking the <b>\(\textsf{Show point IDs}\)</b> checkbox.</p>
+
+  <h3 style="color:Green" id="algorithmDirections">\(\textsf{(ii) Selecting an algorithm}\)</h3>
+
+  <p class="borderexample"> Once the desired point set is entered and finalized, the user can choose an algorithm
+    for visualization. The slider bar can be used to control the animation speed. Algorithm tracing can be turned
+    off using the \(\textsf{Highlight pseudocode steps}\) checkbox to increase animation speed. If the user is not
+    interested to see the \(\textsf{WSPD}\) construction
+    steps, it can be easily turned off using the \(\textsf{Animate WSPD steps}\) checkbox provided. </p>
+
+
+  <h3 style="color:Green" id="screenShotDirections">\(\textsf{(iii) Exporting the board as PNG/SVG}\)</h3>
+
+  <p class="borderexample">The tool allows users to export an image of the board (not necessarily with the spanner) in
+    PNG and SVG formats. To capture an image, simply click either on the <b>\(\textsf{PNG}\)</b>
+    or on the <b>\(\textsf{SVG}\)</b> button.
+  </p>
+
+  <h3 style="color:Green" id="screenShotDirections">\(\textsf{(iv) Demonstration video}\)</h3>
+  <div style="text-align:center">
+    <video width="800" height="600" controls>
+      <source src="../videos/STEP3.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <br>
+
+  <div class="borderexample" id="bibliography" class="bib">
+
+    <h2 style="color:Maroon" id="bib">\[\textsf{Reference}\]</h2>
+
+    Giri Narasimhan and Michiel Smid. Geometric spanner networks. Cambridge University Press, 2007.
+
+  </div>
+
+
+  <h2 style="color:Maroon" id="authors">\[\textsf{The developer team}\] </h2>
+  <ul>
+    <li>Anirban Ghosh, School of Computing, University of North Florida, Jacksonville, FL, USA</li>
+    <li>FNU Shariful, School of Computing, University of North Florida, Jacksonville, FL, USA</li>
+    <li>David Wisnosky, School of Computing, University of North Florida, Jacksonville, FL, USA</li>
+  </ul>
+
+  <h2 style="color:Maroon" id="ack">\[\textsf{Acknowledgments}\]</h2>
+  <ul>
+    <li class="borderexample">Research on this paper is supported by the NSF award CCF-\(1947887\).</li>
+    <li class="borderexample"> We express our sincere thanks to the <a href="https://jsxgraph.org/"
+        target="_blank">JSXGraph</a> developers, the <a href="https://www.mathjax.org/" target="_blank">
+        MathJAX</a> developers.</li>
+  </ul>
+
+  <p>\(\textbf{Last edited: Thu May 5 10:32:30 EDT 2022
+    }\)</p>
+  <script>
+    //MathJax.typeset();
+  </script>
+
+</body>
+
+</html>
