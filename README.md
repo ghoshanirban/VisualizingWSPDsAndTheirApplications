@@ -1,4 +1,4 @@
-# VisualizingWSPDsAndTheirApplications
+# Visualizing WSPDs and their applications, SoCG 2022
 
 Download the repository then open index.html in a browser of your choice.
 Alternatively, use the github hosted version via this URL:https://wisno33.github.io/VisualizingWSPDsAndTheirApplications/
