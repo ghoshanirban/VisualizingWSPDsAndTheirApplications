@@ -64,27 +64,6 @@ function animate(direction, speed, algorithm) {
         drawFinalOutput(algorithm);
 
         eventQueue = [];
-
-        /*board.suspendUpdate();
-
-        while (eventQueue.length > 0) {
-            let animationObject = eventQueue.shift();
-
-            if (animationObject.isTemporary)
-                continue;
-
-            else if (typeof animationObject == 'string') {
-                specialAnimationOPCheck(animationObject);
-                continue;
-            }
-
-            let boardObject = board.create(animationObject.type,
-                animationObject.data, animationObject.style);
-
-            undoQueue.push([animationObject, boardObject]);
-        }
-
-        board.unsuspendUpdate();*/
     }
 
     else if (!wspdAnimationSelection.checked && algorithm == 'WSPD') {
@@ -97,9 +76,6 @@ function animate(direction, speed, algorithm) {
     else if (pointSet.length > 100) {
         alert('Animation is disabled for point sets larger than 100.');
         return;
-        animationSelection.checked = false;
-        drawFinalOutput(algorithm);
-        eventQueue = [];
     }
 
     else if (direction) {
@@ -111,7 +87,20 @@ function animate(direction, speed, algorithm) {
 // Checks for special animation operation actions.
 function specialAnimationOPCheck(animationObject) {
 
-    if (animationObject == 'pointPartitionStart') {
+    if (animationObject == 'WSPD')
+        displaySteps('WSPD');
+    else if (animationObject == 'tSpanner')
+        displaySteps('tSpanner');
+    else if (animationObject == 'closestPair')
+        displaySteps('closestPair');
+    else if (animationObject == 'kClosestPairs')
+        displaySteps('kClosestPairs');
+    else if (animationObject == 'ANN')
+        displaySteps('ANN');
+    else if (animationObject == 'tApproxMST')
+        displaySteps('tApproxMST');
+    
+    else if (animationObject == 'pointPartitionStart') {
 
         animationObject = eventQueue.shift();
 

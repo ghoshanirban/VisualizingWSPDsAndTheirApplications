@@ -9,14 +9,14 @@ function processAlgorithm(algorithm, param, mainAlgorithm = false) {
 
     MathJax.typeset();
 
-    displaySteps(algorithm);
-
     setTimeout(function () {
         algorithmCall(algorithm, param, mainAlgorithm);
     }, 1000);
 }
 
 function algorithmCall(algorithm, param, mainAlgorithm) {
+
+    eventQueue.push(algorithm);
 
     if (algorithm == 'WSPD')
         generateWSPD(param);
